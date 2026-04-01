@@ -287,9 +287,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .funds-back{background:transparent;border:1px solid var(--border);border-radius:9px;padding:9px 20px;font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;transition:all .15s;font-family:var(--ff)}
 .funds-back:hover{border-color:var(--borderHov);color:var(--t1)}
 
-/* ═══════════════════════════════════════════════════════
-   BET HISTORY SECTION
-═══════════════════════════════════════════════════════ */
+/* BET HISTORY */
 .bh-filter-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .bh-filter-btn{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid var(--border);background:var(--bg3);color:var(--t2);cursor:pointer;transition:all .15s;font-family:var(--ff)}
 .bh-filter-btn:hover{border-color:var(--borderHov);color:var(--t1)}
@@ -303,7 +301,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .bet-card.won{border-color:rgba(34,197,94,0.25)}
 .bet-card.lost{border-color:rgba(239,68,68,0.15)}
 .bet-card.pending{border-color:rgba(167,139,250,0.2)}
-
 .bet-card-head{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--bg3);border-bottom:1px solid var(--border)}
 .bet-card-match{font-size:12px;font-weight:700;color:var(--t1);flex:1;line-height:1.3}
 .bet-status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
@@ -311,7 +308,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .bet-status-pill.lost{background:var(--redBg);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
 .bet-status-pill.pending{background:var(--purpleBg);color:var(--purple);border:1px solid rgba(167,139,250,0.3)}
 .bet-status-pill svg{width:8px;height:8px}
-
 .bet-card-body{padding:10px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .bet-pick-box{flex:1;min-width:0}
 .bet-pick-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--blue);margin-bottom:3px}
@@ -320,18 +316,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .bet-pick-val{font-family:var(--ffC);font-size:20px;font-weight:800;color:var(--t1);line-height:1}
 .bet-pick-val.won{color:var(--green)}
 .bet-pick-val.lost{color:var(--red);opacity:.7}
-
 .bet-money-col{text-align:right;flex-shrink:0}
 .bet-money-lbl{font-size:9px;color:var(--t3);margin-bottom:2px}
 .bet-money-stake{font-family:var(--ffC);font-size:13px;font-weight:700;color:var(--t2)}
 .bet-money-win{font-family:var(--ffC);font-size:16px;font-weight:800;color:var(--green)}
 .bet-money-win.lost{color:var(--red);opacity:.7}
 .bet-money-win.pending{color:var(--accent)}
-
 .bet-card-foot{padding:7px 12px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:6px}
 .bet-ref{font-family:monospace;font-size:10px;color:var(--t3)}
 .bet-date{font-size:10px;color:var(--t3)}
-
 .bh-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .bh-stat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
 .bh-stat-val{font-family:var(--ffC);font-size:20px;font-weight:800;color:var(--t1);line-height:1}
@@ -339,48 +332,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .bh-stat.won .bh-stat-val{color:var(--green)}
 .bh-stat.lost .bh-stat-val{color:var(--red)}
 .bh-stat.pending .bh-stat-val{color:var(--purple)}
-
 .bh-loading{display:flex;align-items:center;justify-content:center;gap:8px;padding:32px;color:var(--t3);font-size:13px}
 .bh-loading svg{width:16px;height:16px;animation:spin .7s linear infinite}
 
-/* ═══════════════════════════════════════════════════════
-   WIN CELEBRATION POPUP
-═══════════════════════════════════════════════════════ */
+/* WIN POPUP */
 .win-overlay{position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;padding:20px}
 .win-overlay.show{display:flex}
 .win-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px)}
-
-/* Confetti particles */
 .confetti-c{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;opacity:0;animation:confettiFall 3s ease-in forwards}
-@keyframes confettiFall{
-  0%{opacity:1;transform:translateY(-20px) rotate(0deg)}
-  100%{opacity:0;transform:translateY(110vh) rotate(720deg)}
-}
-
+@keyframes confettiFall{0%{opacity:1;transform:translateY(-20px) rotate(0deg)}100%{opacity:0;transform:translateY(110vh) rotate(720deg)}}
 .win-card{position:relative;z-index:1;background:var(--bg1);border:1px solid rgba(34,197,94,0.4);border-radius:24px;padding:32px 28px;max-width:380px;width:100%;text-align:center;box-shadow:0 0 80px rgba(34,197,94,0.2),0 24px 60px rgba(0,0,0,0.8);animation:winCardIn .5s cubic-bezier(.22,.68,0,1.2) both}
 @keyframes winCardIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
-
 .win-glow{width:80px;height:80px;background:var(--greenBg);border:2px solid var(--borderGreen);border-radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 40px rgba(34,197,94,0.35);animation:glowPulse 2s ease-in-out infinite}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 40px rgba(34,197,94,0.35)}50%{box-shadow:0 0 60px rgba(34,197,94,0.55)}}
 .win-glow svg{width:36px;height:36px;color:var(--green)}
-
 .win-headline{font-family:var(--ffC);font-size:36px;font-weight:800;color:var(--green);letter-spacing:1px;text-shadow:0 0 30px rgba(34,197,94,0.4);margin-bottom:4px}
 .win-sub{font-size:13px;color:var(--t2);margin-bottom:20px;line-height:1.5}
-
-.win-match{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:6px}
-.win-score-display{font-family:var(--ffC);font-size:48px;font-weight:800;color:var(--accent);letter-spacing:3px;line-height:1;text-shadow:0 0 24px rgba(245,166,35,0.4);margin-bottom:6px}
-.win-pick-lbl{font-size:11px;color:var(--t3);margin-bottom:20px}
-
 .win-payout-box{background:var(--greenBg);border:1px solid var(--borderGreen);border-radius:16px;padding:16px;margin-bottom:20px}
 .win-payout-lbl{font-size:11px;color:var(--green);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.7px}
 .win-payout-amt{font-family:var(--ffC);font-size:38px;font-weight:800;color:var(--green);letter-spacing:1px;line-height:1}
-
 .win-wins-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;max-height:180px;overflow-y:auto}
 .win-bet-row{background:var(--bg3);border:1px solid var(--borderGreen);border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .win-bet-match{font-size:11px;font-weight:700;color:var(--t1);text-align:left;flex:1}
 .win-bet-amt{font-family:var(--ffC);font-size:16px;font-weight:800;color:var(--green)}
-
 .win-dismiss{width:100%;padding:13px;border:none;border-radius:12px;background:var(--green);color:#000;font-family:var(--ffC);font-size:16px;font-weight:800;letter-spacing:.5px;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(34,197,94,0.35)}
 .win-dismiss:hover{filter:brightness(1.08);transform:translateY(-1px)}
 
@@ -513,22 +488,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
             <svg data-lucide="refresh-cw" style="width:11px;height:11px;display:inline;margin-right:3px"></svg>Refresh
           </button>
         </div>
-
-        <!-- Stats summary -->
         <div class="bh-stats-row" id="bhStats">
           <div class="bh-stat pending"><div class="bh-stat-val" id="statPending">—</div><div class="bh-stat-lbl">Pending</div></div>
           <div class="bh-stat won"><div class="bh-stat-val" id="statWon">—</div><div class="bh-stat-lbl">Won</div></div>
           <div class="bh-stat lost"><div class="bh-stat-val" id="statLost">—</div><div class="bh-stat-lbl">Lost</div></div>
         </div>
-
-        <!-- Filter pills -->
         <div class="bh-filter-row" id="bhFilterRow">
           <button class="bh-filter-btn active" onclick="filterBets('ALL', this)">All</button>
           <button class="bh-filter-btn pending" onclick="filterBets('PENDING', this)">Active</button>
           <button class="bh-filter-btn won" onclick="filterBets('WON', this)">Won</button>
           <button class="bh-filter-btn lost" onclick="filterBets('LOST', this)">Lost</button>
         </div>
-
         <div id="betsContainer">
           <div class="bh-loading"><svg data-lucide="loader"></svg>Loading your bets…</div>
         </div>
@@ -583,9 +553,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     WIN CELEBRATION POPUP
-═══════════════════════════════════════════════════════ -->
+<!-- WIN POPUP -->
 <div class="win-overlay" id="winOverlay">
   <div class="confetti-c" id="confettiC"></div>
   <div class="win-backdrop" onclick="dismissWin()"></div>
@@ -593,16 +561,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
     <div class="win-glow"><svg data-lucide="trophy"></svg></div>
     <div class="win-headline">YOU WON! 🎉</div>
     <div class="win-sub" id="winSub">Your bets have been settled</div>
-
     <div id="winBetsList" class="win-wins-list"></div>
-
     <div class="win-payout-box">
       <div class="win-payout-lbl">Total Winnings Credited</div>
       <div class="win-payout-amt" id="winPayoutAmt">GHS 0.00</div>
     </div>
-    <button class="win-dismiss" onclick="dismissWin()">
-      Collect & Continue
-    </button>
+    <button class="win-dismiss" onclick="dismissWin()">Collect & Continue</button>
   </div>
 </div>
 
@@ -624,7 +588,6 @@ let _stakeVal = 10;
 let allMyBets = [];
 let currentBetFilter = 'ALL';
 let pollInterval = null;
-// Track which slip references we've already shown win popup for
 const SEEN_WINS_KEY = 'gstake_seen_wins';
 
 // ── Boot ─────────────────────────────────────────────────────────
@@ -635,8 +598,8 @@ window.addEventListener('load', () => {
   fetchGames();
   if (getToken()) {
     loadMyBets();
-    checkForWins(); // check on load
-    startWinPolling(); // then poll
+    checkForWins();
+    startWinPolling();
   }
 });
 
@@ -649,7 +612,7 @@ function populateProfileBtn() {
     const last  = (user.lastName  || '').trim();
     const initials = (first[0] || '') + (last[0] || first[1] || '');
     if (initials) document.getElementById('profileInitials').textContent = initials.toUpperCase();
-  } catch { /* ignore */ }
+  } catch { }
 }
 
 // ── Tab Switching ────────────────────────────────────────────────
@@ -683,7 +646,7 @@ async function fetchBalance() {
     const balance = d?.balance ?? d ?? null;
     if (balance !== null)
       document.getElementById('balanceDisplay').textContent = `GHS ${parseFloat(balance).toFixed(2)}`;
-  } catch { /* silently ignore */ }
+  } catch { }
 }
 
 // ── Games ────────────────────────────────────────────────────────
@@ -691,23 +654,12 @@ async function fetchGames() {
   try {
     const rawGames  = await apiFetch(`${API_BASE}/games/public`);
     const gamesList = Array.isArray(rawGames) ? rawGames : [];
-
-    if (!gamesList.length) {
-      gamesData = [];
-      renderGames();
-      updateCounts(0);
-      return;
-    }
-
+    if (!gamesList.length) { gamesData = []; renderGames(); updateCounts(0); return; }
     gamesData = await Promise.all(
       gamesList.map(async (g) => {
         try {
           const csData = await apiFetch(`${CS_BASE}/${g.id}`);
-          return {
-            ...g,
-            csOptions: csData?.options ?? [],
-            correctScoreMarketStatus: csData?.marketStatus ?? g.correctScoreMarketStatus ?? 'OPEN',
-          };
+          return { ...g, csOptions: csData?.options ?? [], correctScoreMarketStatus: csData?.marketStatus ?? g.correctScoreMarketStatus ?? 'OPEN' };
         } catch {
           return { ...g, csOptions: [], correctScoreMarketStatus: g.correctScoreMarketStatus ?? 'OPEN' };
         }
@@ -717,7 +669,6 @@ async function fetchGames() {
     gamesData = [];
     showToast('Failed to load games — ' + (err.message || 'Server error'), 'error');
   }
-
   renderGames();
   updateCounts(gamesData.length);
 }
@@ -732,29 +683,19 @@ function updateCounts(n) {
 function renderGames() {
   const grid = document.getElementById('gamesGrid');
   if (!gamesData.length) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-icon"><svg data-lucide="calendar-x"></svg></div>
-      <div class="empty-t">No Games</div>
-      <div class="empty-s">No upcoming games available right now.</div>
-    </div>`;
-    lucide.createIcons();
-    return;
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg data-lucide="calendar-x"></svg></div><div class="empty-t">No Games</div><div class="empty-s">No upcoming games available right now.</div></div>`;
+    lucide.createIcons(); return;
   }
   grid.innerHTML = gamesData.map((g, i) => buildCard(g, i)).join('');
   lucide.createIcons();
 }
 
-function short(n) {
-  return n.replace('Manchester ', 'Man ').replace('Borussia ', '').replace(' Milan', '');
-}
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function short(n) { return n.replace('Manchester ', 'Man ').replace('Borussia ', '').replace(' Milan', ''); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function buildCard(g, idx) {
   const csOpen   = g.correctScoreMarketStatus === 'OPEN';
   const csLocked = g.correctScoreMarketStatus === 'LOCKED';
-
   const statusBadge = csOpen
     ? `<div class="gc-status-badge open"><svg data-lucide="circle-dot"></svg>Open</div>`
     : csLocked
@@ -766,17 +707,11 @@ function buildCard(g, idx) {
     { key: 'DRAW',     lbl: 'X', sub: 'Draw',             odds: g.oddsDraw    },
     { key: 'AWAY_WIN', lbl: '2', sub: short(g.awayTeam),  odds: g.oddsAwayWin },
   ];
-
   const x1html = mkts.map(m => {
     const sel = betSlip.some(s => s.gameId === g.id && s.type === '1X2' && s.label === m.key);
-    if (!m.odds) return `<div class="odds-btn" style="opacity:.3;cursor:default">
-      <div class="odds-lbl">${m.lbl}</div><div class="odds-val">—</div></div>`;
-    return `<div class="odds-btn${sel ? ' selected' : ''}"
-      onclick="toggle1X2('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}','${m.key}','${esc(m.lbl)}',${m.odds})">
-      <div class="odds-lbl">${m.lbl}</div>
-      <div class="odds-val">${parseFloat(m.odds).toFixed(2)}</div>
-      <div class="odds-team">${esc(m.sub)}</div>
-    </div>`;
+    if (!m.odds) return `<div class="odds-btn" style="opacity:.3;cursor:default"><div class="odds-lbl">${m.lbl}</div><div class="odds-val">—</div></div>`;
+    return `<div class="odds-btn${sel ? ' selected' : ''}" onclick="toggle1X2('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}','${m.key}','${esc(m.lbl)}',${m.odds})">
+      <div class="odds-lbl">${m.lbl}</div><div class="odds-val">${parseFloat(m.odds).toFixed(2)}</div><div class="odds-team">${esc(m.sub)}</div></div>`;
   }).join('');
 
   let scoresHtml = '';
@@ -785,18 +720,13 @@ function buildCard(g, idx) {
     if (opts.length) {
       const allBtns = opts.slice(0, 5).map(o => {
         const sel = betSlip.some(s => s.gameId === g.id && s.type === 'CS' && s.csOptionId === o.id);
-        return `<div class="score-btn${sel ? ' selected' : ''}"
-          onclick="toggleCS('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds})">
-          <div class="sc">${o.homeScore}:${o.awayScore}</div>
-          <div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
+        return `<div class="score-btn${sel ? ' selected' : ''}" onclick="toggleCS('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds})">
+          <div class="sc">${o.homeScore}:${o.awayScore}</div><div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
       }).join('');
       const moreBtn = opts.length > 5
-        ? `<div class="score-show-more"><button class="score-show-more-btn"
-            onclick="openScoreModal('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}')">
-            <svg data-lucide="chevrons-down"></svg>
-            <span>View all ${opts.length} predictions</span></button></div>` : '';
-      scoresHtml = `<div class="gc-cs">
-        <div class="gc-cs-lbl"><svg data-lucide="crosshair"></svg>Predict final score — pick one per game</div>
+        ? `<div class="score-show-more"><button class="score-show-more-btn" onclick="openScoreModal('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}')">
+            <svg data-lucide="chevrons-down"></svg><span>View all ${opts.length} predictions</span></button></div>` : '';
+      scoresHtml = `<div class="gc-cs"><div class="gc-cs-lbl"><svg data-lucide="crosshair"></svg>Predict final score — pick one per game</div>
         <div class="score-btns-grid">${allBtns}</div>${moreBtn}</div>`;
     } else {
       scoresHtml = `<div class="gc-cs"><div style="padding:10px 0;font-size:12px;color:var(--t3);display:flex;align-items:center;gap:6px">
@@ -839,47 +769,34 @@ function openScoreModal(gameId, homeTeam, awayTeam) {
     const sel = betSlip.some(s => s.gameId === gameId && s.type === 'CS' && s.csOptionId === o.id);
     return `<div class="score-modal-btn${sel ? ' selected' : ''}"
       onclick="toggleCS('${gameId}','${esc(homeTeam)}','${esc(awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds});closeScoreModal()">
-      <div class="sc">${o.homeScore}:${o.awayScore}</div>
-      <div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
+      <div class="sc">${o.homeScore}:${o.awayScore}</div><div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
   }).join('');
   document.getElementById('scoreModalContent').innerHTML = `<div class="score-modal-grid">${grid}</div>`;
   lucide.createIcons();
   document.getElementById('scoreModalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeScoreModal() {
-  document.getElementById('scoreModalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeScoreModalOnBg(e) {
-  if (e.target === document.getElementById('scoreModalOverlay')) closeScoreModal();
-}
+function closeScoreModal() { document.getElementById('scoreModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function closeScoreModalOnBg(e) { if (e.target === document.getElementById('scoreModalOverlay')) closeScoreModal(); }
 
 // ── Slip Mutations ───────────────────────────────────────────────
 function toggleCS(gameId, homeTeam, awayTeam, csOptionId, homeScore, awayScore, odds) {
   const ex   = betSlip.findIndex(s => s.gameId === gameId && s.type === 'CS');
   const same = ex !== -1 && betSlip[ex].csOptionId === csOptionId;
   if (ex !== -1) betSlip.splice(ex, 1);
-  if (!same) betSlip.push({ gameId, homeTeam, awayTeam, type: 'CS',
-    label: `${homeScore}:${awayScore}`, odds: parseFloat(odds), csOptionId });
-  rerenderCard(gameId);
-  renderSlip();
+  if (!same) betSlip.push({ gameId, homeTeam, awayTeam, type: 'CS', label: `${homeScore}:${awayScore}`, odds: parseFloat(odds), csOptionId });
+  rerenderCard(gameId); renderSlip();
 }
-
 function toggle1X2(gameId, homeTeam, awayTeam, marketKey, marketLabel, odds) {
   const ex   = betSlip.findIndex(s => s.gameId === gameId && s.type === '1X2');
   const same = ex !== -1 && betSlip[ex].label === marketKey;
   if (ex !== -1) betSlip.splice(ex, 1);
-  if (!same) betSlip.push({ gameId, homeTeam, awayTeam, type: '1X2',
-    label: marketKey, displayLabel: marketLabel, odds: parseFloat(odds) });
-  rerenderCard(gameId);
-  renderSlip();
+  if (!same) betSlip.push({ gameId, homeTeam, awayTeam, type: '1X2', label: marketKey, displayLabel: marketLabel, odds: parseFloat(odds) });
+  rerenderCard(gameId); renderSlip();
 }
-
 function removeFromSlip(gameId, type) {
   betSlip = betSlip.filter(s => !(s.gameId === gameId && s.type === type));
-  rerenderCard(gameId);
-  renderSlip();
+  rerenderCard(gameId); renderSlip();
 }
 
 // ── Slip Render ──────────────────────────────────────────────────
@@ -887,7 +804,6 @@ function renderSlip() {
   const count     = betSlip.length;
   const totalOdds = betSlip.reduce((a, s) => a * s.odds, 1);
   const payout    = _stakeVal * totalOdds;
-
   const fb = document.getElementById('slipFloat');
   fb.classList.toggle('visible', count > 0);
   document.getElementById('floatBadge').textContent    = count;
@@ -895,10 +811,8 @@ function renderSlip() {
   document.getElementById('floatWinTxt').textContent   = `GHS ${payout.toFixed(2)} potential`;
   document.getElementById('ssCount').textContent       = count;
   document.getElementById('sidebarSlipBody').innerHTML = buildSlipHTML(count, totalOdds, payout);
-
   if (document.getElementById('sheetOverlay').classList.contains('open'))
     document.getElementById('sheetBody').innerHTML = buildSlipHTML(count, totalOdds, payout);
-
   lucide.createIcons();
 }
 
@@ -910,20 +824,16 @@ function buildSlipHTML(count, totalOdds, payout) {
     <div class="success-ref" id="slipRefEl">—</div>
     <button class="btn-new" onclick="resetSlip()">New Slip</button>
   </div>`;
-
   if (count === 0) return successEl + `<div class="slip-empty">
     <div class="slip-empty-icon"><svg data-lucide="crosshair"></svg></div>
     <div class="slip-empty-t">No picks yet</div>
-    <div class="slip-empty-s">Tap any score or 1X2 odds to add a selection.</div>
-  </div>`;
-
+    <div class="slip-empty-s">Tap any score or 1X2 odds to add a selection.</div></div>`;
   const items = betSlip.map(s => {
     const isCS = s.type === 'CS';
     return `<div class="slip-item">
       <div class="slip-item-top">
         <div class="slip-item-match">${esc(s.homeTeam)} vs ${esc(s.awayTeam)}</div>
-        <button class="slip-item-rm" onclick="removeFromSlip('${s.gameId}','${s.type}')">
-          <svg data-lucide="x"></svg></button>
+        <button class="slip-item-rm" onclick="removeFromSlip('${s.gameId}','${s.type}')"><svg data-lucide="x"></svg></button>
       </div>
       <div class="slip-item-bot">
         <div>
@@ -932,18 +842,13 @@ function buildSlipHTML(count, totalOdds, payout) {
         </div>
         ${isCS
           ? `<div class="slip-item-score">${s.label}</div>`
-          : `<div class="slip-item-odds-wrap">
-              <div class="slip-item-odds-lbl">odds</div>
-              <div class="slip-item-odds">${s.odds.toFixed(2)}</div>
-             </div>`}
+          : `<div class="slip-item-odds-wrap"><div class="slip-item-odds-lbl">odds</div><div class="slip-item-odds">${s.odds.toFixed(2)}</div></div>`}
       </div>
     </div>`;
   }).join('');
-
   const presets = [5, 10, 20, 50, 100].map(v =>
     `<button class="preset-btn${_stakeVal === v ? ' active' : ''}" onclick="setStake(${v})">${v}</button>`
   ).join('');
-
   return successEl + `
     <div class="slip-items">${items}</div>
     <div class="slip-stake-section">
@@ -961,9 +866,7 @@ function buildSlipHTML(count, totalOdds, payout) {
         <div class="sum-div"></div>
         <div class="sum-row"><span class="sum-win-lbl">Potential Win</span><span class="sum-win-val">GHS ${payout.toFixed(2)}</span></div>
       </div>
-      <button class="btn-place" onclick="placeBet()">
-        <svg data-lucide="zap"></svg><span>Place Bet</span>
-      </button>
+      <button class="btn-place" onclick="placeBet()"><svg data-lucide="zap"></svg><span>Place Bet</span></button>
     </div>`;
 }
 
@@ -971,113 +874,74 @@ function updateFloatBar() {
   const tot = betSlip.reduce((a, s) => a * s.odds, 1);
   document.getElementById('floatWinTxt').textContent = `GHS ${(_stakeVal * tot).toFixed(2)} potential`;
 }
-
 function setStake(v) { _stakeVal = v; renderSlip(); }
 
 // ── Sheet ────────────────────────────────────────────────────────
 function openSheet() {
-  const count     = betSlip.length;
-  const totalOdds = betSlip.reduce((a, s) => a * s.odds, 1);
+  const count = betSlip.length, totalOdds = betSlip.reduce((a, s) => a * s.odds, 1);
   document.getElementById('sheetBody').innerHTML = buildSlipHTML(count, totalOdds, _stakeVal * totalOdds);
   lucide.createIcons();
   document.getElementById('sheetOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeSheet() {
-  document.getElementById('sheetOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeSheetOnBg(e) {
-  if (e.target === document.getElementById('sheetOverlay')) closeSheet();
-}
+function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function closeSheetOnBg(e) { if (e.target === document.getElementById('sheetOverlay')) closeSheet(); }
 
 // ── Place Bet ────────────────────────────────────────────────────
 async function placeBet() {
   if (!betSlip.length)              { showToast('Add at least one pick', 'error'); return; }
-  if (!_stakeVal || _stakeVal <= 0) { showToast('Enter a valid stake', 'error');  return; }
+  if (!_stakeVal || _stakeVal <= 0) { showToast('Enter a valid stake', 'error'); return; }
   if (!getToken())                  { showToast('Please log in to place a bet', 'error'); return; }
-
   document.querySelectorAll('.btn-place').forEach(b => {
     b.disabled = true;
     b.innerHTML = '<svg data-lucide="loader" class="spin"></svg><span>Placing…</span>';
   });
   lucide.createIcons();
-
-  const csPicks      = betSlip.filter(s => s.type === 'CS');
-  const x1Picks      = betSlip.filter(s => s.type === '1X2');
-  const refs         = [];
+  const csPicks = betSlip.filter(s => s.type === 'CS');
+  const x1Picks = betSlip.filter(s => s.type === '1X2');
+  const refs    = [];
   const stakePerType = _stakeVal / (csPicks.length && x1Picks.length ? 2 : 1);
-
   try {
     for (const pick of csPicks) {
       const d = await apiFetch(`${CS_BASE}/bet`, {
         method: 'POST',
-        body: JSON.stringify({
-          gameId: pick.gameId,
-          correctScoreOptionId: pick.csOptionId,
-          stake: parseFloat(stakePerType.toFixed(2)),
-        }),
+        body: JSON.stringify({ gameId: pick.gameId, correctScoreOptionId: pick.csOptionId, stake: parseFloat(stakePerType.toFixed(2)) }),
       });
       if (d?.slipReference) refs.push(d.slipReference);
     }
-
     if (x1Picks.length) {
       const d = await apiFetch(`${API_BASE}/bets`, {
         method: 'POST',
-        body: JSON.stringify({
-          stake: parseFloat(stakePerType.toFixed(2)),
-          selections: x1Picks.map(p => ({ gameId: p.gameId, marketType: p.label })),
-        }),
+        body: JSON.stringify({ stake: parseFloat(stakePerType.toFixed(2)), selections: x1Picks.map(p => ({ gameId: p.gameId, marketType: p.label })) }),
       });
       if (d?.slipReference) refs.push(d.slipReference);
     }
-
     showSuccess(refs.join(' · ') || '—');
     fetchBalance();
-
   } catch (err) {
-    document.querySelectorAll('.btn-place').forEach(b => {
-      b.disabled = false;
-      b.innerHTML = '<svg data-lucide="zap"></svg><span>Place Bet</span>';
-    });
+    document.querySelectorAll('.btn-place').forEach(b => { b.disabled = false; b.innerHTML = '<svg data-lucide="zap"></svg><span>Place Bet</span>'; });
     lucide.createIcons();
-
     const msg = err.message || '';
-    if (msg.toLowerCase().includes('insufficient') || msg.toLowerCase().includes('balance')) {
-      showInsufficientFunds();
-    } else {
-      showToast(msg || 'Failed to place bet', 'error');
-    }
+    if (msg.toLowerCase().includes('insufficient') || msg.toLowerCase().includes('balance')) showInsufficientFunds();
+    else showToast(msg || 'Failed to place bet', 'error');
   }
 }
 
-// ── Insufficient Funds UI ────────────────────────────────────────
 function showInsufficientFunds() {
   const html = `<div class="funds-card">
     <div class="funds-icon"><svg data-lucide="wallet"></svg></div>
     <div class="funds-title">Insufficient Funds</div>
     <div class="funds-sub">You don't have enough balance to cover this stake. Top up your wallet to continue.</div>
-    <a href="wallet.html" class="funds-topup">
-      <svg data-lucide="plus-circle"></svg>Top Up Wallet
-    </a>
+    <a href="wallet.html" class="funds-topup"><svg data-lucide="plus-circle"></svg>Top Up Wallet</a>
     <button class="funds-back" onclick="closeInsufficientFunds()">Back to Slip</button>
   </div>`;
-
-  document.querySelectorAll('#sidebarSlipBody, #sheetBody').forEach(el => {
-    el.innerHTML = html;
-  });
+  document.querySelectorAll('#sidebarSlipBody, #sheetBody').forEach(el => { el.innerHTML = html; });
   lucide.createIcons();
 }
+function closeInsufficientFunds() { renderSlip(); }
 
-function closeInsufficientFunds() {
-  renderSlip();
-}
-
-// ── Success ──────────────────────────────────────────────────────
 function showSuccess(ref) {
-  betSlip = [];
-  renderGames();
-  renderSlip();
+  betSlip = []; renderGames(); renderSlip();
   setTimeout(() => {
     document.querySelectorAll('.slip-success').forEach(el => { el.style.display = 'flex'; });
     document.querySelectorAll('#slipRefEl').forEach(el => { el.textContent = ref; });
@@ -1086,18 +950,41 @@ function showSuccess(ref) {
   showToast('Bet placed! Good luck!', 'success');
   loadMyBets();
 }
-
-function resetSlip() {
-  _stakeVal = 10;
-  betSlip   = [];
-  renderGames();
-  renderSlip();
-  closeSheet();
-}
+function resetSlip() { _stakeVal = 10; betSlip = []; renderGames(); renderSlip(); closeSheet(); }
 
 // ══════════════════════════════════════════════════════════════════
 // MY BETS
 // ══════════════════════════════════════════════════════════════════
+
+// ── Helper: parse a BetSlipResponse into a flat display object ───
+// Works for both 1X2 slips and CS slips (same response shape now).
+// For CS slips the marketType on selections[0] will be CORRECT_SCORE.
+function parseSlipToBet(slip) {
+  const sel = (slip.selections || [])[0]; // first (and usually only) selection
+  const isCS = sel?.marketType === 'CORRECT_SCORE';
+  const match = sel
+    ? `${sel.homeTeam || '?'} vs ${sel.awayTeam || '?'}`
+    : 'Bet Slip';
+
+  // pick label: for CS we show the odds since score isn't in SelectionDetail yet
+  const pick = isCS
+    ? `@ ${parseFloat(sel.oddsAtPlacement || slip.totalOdds || 0).toFixed(2)}`
+    : fmtMkt(sel?.marketType || '');
+
+  return {
+    id: slip.id,
+    ref: slip.slipReference || slip.id,
+    match,
+    type: isCS ? 'CS' : '1X2',
+    pick,
+    odds: slip.totalOdds ?? '—',
+    stake: slip.stake,
+    payout: slip.potentialPayout ?? null,
+    actualPayout: slip.actualPayout ?? null,
+    status: normaliseStatus(slip.status),
+    placedAt: slip.placedAt || slip.createdAt,
+  };
+}
 
 async function loadMyBets() {
   document.getElementById('betsContainer').innerHTML =
@@ -1105,70 +992,46 @@ async function loadMyBets() {
   lucide.createIcons();
 
   try {
-    // Try fetching both 1X2 bets and CS bets and combine them
     let bets = [];
 
+    // ── 1X2 slips ── GET /api/v1/bets/my
     try {
-      // GET /api/v1/bets/my — user's 1X2 bet slips
       const slips = await apiFetch(`${API_BASE}/bets/my`);
       const slipArr = Array.isArray(slips) ? slips : [];
-      // Flatten slips into individual selection entries
       for (const slip of slipArr) {
         const sels = slip.selections || [];
-        for (const sel of sels) {
-          bets.push({
-            id: `${slip.id}-${sel.id || sel.gameId}`,
-            ref: slip.slipReference || slip.id,
-            match: `${sel.homeTeam || sel.game?.homeTeam || '?'} vs ${sel.awayTeam || sel.game?.awayTeam || '?'}`,
-            type: '1X2',
-            pick: fmtMkt(sel.marketType || sel.market || ''),
-            odds: sel.odds ?? slip.totalOdds ?? '—',
-            stake: slip.stake,
-            payout: slip.potentialPayout ?? slip.payout ?? null,
-            actualPayout: slip.actualPayout ?? null,
-            status: normaliseStatus(slip.status),
-            placedAt: slip.createdAt || slip.placedAt,
-          });
-        }
-        // If no selections exposed, show slip as a unit
-        if (!sels.length) {
-          bets.push({
-            id: slip.id,
-            ref: slip.slipReference || slip.id,
-            match: slip.description || 'Bet Slip',
-            type: '1X2',
-            pick: '—',
-            odds: slip.totalOdds ?? '—',
-            stake: slip.stake,
-            payout: slip.potentialPayout ?? null,
-            actualPayout: slip.actualPayout ?? null,
-            status: normaliseStatus(slip.status),
-            placedAt: slip.createdAt || slip.placedAt,
-          });
+        if (sels.length) {
+          // one card per selection so multi-leg accas show individually
+          for (const sel of sels) {
+            bets.push({
+              id: `${slip.id}-${sel.gameId}`,
+              ref: slip.slipReference || slip.id,
+              match: `${sel.homeTeam || '?'} vs ${sel.awayTeam || '?'}`,
+              type: '1X2',
+              pick: fmtMkt(sel.marketType || ''),
+              odds: sel.oddsAtPlacement ?? slip.totalOdds ?? '—',
+              stake: slip.stake,
+              payout: slip.potentialPayout ?? null,
+              actualPayout: slip.actualPayout ?? null,
+              status: normaliseStatus(slip.status),
+              placedAt: slip.placedAt || slip.createdAt,
+            });
+          }
+        } else {
+          bets.push(parseSlipToBet(slip));
         }
       }
-    } catch(e) { /* endpoint may not exist yet */ }
+    } catch { /* endpoint silently absent */ }
 
+    // ── CS slips ── GET /api/correct-score/bets/my
+    // Returns same BetSlipResponse shape; selections[0].marketType === 'CORRECT_SCORE'
     try {
-      // GET /api/correct-score/bets/my — user's CS bets
-      const csBets = await apiFetch(`${CS_BASE}/bets/my`);
-      const csArr = Array.isArray(csBets) ? csBets : [];
-      for (const b of csArr) {
-        bets.push({
-          id: `cs-${b.id}`,
-          ref: b.slipReference || b.id,
-          match: `${b.homeTeam || b.game?.homeTeam || '?'} vs ${b.awayTeam || b.game?.awayTeam || '?'}`,
-          type: 'CS',
-          pick: b.predictedScore ?? `${b.homeScore}:${b.awayScore}` ?? '—',
-          odds: b.odds ?? '—',
-          stake: b.stake,
-          payout: b.potentialPayout ?? null,
-          actualPayout: b.actualPayout ?? null,
-          status: normaliseStatus(b.status),
-          placedAt: b.createdAt || b.placedAt,
-        });
+      const csSlips = await apiFetch(`${CS_BASE}/bets/my`);
+      const csArr   = Array.isArray(csSlips) ? csSlips : [];
+      for (const slip of csArr) {
+        bets.push(parseSlipToBet(slip));
       }
-    } catch(e) { /* endpoint may not exist yet */ }
+    } catch { /* endpoint silently absent */ }
 
     // Sort newest first
     bets.sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
@@ -1177,11 +1040,8 @@ async function loadMyBets() {
     updateBetTabBadge();
   } catch (err) {
     document.getElementById('betsContainer').innerHTML =
-      `<div class="empty-state">
-        <div class="empty-icon"><svg data-lucide="wifi-off"></svg></div>
-        <div class="empty-t">Couldn't Load Bets</div>
-        <div class="empty-s">${esc(err.message)}</div>
-      </div>`;
+      `<div class="empty-state"><div class="empty-icon"><svg data-lucide="wifi-off"></svg></div>
+       <div class="empty-t">Couldn't Load Bets</div><div class="empty-s">${esc(err.message)}</div></div>`;
     lucide.createIcons();
   }
 }
@@ -1189,9 +1049,9 @@ async function loadMyBets() {
 function normaliseStatus(s) {
   if (!s) return 'PENDING';
   const u = String(s).toUpperCase();
-  if (u === 'WON' || u === 'WIN') return 'WON';
-  if (u === 'LOST' || u === 'LOSE' || u === 'LOSS') return 'LOST';
-  if (u === 'REFUNDED' || u === 'CANCELLED') return 'REFUNDED';
+  if (u === 'WON' || u === 'WIN')                        return 'WON';
+  if (u === 'LOST' || u === 'LOSE' || u === 'LOSS')      return 'LOST';
+  if (u === 'REFUNDED' || u === 'CANCELLED')             return 'REFUNDED';
   return 'PENDING';
 }
 
@@ -1203,47 +1063,34 @@ function filterBets(filter, btn) {
 }
 
 function renderMyBets() {
-  const pending  = allMyBets.filter(b => b.status === 'PENDING');
-  const won      = allMyBets.filter(b => b.status === 'WON');
-  const lost     = allMyBets.filter(b => b.status === 'LOST');
-
+  const pending = allMyBets.filter(b => b.status === 'PENDING');
+  const won     = allMyBets.filter(b => b.status === 'WON');
+  const lost    = allMyBets.filter(b => b.status === 'LOST');
   document.getElementById('statPending').textContent = pending.length;
   document.getElementById('statWon').textContent     = won.length;
   document.getElementById('statLost').textContent    = lost.length;
 
   const filtered = currentBetFilter === 'ALL'     ? allMyBets
     : currentBetFilter === 'PENDING' ? pending
-    : currentBetFilter === 'WON'     ? won
-    : lost;
+    : currentBetFilter === 'WON'     ? won : lost;
 
   const container = document.getElementById('betsContainer');
-
   if (!allMyBets.length) {
-    container.innerHTML = `<div class="empty-state">
-      <div class="empty-icon"><svg data-lucide="receipt"></svg></div>
-      <div class="empty-t">No Bets Yet</div>
-      <div class="empty-s">Place your first bet and it'll show up here.</div>
-    </div>`;
-    lucide.createIcons();
-    return;
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg data-lucide="receipt"></svg></div>
+      <div class="empty-t">No Bets Yet</div><div class="empty-s">Place your first bet and it'll show up here.</div></div>`;
+    lucide.createIcons(); return;
   }
-
   if (!filtered.length) {
-    container.innerHTML = `<div class="empty-state">
-      <div class="empty-icon"><svg data-lucide="filter-x"></svg></div>
-      <div class="empty-t">No ${currentBetFilter.toLowerCase()} bets</div>
-      <div class="empty-s">Nothing here yet.</div>
-    </div>`;
-    lucide.createIcons();
-    return;
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg data-lucide="filter-x"></svg></div>
+      <div class="empty-t">No ${currentBetFilter.toLowerCase()} bets</div><div class="empty-s">Nothing here yet.</div></div>`;
+    lucide.createIcons(); return;
   }
 
   container.innerHTML = filtered.map((b, i) => {
-    const st = b.status.toLowerCase();
-    const stLabel = st === 'pending' ? 'Active' : b.status;
-    const stIcon = st === 'won' ? 'trophy' : st === 'lost' ? 'x-circle' : 'clock';
-    const isCS = b.type === 'CS';
-
+    const st       = b.status.toLowerCase();
+    const stLabel  = st === 'pending' ? 'Active' : b.status;
+    const stIcon   = st === 'won' ? 'trophy' : st === 'lost' ? 'x-circle' : 'clock';
+    const isCS     = b.type === 'CS';
     const payoutStr = b.status === 'WON'
       ? `GHS ${parseFloat(b.actualPayout ?? b.payout ?? 0).toFixed(2)}`
       : b.status === 'PENDING' && b.payout
@@ -1251,15 +1098,12 @@ function renderMyBets() {
       : b.status === 'LOST'
       ? `–GHS ${parseFloat(b.stake ?? 0).toFixed(2)}`
       : '—';
-
     const payoutClass = b.status === 'WON' ? '' : b.status === 'LOST' ? 'lost' : 'pending';
 
     return `<div class="bet-card ${st}" style="animation-delay:${i * 0.04}s">
       <div class="bet-card-head">
         <div class="bet-card-match">${esc(b.match)}</div>
-        <div class="bet-status-pill ${st}">
-          <svg data-lucide="${stIcon}"></svg>${stLabel}
-        </div>
+        <div class="bet-status-pill ${st}"><svg data-lucide="${stIcon}"></svg>${stLabel}</div>
       </div>
       <div class="bet-card-body">
         <div class="bet-pick-box">
@@ -1278,19 +1122,14 @@ function renderMyBets() {
       </div>
     </div>`;
   }).join('');
-
   lucide.createIcons();
 }
 
 function updateBetTabBadge() {
   const pending = allMyBets.filter(b => b.status === 'PENDING').length;
-  const badge = document.getElementById('activeBetCount');
-  if (pending > 0) {
-    badge.textContent = pending;
-    badge.style.display = '';
-  } else {
-    badge.style.display = 'none';
-  }
+  const badge   = document.getElementById('activeBetCount');
+  badge.textContent  = pending;
+  badge.style.display = pending > 0 ? '' : 'none';
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -1301,7 +1140,6 @@ function getSeenWins() {
   try { return new Set(JSON.parse(localStorage.getItem(SEEN_WINS_KEY) || '[]')); }
   catch { return new Set(); }
 }
-
 function markWinSeen(ref) {
   const seen = getSeenWins();
   seen.add(String(ref));
@@ -1311,81 +1149,69 @@ function markWinSeen(ref) {
 async function checkForWins() {
   if (!getToken()) return;
   try {
-    // Refetch bets silently
     let bets = [];
+
+    // ── 1X2 wins ────────────────────────────────────────────────
     try {
       const slips = await apiFetch(`${API_BASE}/bets/my`);
-      const slipArr = Array.isArray(slips) ? slips : [];
-      for (const slip of slipArr) {
+      for (const slip of (Array.isArray(slips) ? slips : [])) {
+        const sel = (slip.selections || [])[0];
         bets.push({
           ref: slip.slipReference || slip.id,
           status: normaliseStatus(slip.status),
-          match: slip.description || 'Bet',
-          payout: slip.actualPayout ?? slip.potentialPayout ?? slip.payout ?? 0,
+          match: sel ? `${sel.homeTeam || '?'} vs ${sel.awayTeam || '?'}` : 'Bet',
+          payout: slip.actualPayout ?? slip.potentialPayout ?? 0,
           type: '1X2',
-          pick: '—',
+          pick: fmtMkt(sel?.marketType || ''),
         });
       }
-    } catch {}
+    } catch { }
 
+    // ── CS wins ── same BetSlipResponse shape ───────────────────
     try {
-      const csBets = await apiFetch(`${CS_BASE}/bets/my`);
-      const csArr  = Array.isArray(csBets) ? csBets : [];
-      for (const b of csArr) {
+      const csSlips = await apiFetch(`${CS_BASE}/bets/my`);
+      for (const slip of (Array.isArray(csSlips) ? csSlips : [])) {
+        const sel = (slip.selections || [])[0];
         bets.push({
-          ref: b.slipReference || b.id,
-          status: normaliseStatus(b.status),
-          match: `${b.homeTeam || '?'} vs ${b.awayTeam || '?'}`,
-          payout: b.actualPayout ?? b.potentialPayout ?? 0,
+          ref: slip.slipReference || slip.id,
+          status: normaliseStatus(slip.status),
+          match: sel ? `${sel.homeTeam || '?'} vs ${sel.awayTeam || '?'}` : 'Correct Score Bet',
+          payout: slip.actualPayout ?? slip.potentialPayout ?? 0,
           type: 'CS',
-          pick: b.predictedScore ?? `${b.homeScore}:${b.awayScore}` ?? '—',
+          pick: `@ ${parseFloat(sel?.oddsAtPlacement || slip.totalOdds || 0).toFixed(2)}`,
         });
       }
-    } catch {}
+    } catch { }
 
-    const seen = getSeenWins();
+    const seen    = getSeenWins();
     const newWins = bets.filter(b => b.status === 'WON' && !seen.has(String(b.ref)));
-
-    if (newWins.length > 0) {
-      showWinPopup(newWins);
-    }
-  } catch { /* silent */ }
+    if (newWins.length > 0) showWinPopup(newWins);
+  } catch { }
 }
 
 function startWinPolling() {
-  // Poll every 15 seconds
   if (pollInterval) clearInterval(pollInterval);
   pollInterval = setInterval(checkForWins, 15000);
 }
 
 function showWinPopup(wins) {
   const totalPayout = wins.reduce((sum, w) => sum + parseFloat(w.payout || 0), 0);
-
-  // Build bet rows
-  const rowsHtml = wins.map(w =>
+  document.getElementById('winBetsList').innerHTML = wins.map(w =>
     `<div class="win-bet-row">
-      <div class="win-bet-match">${esc(w.match)}<br><span style="font-size:9px;color:var(--t3);font-weight:400">${w.type === 'CS' ? 'Score: ' + esc(w.pick) : esc(w.pick)}</span></div>
+      <div class="win-bet-match">${esc(w.match)}<br>
+        <span style="font-size:9px;color:var(--t3);font-weight:400">${w.type === 'CS' ? 'Correct Score' : esc(w.pick)}</span>
+      </div>
       <div class="win-bet-amt">+GHS ${parseFloat(w.payout || 0).toFixed(2)}</div>
     </div>`
   ).join('');
-
-  document.getElementById('winBetsList').innerHTML = rowsHtml;
   document.getElementById('winSub').textContent =
     wins.length === 1 ? 'Your bet has been settled — you won!' : `${wins.length} bets settled — you won!`;
   document.getElementById('winPayoutAmt').textContent = `GHS ${totalPayout.toFixed(2)}`;
-
-  // Shoot confetti
   spawnConfetti();
-
   document.getElementById('winOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
-
-  // Mark all as seen
   wins.forEach(w => markWinSeen(w.ref));
-
   lucide.createIcons();
-
-  // Refresh balance
   fetchBalance();
 }
 
@@ -1402,15 +1228,7 @@ function spawnConfetti() {
   for (let i = 0; i < 80; i++) {
     const el = document.createElement('div');
     el.className = 'confetti-piece';
-    el.style.cssText = `
-      left:${Math.random()*100}%;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      width:${6+Math.random()*8}px;
-      height:${6+Math.random()*8}px;
-      border-radius:${Math.random() > .5 ? '50%' : '2px'};
-      animation-delay:${Math.random()*1.5}s;
-      animation-duration:${2+Math.random()*2}s;
-    `;
+    el.style.cssText = `left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-delay:${Math.random()*1.5}s;animation-duration:${2+Math.random()*2}s;`;
     c.appendChild(el);
   }
 }
@@ -1422,32 +1240,25 @@ function toggleTheme() {
   document.getElementById('themeIco').setAttribute('data-lucide', dark ? 'sun' : 'moon');
   lucide.createIcons();
 }
-
 function showToast(msg, type = 'info') {
   const icons = { success: 'check-circle-2', error: 'alert-circle', info: 'zap' };
   const c = document.getElementById('toastC');
   const t = document.createElement('div');
   t.className = `toast ${type}`;
   t.innerHTML = `<svg data-lucide="${icons[type]}"></svg><span>${esc(msg)}</span>`;
-  c.appendChild(t);
-  lucide.createIcons();
+  c.appendChild(t); lucide.createIcons();
   setTimeout(() => { t.classList.add('fadeOut'); setTimeout(() => t.remove(), 280); }, 3500);
 }
-
 function fmtDate(iso) {
   if (!iso) return '—';
   const d = new Date(iso), now = new Date();
   const isToday = d.toDateString() === now.toDateString();
   const tmrw = new Date(now); tmrw.setDate(now.getDate() + 1);
   const isTmrw = d.toDateString() === tmrw.toDateString();
-  const pre = isToday ? 'Today' : isTmrw ? 'Tomorrow'
-    : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  const pre = isToday ? 'Today' : isTmrw ? 'Tomorrow' : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
   return pre + ' · ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 }
-
-function fmtMkt(m) {
-  return { HOME_WIN: 'Home Win', DRAW: 'Draw', AWAY_WIN: 'Away Win' }[m] || m;
-}
+function fmtMkt(m) { return { HOME_WIN: 'Home Win', DRAW: 'Draw', AWAY_WIN: 'Away Win' }[m] || m; }
 </script>
 </body>
 </html>
