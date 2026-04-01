@@ -236,7 +236,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);background
 
 <script>
 // ── FIXED: correct base URL + dual-storage token check ──
-const BASE  = 'http://localhost:8080';
+const BASE  = 'https://kikiwebbackend.onrender.com';
 const token = localStorage.getItem('gstake_token') || sessionStorage.getItem('gstake_token');
 
 if (!token) window.location.href = 'login.html?returnUrl=profile.html';
