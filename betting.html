@@ -51,7 +51,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .icon-btn:hover{border-color:var(--borderHov);background:var(--bg3)}
 .icon-btn svg{width:16px;height:16px;color:var(--t2)}
 .nav-avatar{width:36px;height:36px;border-radius:9px;border:1px solid var(--borderAcc);background:var(--accentBg);display:flex;align-items:center;justify-content:center;font-family:var(--ffC);font-size:13px;font-weight:800;color:var(--accent);text-decoration:none;flex-shrink:0;transition:all .15s;letter-spacing:.5px}
-.nav-avatar:hover{background:var(--accentBg2);border-color:var(--accent);box-shadow:0 0 10px rgba(245,166,35,0.2)}
+.nav-avatar:hover{background:var(--accentBg2);border-color:var(--accent)}
 
 /* ── HERO ── */
 .hero{position:relative;z-index:1;margin-top:var(--nav);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:20px 16px 24px}
@@ -67,6 +67,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .hero-title em{color:var(--accent);font-style:normal;text-shadow:0 0 32px rgba(245,166,35,0.5);display:block}
 .hero-sub{font-size:clamp(12px,1.4vw,14px);color:var(--t2);margin-top:8px;line-height:1.5;font-weight:500}
 
+/* ── BOOKING CODE BANNER ── */
+.bc-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,rgba(245,166,35,0.13) 0%,rgba(245,166,35,0.05) 100%);border:1px solid rgba(245,166,35,0.38);border-radius:14px;padding:12px 14px;text-decoration:none;transition:all .18s;position:relative;overflow:hidden;margin-bottom:14px}
+.bc-banner::before{content:'';position:absolute;top:-24px;right:-24px;width:80px;height:80px;background:radial-gradient(circle,rgba(245,166,35,0.18),transparent 70%);pointer-events:none}
+.bc-banner:hover{border-color:rgba(245,166,35,0.65);transform:translateY(-1px)}
+.bc-banner-icon{width:40px;height:40px;background:rgba(245,166,35,0.14);border:1px solid rgba(245,166,35,0.38);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bc-banner-icon svg{width:18px;height:18px;color:var(--accent)}
+.bc-banner-body{flex:1;min-width:0}
+.bc-banner-title{font-family:var(--ffC);font-size:14px;font-weight:800;color:var(--t1);letter-spacing:.3px}
+.bc-banner-sub{font-size:11px;color:var(--t2);margin-top:1px}
+.bc-banner-cta{display:flex;align-items:center;gap:3px;font-family:var(--ffC);font-size:12px;font-weight:800;color:var(--accent);flex-shrink:0;white-space:nowrap}
+.bc-banner-cta svg{width:13px;height:13px}
+
 /* ── BOTTOM NAV ── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:400;height:var(--bottomNav);background:rgba(7,9,15,0.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);display:flex;align-items:stretch;padding-bottom:env(safe-area-inset-bottom)}
 [data-theme="light"] .bottom-nav{background:rgba(247,249,255,0.98)}
@@ -75,25 +87,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .bn-item-lbl{font-size:10px;font-weight:700;color:var(--t3);transition:color .15s;letter-spacing:.3px}
 .bn-item.active svg,.bn-item.active .bn-item-lbl{color:var(--accent)}
 .bn-item:not(.active):hover svg,.bn-item:not(.active):hover .bn-item-lbl{color:var(--t2)}
-.bn-badge{position:absolute;top:5px;right:calc(50% - 16px);background:var(--accent);color:#000;font-size:9px;font-weight:800;border-radius:10px;padding:1px 5px;min-width:16px;text-align:center;font-family:var(--ffC);display:none}
-.bn-badge.show{display:block}
-/* Slip button — accent colored */
 .bn-slip{background:linear-gradient(135deg,var(--accent),#e08a0a) !important;border-radius:14px;margin:8px 6px;flex:none;width:52px;padding:6px !important;box-shadow:0 4px 16px rgba(245,166,35,0.35)}
 .bn-slip svg{color:#000 !important}
 .bn-slip .bn-item-lbl{color:#000 !important;font-size:9px}
 
 /* ── LAYOUT ── */
 .desktop-layout{position:relative;z-index:1;display:block}
-.main-col{}
 .main-content{padding:14px 16px 0}
 .section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
 .section-title{font-family:var(--ffC);font-size:16px;font-weight:800;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
 .section-title svg{width:15px;height:15px;color:var(--accent)}
 .section-badge{background:var(--accentBg);border:1px solid var(--borderAcc);border-radius:20px;padding:4px 11px;font-size:10px;font-weight:700;color:var(--accent)}
-
-/* ── VIEW PANELS ── */
-.view-panel{display:none}
-.view-panel.active{display:block}
 
 /* ── GAME CARD ── */
 .game-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rLg);overflow:hidden;margin-bottom:10px;animation:cardIn .35s cubic-bezier(.22,.68,0,1.2) both;transition:border-color .15s}
@@ -101,7 +105,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .game-card:hover{border-color:var(--borderHov)}
 .game-card.finished{border-color:rgba(34,197,94,0.2)}
 .game-card.cancelled{border-color:rgba(239,68,68,0.15);opacity:.7}
-
 .gc-head{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg3);border-bottom:1px solid var(--border)}
 .gc-teams{flex:1;min-width:0}
 .gc-matchup{font-size:13px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:5px;flex-wrap:wrap;line-height:1.3}
@@ -117,16 +120,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .gc-status-badge.live{background:rgba(239,68,68,0.15);color:var(--red);border:1px solid rgba(239,68,68,0.4)}
 .gc-status-badge.live span{width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1s ease-in-out infinite}
 .gc-status-badge svg{width:8px;height:8px}
-
-/* ── LIVE SCORE DISPLAY ── */
 .gc-score-board{display:flex;align-items:center;gap:6px;background:var(--bg0);border:1px solid var(--borderGreen);border-radius:10px;padding:4px 10px}
 .gc-score-num{font-family:var(--ffC);font-size:20px;font-weight:800;color:var(--green);line-height:1;letter-spacing:1px}
 .gc-score-sep{font-family:var(--ffC);font-size:14px;font-weight:800;color:var(--t3)}
 .gc-score-board.finished{border-color:var(--borderGreen)}
-.gc-score-board.new-score{animation:scorePop .5s cubic-bezier(.22,.68,0,1.4) both}
-@keyframes scorePop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
-
-/* ── 1X2 ── */
 .gc-1x2{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:10px 12px;border-bottom:1px solid var(--border)}
 .odds-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:8px 6px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden;min-height:52px;gap:2px}
 .odds-btn::before{content:'';position:absolute;inset:0;background:var(--accentBg2);opacity:0;transition:opacity .15s}
@@ -140,8 +137,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .odds-btn.selected .odds-val{color:var(--accent)}
 .odds-team{font-size:9px;color:var(--t3);position:relative;max-width:80px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .odds-btn.selected .odds-team{color:var(--accent)}
-
-/* ── SCORE SECTION ── */
 .gc-cs{padding:10px 12px 12px}
 .gc-cs-lbl{font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;display:flex;align-items:center;gap:5px}
 .gc-cs-lbl svg{width:10px;height:10px;color:var(--accent)}
@@ -155,8 +150,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .score-btn.selected .sc{color:var(--accent)}
 .score-btn .so{font-size:8px;color:var(--t3);position:relative}
 .score-btn.selected .so{color:var(--accent)}
-
-/* ── FINISHED BANNER ── */
 .gc-finished-banner{margin:0 12px 12px;background:var(--greenBg);border:1px solid var(--borderGreen);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .gc-finished-banner svg{width:14px;height:14px;color:var(--green);flex-shrink:0}
 .gc-finished-txt{font-size:11px;font-weight:700;color:var(--green)}
@@ -164,17 +157,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .gc-cancelled-banner{margin:0 12px 12px;background:var(--redBg);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px}
 .gc-cancelled-banner svg{width:14px;height:14px;color:var(--red);flex-shrink:0}
 .gc-cancelled-txt{font-size:11px;font-weight:700;color:var(--red)}
-
-/* ── SHOW MORE ── */
 .score-show-more{width:100%;padding:8px 0;margin-top:6px;text-align:center}
 .score-show-more-btn{background:transparent;border:1px solid var(--borderAcc);color:var(--accent);padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;font-family:var(--ff);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
 .score-show-more-btn:hover{background:var(--accentBg);border-color:var(--accent)}
 .score-show-more-btn svg{width:12px;height:12px}
 
 /* ── SCORE MODAL ── */
-.score-modal-overlay{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,0.72);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;animation:fadeIn .25s ease-out}
+.score-modal-overlay{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,0.72);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
 .score-modal-overlay.open{display:flex}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .score-modal{width:100%;max-width:560px;background:var(--bg1);border-radius:20px 20px 0 0;border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom,16px);max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.2);display:flex;flex-direction:column}
 .score-modal-overlay.open .score-modal{transform:none}
 .score-modal-handle{width:36px;height:4px;background:var(--bg3);border-radius:4px;margin:12px auto 0;flex-shrink:0}
@@ -182,7 +172,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .score-modal-title{font-family:var(--ffC);font-size:16px;font-weight:800;color:var(--t1);display:flex;align-items:center;gap:7px}
 .score-modal-title svg{width:15px;height:15px;color:var(--accent)}
 .score-modal-close{background:var(--bg3);border:1px solid var(--border);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
-.score-modal-close:hover{border-color:var(--borderHov);background:var(--bg2)}
 .score-modal-close svg{width:14px;height:14px;color:var(--t2)}
 .score-modal-content{flex:1;overflow-y:auto;padding:12px 16px}
 .score-modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px}
@@ -197,7 +186,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .score-modal-btn.selected .so{color:var(--accent)}
 
 /* ── FLOATING BAR ── */
-.slip-float{position:fixed;bottom:calc(var(--bottomNav) + 6px);left:12px;right:12px;z-index:350;padding:10px 14px;background:var(--bg1);border:1px solid rgba(245,166,35,0.3);border-radius:14px;display:none;align-items:center;gap:10px;box-shadow:0 -4px 24px rgba(0,0,0,0.5),0 0 0 1px rgba(245,166,35,0.1)}
+.slip-float{position:fixed;bottom:calc(var(--bottomNav) + 6px);left:12px;right:12px;z-index:350;padding:10px 14px;background:var(--bg1);border:1px solid rgba(245,166,35,0.3);border-radius:14px;display:none;align-items:center;gap:10px;box-shadow:0 -4px 24px rgba(0,0,0,0.5)}
 .slip-float.visible{display:flex}
 .float-badge{width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0;font-family:var(--ffC)}
 .float-info{flex:1;min-width:0}
@@ -217,7 +206,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .sheet-title{font-family:var(--ffC);font-size:16px;font-weight:800;color:var(--t1);display:flex;align-items:center;gap:7px}
 .sheet-title svg{width:15px;height:15px;color:var(--accent)}
 .sheet-close{background:var(--bg3);border:1px solid var(--border);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
-.sheet-close:hover{border-color:var(--borderHov);background:var(--bg2)}
 .sheet-close svg{width:14px;height:14px;color:var(--t2)}
 
 /* ── SLIP ITEMS ── */
@@ -237,6 +225,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .slip-item-odds-lbl{font-size:9px;color:var(--t3)}
 .slip-item-odds{font-family:var(--ffC);font-size:18px;font-weight:800;color:var(--accent)}
 
+/* ── BOOKING CODE CTA inside slip sheet ── */
+.slip-bc-cta{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(245,166,35,0.12),rgba(245,166,35,0.05));border:1px solid rgba(245,166,35,0.32);border-radius:11px;padding:10px 13px;margin:0 12px 10px;text-decoration:none;transition:all .15s}
+.slip-bc-cta:hover{border-color:rgba(245,166,35,.55)}
+.slip-bc-cta-icon{width:34px;height:34px;background:rgba(245,166,35,0.14);border:1px solid rgba(245,166,35,.3);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.slip-bc-cta-icon svg{width:15px;height:15px;color:var(--accent)}
+.slip-bc-cta-body{flex:1;min-width:0}
+.slip-bc-cta-title{font-family:var(--ffC);font-size:13px;font-weight:800;color:var(--t1)}
+.slip-bc-cta-sub{font-size:10px;color:var(--t2)}
+.slip-bc-cta-arrow{color:var(--accent);flex-shrink:0}
+.slip-bc-cta-arrow svg{width:14px;height:14px}
+
 /* ── STAKE ── */
 .slip-stake-section{padding:0 12px 12px}
 .slip-stake-lbl{font-size:10px;font-weight:700;color:var(--t2);letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px}
@@ -255,7 +254,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .sum-win-lbl{font-size:13px;font-weight:700;color:var(--t1)}
 .sum-win-val{font-family:var(--ffC);font-size:22px;font-weight:800;color:var(--green)}
 .btn-place{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:13px;border:none;border-radius:11px;background:var(--accent);color:#000;font-family:var(--ffC);font-size:15px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 4px 24px rgba(245,166,35,.28)}
-.btn-place:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 32px rgba(245,166,35,.4)}
+.btn-place:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}
 .btn-place:active{transform:none}
 .btn-place:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 .btn-place svg{width:15px;height:15px}
@@ -289,7 +288,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .toast.success{border-color:var(--borderGreen)}.toast.success svg{color:var(--green)}
 .toast.error{border-color:rgba(239,68,68,0.35)}.toast.error svg{color:var(--red)}
 .toast.info{border-color:var(--borderAcc)}.toast.info svg{color:var(--accent)}
-.toast.score-update{border-color:rgba(96,165,250,0.4);background:var(--bg1)}.toast.score-update svg{color:var(--blue)}
 
 /* ── EMPTY STATE ── */
 .empty-state{text-align:center;padding:48px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
@@ -317,52 +315,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .funds-back{background:transparent;border:1px solid var(--border);border-radius:9px;padding:9px 20px;font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;transition:all .15s;font-family:var(--ff)}
 .funds-back:hover{border-color:var(--borderHov);color:var(--t1)}
 
-/* ── BET HISTORY ── */
-.bh-filter-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.bh-filter-btn{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid var(--border);background:var(--bg3);color:var(--t2);cursor:pointer;transition:all .15s;font-family:var(--ff)}
-.bh-filter-btn:hover{border-color:var(--borderHov);color:var(--t1)}
-.bh-filter-btn.active{background:var(--accentBg);border-color:var(--borderAcc);color:var(--accent)}
-.bh-filter-btn.won{background:var(--greenBg);border-color:var(--borderGreen);color:var(--green)}
-.bh-filter-btn.lost{background:var(--redBg);border-color:rgba(239,68,68,0.3);color:var(--red)}
-.bh-filter-btn.pending{background:var(--purpleBg);border-color:rgba(167,139,250,0.3);color:var(--purple)}
-.bet-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rLg);overflow:hidden;margin-bottom:8px;animation:cardIn .3s cubic-bezier(.22,.68,0,1.2) both;transition:border-color .15s}
-.bet-card:hover{border-color:var(--borderHov)}
-.bet-card.won{border-color:rgba(34,197,94,0.25)}
-.bet-card.lost{border-color:rgba(239,68,68,0.15)}
-.bet-card.pending{border-color:rgba(167,139,250,0.2)}
-.bet-card-head{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--bg3);border-bottom:1px solid var(--border)}
-.bet-card-match{font-size:12px;font-weight:700;color:var(--t1);flex:1;line-height:1.3}
-.bet-status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
-.bet-status-pill.won{background:var(--greenBg);color:var(--green);border:1px solid var(--borderGreen)}
-.bet-status-pill.lost{background:var(--redBg);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
-.bet-status-pill.pending{background:var(--purpleBg);color:var(--purple);border:1px solid rgba(167,139,250,0.3)}
-.bet-status-pill svg{width:8px;height:8px}
-.bet-card-body{padding:10px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.bet-pick-box{flex:1;min-width:0}
-.bet-pick-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--blue);margin-bottom:3px}
-.bet-pick-type.cs{color:var(--blue)}
-.bet-pick-type.x1{color:var(--purple)}
-.bet-pick-val{font-family:var(--ffC);font-size:20px;font-weight:800;color:var(--t1);line-height:1}
-.bet-pick-val.won{color:var(--green)}
-.bet-pick-val.lost{color:var(--red);opacity:.7}
-.bet-money-col{text-align:right;flex-shrink:0}
-.bet-money-lbl{font-size:9px;color:var(--t3);margin-bottom:2px}
-.bet-money-stake{font-family:var(--ffC);font-size:13px;font-weight:700;color:var(--t2)}
-.bet-money-win{font-family:var(--ffC);font-size:16px;font-weight:800;color:var(--green)}
-.bet-money-win.lost{color:var(--red);opacity:.7}
-.bet-money-win.pending{color:var(--accent)}
-.bet-card-foot{padding:7px 12px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:6px}
-.bet-ref{font-family:monospace;font-size:10px;color:var(--t3)}
-.bet-date{font-size:10px;color:var(--t3)}
-.bh-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.bh-stat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
-.bh-stat-val{font-family:var(--ffC);font-size:20px;font-weight:800;color:var(--t1);line-height:1}
-.bh-stat-lbl{font-size:10px;color:var(--t3);margin-top:3px}
-.bh-stat.won .bh-stat-val{color:var(--green)}
-.bh-stat.lost .bh-stat-val{color:var(--red)}
-.bh-stat.pending .bh-stat-val{color:var(--purple)}
-.bh-loading{display:flex;align-items:center;justify-content:center;gap:8px;padding:32px;color:var(--t3);font-size:13px}
-.bh-loading svg{width:16px;height:16px;animation:spin .7s linear infinite}
+/* ── SCORE UPDATE POPUP ── */
+.score-popup-overlay{position:fixed;top:calc(var(--nav) + 10px);left:50%;transform:translateX(-50%);z-index:800;pointer-events:none;display:flex;flex-direction:column;gap:8px;align-items:center;width:calc(100% - 32px);max-width:400px}
+.score-popup{background:var(--bg1);border:1px solid rgba(96,165,250,0.4);border-radius:14px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:flex;align-items:center;gap:12px;animation:scorePopIn .4s cubic-bezier(.22,.68,0,1.3) both;width:100%}
+@keyframes scorePopIn{from{opacity:0;transform:translateY(-16px) scale(.95)}to{opacity:1;transform:none}}
+.score-popup.fadeOut{animation:scorePopOut .3s ease forwards}
+@keyframes scorePopOut{to{opacity:0;transform:translateY(-8px) scale(.95)}}
+.score-popup-icon{width:36px;height:36px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.score-popup-icon svg{width:16px;height:16px;color:var(--blue)}
+.score-popup-body{flex:1;min-width:0}
+.score-popup-match{font-size:11px;font-weight:700;color:var(--t1);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.score-popup-label{font-size:10px;color:var(--t3)}
+.score-popup-score{font-family:var(--ffC);font-size:24px;font-weight:800;color:var(--blue);letter-spacing:2px;line-height:1}
 
 /* ── WIN POPUP ── */
 .win-overlay{position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;padding:20px}
@@ -376,7 +340,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .win-glow{width:80px;height:80px;background:var(--greenBg);border:2px solid var(--borderGreen);border-radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 40px rgba(34,197,94,0.35);animation:glowPulse 2s ease-in-out infinite}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 40px rgba(34,197,94,0.35)}50%{box-shadow:0 0 60px rgba(34,197,94,0.55)}}
 .win-glow svg{width:36px;height:36px;color:var(--green)}
-.win-headline{font-family:var(--ffC);font-size:36px;font-weight:800;color:var(--green);letter-spacing:1px;text-shadow:0 0 30px rgba(34,197,94,0.4);margin-bottom:4px}
+.win-headline{font-family:var(--ffC);font-size:36px;font-weight:800;color:var(--green);letter-spacing:1px;margin-bottom:4px}
 .win-sub{font-size:13px;color:var(--t2);margin-bottom:20px;line-height:1.5}
 .win-payout-box{background:var(--greenBg);border:1px solid var(--borderGreen);border-radius:16px;padding:16px;margin-bottom:20px}
 .win-payout-lbl{font-size:11px;color:var(--green);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.7px}
@@ -388,24 +352,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 .win-dismiss{width:100%;padding:13px;border:none;border-radius:12px;background:var(--green);color:#000;font-family:var(--ffC);font-size:16px;font-weight:800;letter-spacing:.5px;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(34,197,94,0.35)}
 .win-dismiss:hover{filter:brightness(1.08);transform:translateY(-1px)}
 
-/* ── SCORE UPDATE POPUP ── */
-.score-popup-overlay{position:fixed;top:calc(var(--nav) + 10px);left:50%;transform:translateX(-50%);z-index:800;pointer-events:none;display:flex;flex-direction:column;gap:8px;align-items:center;width:calc(100% - 32px);max-width:400px}
-.score-popup{background:var(--bg1);border:1px solid rgba(96,165,250,0.4);border-radius:14px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 0 1px rgba(96,165,250,0.1);display:flex;align-items:center;gap:12px;animation:scorePopIn .4s cubic-bezier(.22,.68,0,1.3) both;width:100%}
-@keyframes scorePopIn{from{opacity:0;transform:translateY(-16px) scale(.95)}to{opacity:1;transform:none}}
-.score-popup.fadeOut{animation:scorePopOut .3s ease forwards}
-@keyframes scorePopOut{to{opacity:0;transform:translateY(-8px) scale(.95)}}
-.score-popup-icon{width:36px;height:36px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.score-popup-icon svg{width:16px;height:16px;color:var(--blue)}
-.score-popup-body{flex:1;min-width:0}
-.score-popup-match{font-size:11px;font-weight:700;color:var(--t1);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.score-popup-label{font-size:10px;color:var(--t3)}
-.score-popup-score{font-family:var(--ffC);font-size:24px;font-weight:800;color:var(--blue);letter-spacing:2px;line-height:1}
-
 /* ── RESPONSIVE ── */
-@media(min-width:600px){
-  .main-content{padding:16px 18px 0}
-  .game-card{margin-bottom:12px}
-}
+@media(min-width:600px){.main-content{padding:16px 18px 0}.game-card{margin-bottom:12px}}
 @media(min-width:900px){
   body{padding-bottom:0}
   .desktop-layout{display:grid;grid-template-columns:1fr 320px;gap:0;align-items:start;max-width:1400px;margin:0 auto}
@@ -419,35 +367,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   .score-btns-grid .score-btn{display:flex !important}
   .bottom-nav{display:none}
   .slip-float{display:none !important}
-  /* On desktop show bet history inline via tab */
 }
-@media(min-width:1100px){
-  .desktop-layout{grid-template-columns:1fr 360px}
-  .main-content{padding:18px 24px 0}
-}
-@media(max-width:899px){
-  .sidebar-col{display:none}
-  .score-btns-grid .score-btn:nth-child(n+6){display:none}
-}
-
-/* ── BET HISTORY SHEET (full page modal on mobile) ── */
-.bets-sheet-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
-.bets-sheet-overlay.open{display:flex}
-.bets-sheet{width:100%;max-width:600px;background:var(--bg1);border-radius:22px 22px 0 0;border-top:1px solid var(--border);padding-bottom:calc(env(safe-area-inset-bottom,0px) + var(--bottomNav));max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.2);display:flex;flex-direction:column}
-.bets-sheet-overlay.open .bets-sheet{transform:none}
-.bets-sheet-handle{width:40px;height:4px;background:var(--bg3);border-radius:4px;margin:14px auto 0;flex-shrink:0}
-.bets-sheet-head{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.bets-sheet-title{font-family:var(--ffC);font-size:20px;font-weight:800;color:var(--t1);display:flex;align-items:center;gap:8px}
-.bets-sheet-title svg{width:18px;height:18px;color:var(--accent)}
-.bets-sheet-close{background:var(--bg3);border:1px solid var(--border);width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
-.bets-sheet-close:hover{border-color:var(--borderHov)}
-.bets-sheet-close svg{width:15px;height:15px;color:var(--t2)}
-.bets-sheet-body{flex:1;overflow-y:auto;padding:0 14px 16px}
+@media(min-width:1100px){.desktop-layout{grid-template-columns:1fr 360px}.main-content{padding:18px 24px 0}}
+@media(max-width:899px){.sidebar-col{display:none}.score-btns-grid .score-btn:nth-child(n+6){display:none}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">G<em>S</em>TAKE</a>
   <div class="nav-spacer"></div>
@@ -458,12 +384,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   <a href="profile.html" class="nav-avatar" id="profileBtn" title="My Profile">
     <span id="profileInitials"><svg data-lucide="user" style="width:16px;height:16px"></svg></span>
   </a>
-  <div class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
+  <div class="icon-btn" onclick="toggleTheme()">
     <svg data-lucide="moon" id="themeIco"></svg>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
@@ -474,46 +399,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   </div>
 </section>
 
-<!-- DESKTOP LAYOUT -->
 <div class="desktop-layout">
   <div class="main-col">
     <main class="main-content">
 
-      <!-- MARKETS VIEW -->
-      <div class="view-panel active" id="panel-markets">
-        <div class="section-hd">
-          <div class="section-title"><svg data-lucide="flame"></svg>Live Markets</div>
-          <span class="section-badge" id="gameCountBadge">Loading…</span>
+      <!-- ── BOOKING CODE BANNER ── -->
+      <a href="booking-code.html" class="bc-banner">
+        <div class="bc-banner-icon"><svg data-lucide="ticket"></svg></div>
+        <div class="bc-banner-body">
+          <div class="bc-banner-title">Got a Booking Code?</div>
+          <div class="bc-banner-sub">Enter your code to load a pre-built slip & place your stake</div>
         </div>
-        <div id="gamesGrid">
-          <div class="skeleton"></div>
-          <div class="skeleton" style="height:160px"></div>
-          <div class="skeleton" style="height:180px"></div>
+        <div class="bc-banner-cta">
+          BET NOW <svg data-lucide="arrow-right"></svg>
         </div>
-      </div>
+      </a>
 
-      <!-- MY BETS VIEW (desktop only inline panel) -->
-      <div class="view-panel" id="panel-mybets">
-        <div class="section-hd">
-          <div class="section-title"><svg data-lucide="receipt"></svg>My Bets</div>
-          <button class="bh-filter-btn" onclick="loadMyBets()" style="font-size:11px;padding:5px 10px">
-            <svg data-lucide="refresh-cw" style="width:11px;height:11px;display:inline;margin-right:3px"></svg>Refresh
-          </button>
-        </div>
-        <div class="bh-stats-row" id="bhStats">
-          <div class="bh-stat pending"><div class="bh-stat-val" id="statPending">—</div><div class="bh-stat-lbl">Pending</div></div>
-          <div class="bh-stat won"><div class="bh-stat-val" id="statWon">—</div><div class="bh-stat-lbl">Won</div></div>
-          <div class="bh-stat lost"><div class="bh-stat-val" id="statLost">—</div><div class="bh-stat-lbl">Lost</div></div>
-        </div>
-        <div class="bh-filter-row" id="bhFilterRow">
-          <button class="bh-filter-btn active" onclick="filterBets('ALL',this)">All</button>
-          <button class="bh-filter-btn pending" onclick="filterBets('PENDING',this)">Active</button>
-          <button class="bh-filter-btn won" onclick="filterBets('WON',this)">Won</button>
-          <button class="bh-filter-btn lost" onclick="filterBets('LOST',this)">Lost</button>
-        </div>
-        <div id="betsContainer">
-          <div class="bh-loading"><svg data-lucide="loader"></svg>Loading your bets…</div>
-        </div>
+      <div class="section-hd">
+        <div class="section-title"><svg data-lucide="flame"></svg>Live Markets</div>
+        <span class="section-badge" id="gameCountBadge">Loading…</span>
+      </div>
+      <div id="gamesGrid">
+        <div class="skeleton"></div>
+        <div class="skeleton" style="height:160px"></div>
+        <div class="skeleton" style="height:180px"></div>
       </div>
 
     </main>
@@ -529,24 +438,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   </div>
 </div>
 
-<!-- ── BOTTOM NAV (mobile only) ── -->
+<!-- ── BOTTOM NAV ── -->
 <nav class="bottom-nav">
-  <button class="bn-item active" id="bnMarkets" onclick="showPage('markets')">
+  <button class="bn-item active" onclick="void(0)">
     <svg data-lucide="crosshair"></svg>
     <span class="bn-item-lbl">Markets</span>
   </button>
-  <button class="bn-item" id="bnBets" onclick="openBetsSheet()">
+  <a href="bet-history.html" class="bn-item">
     <svg data-lucide="receipt"></svg>
     <span class="bn-item-lbl">My Bets</span>
-    <span class="bn-badge" id="bnBadge"></span>
-  </button>
+  </a>
   <button class="bn-item bn-slip" onclick="openSheet()">
     <svg data-lucide="zap"></svg>
     <span class="bn-item-lbl">Slip</span>
   </button>
-  <a href="wallet.html" class="bn-item">
-    <svg data-lucide="wallet"></svg>
-    <span class="bn-item-lbl">Wallet</span>
+  <a href="booking-code.html" class="bn-item">
+    <svg data-lucide="ticket"></svg>
+    <span class="bn-item-lbl">Code Bet</span>
   </a>
   <a href="profile.html" class="bn-item">
     <svg data-lucide="user"></svg>
@@ -554,7 +462,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   </a>
 </nav>
 
-<!-- ── FLOATING BAR (mobile, shown when slip has items) ── -->
+<!-- ── FLOATING BAR ── -->
 <div class="slip-float" id="slipFloat">
   <div class="float-badge" id="floatBadge">0</div>
   <div class="float-info">
@@ -568,7 +476,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 
 <!-- ── SCORE MODAL ── -->
 <div class="score-modal-overlay" id="scoreModalOverlay" onclick="closeScoreModalOnBg(event)">
-  <div class="score-modal" id="scoreModal">
+  <div class="score-modal">
     <div class="score-modal-handle"></div>
     <div class="score-modal-head">
       <div class="score-modal-title"><svg data-lucide="crosshair"></svg>All Predictions</div>
@@ -580,7 +488,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
 
 <!-- ── SLIP BOTTOM SHEET ── -->
 <div class="sheet-overlay" id="sheetOverlay" onclick="closeSheetOnBg(event)">
-  <div class="sheet" id="sheet">
+  <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-head">
       <div class="sheet-title"><svg data-lucide="crosshair"></svg>Your Slip</div>
@@ -590,38 +498,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   </div>
 </div>
 
-<!-- ── BET HISTORY SHEET (mobile) ── -->
-<div class="bets-sheet-overlay" id="betsSheetOverlay" onclick="closeBetsSheetOnBg(event)">
-  <div class="bets-sheet" id="betsSheet">
-    <div class="bets-sheet-handle"></div>
-    <div class="bets-sheet-head">
-      <div class="bets-sheet-title"><svg data-lucide="receipt"></svg>My Bets</div>
-      <div class="bets-sheet-close" onclick="closeBetsSheet()"><svg data-lucide="x"></svg></div>
-    </div>
-    <div class="bets-sheet-body">
-      <div class="bh-stats-row" id="bhStatsMobile">
-        <div class="bh-stat pending"><div class="bh-stat-val" id="statPendingM">—</div><div class="bh-stat-lbl">Pending</div></div>
-        <div class="bh-stat won"><div class="bh-stat-val" id="statWonM">—</div><div class="bh-stat-lbl">Won</div></div>
-        <div class="bh-stat lost"><div class="bh-stat-val" id="statLostM">—</div><div class="bh-stat-lbl">Lost</div></div>
-      </div>
-      <div class="bh-filter-row" id="bhFilterRowMobile">
-        <button class="bh-filter-btn active" onclick="filterBetsMobile('ALL',this)">All</button>
-        <button class="bh-filter-btn pending" onclick="filterBetsMobile('PENDING',this)">Active</button>
-        <button class="bh-filter-btn won" onclick="filterBetsMobile('WON',this)">Won</button>
-        <button class="bh-filter-btn lost" onclick="filterBetsMobile('LOST',this)">Lost</button>
-      </div>
-      <div id="betsContainerMobile">
-        <div class="bh-loading"><svg data-lucide="loader"></svg>Loading…</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ── WIN POPUP ── -->
 <div class="win-overlay" id="winOverlay">
   <div class="confetti-c" id="confettiC"></div>
   <div class="win-backdrop" onclick="dismissWin()"></div>
-  <div class="win-card" id="winCard">
+  <div class="win-card">
     <div class="win-glow"><svg data-lucide="trophy"></svg></div>
     <div class="win-headline">YOU WON! 🎉</div>
     <div class="win-sub" id="winSub">Your bets have been settled</div>
@@ -634,42 +515,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);background
   </div>
 </div>
 
-<!-- ── SCORE UPDATE POPUPS ── -->
 <div class="score-popup-overlay" id="scorePopupOverlay"></div>
-
 <div class="toast-c" id="toastC"></div>
 
 <script>
-// ── Config ──────────────────────────────────────────────────────────
 const API_BASE = 'https://kikiwebbackend.onrender.com/api/v1';
 const CS_BASE  = 'https://kikiwebbackend.onrender.com/api/correct-score';
+const SEEN_WINS_KEY = 'gstake_seen_wins';
 
 function getToken() {
   return localStorage.getItem('gstake_token') || sessionStorage.getItem('gstake_token') || '';
 }
 
-// ── State ───────────────────────────────────────────────────────────
-let betSlip             = [];
-let gamesData           = [];
-let _stakeVal           = 10;
-let allMyBets           = [];
-let currentBetFilter    = 'ALL';
-let currentBetFilterMob = 'ALL';
-let pollInterval        = null;
-let scoreSnapshot       = {}; // { gameId: { homeScore, awayScore, status } }
-const SEEN_WINS_KEY     = 'gstake_seen_wins';
+let betSlip = [], gamesData = [], _stakeVal = 10, pollInterval = null, scoreSnapshot = {};
 
-// ── Boot ─────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   lucide.createIcons();
   populateProfileBtn();
   fetchBalance();
   fetchGames();
-  if (getToken()) {
-    loadMyBets();
-    checkForWins();        // immediate check on load → catches return visits
-    startPolling();
-  }
+  if (getToken()) { checkForWins(); startPolling(); }
 });
 
 function populateProfileBtn() {
@@ -682,23 +547,15 @@ function populateProfileBtn() {
   } catch {}
 }
 
-// ── Page nav (desktop tabs emulation) ───────────────────────────────
-function showPage(page) {
-  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
-  document.getElementById('bnMarkets').classList.add('active');
-}
-
-// ── API helper ───────────────────────────────────────────────────────
 async function apiFetch(path, opts = {}) {
   const token = getToken();
   const headers = { 'Content-Type':'application/json', ...(token ? { Authorization:`Bearer ${token}` } : {}), ...opts.headers };
-  const res  = await fetch(path, { ...opts, headers });
+  const res = await fetch(path, { ...opts, headers });
   const json = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(json.message || `HTTP ${res.status}`);
   return json.data !== undefined ? json.data : json;
 }
 
-// ── Balance ──────────────────────────────────────────────────────────
 async function fetchBalance() {
   try {
     const d = await apiFetch(`${API_BASE}/wallet/balance`);
@@ -707,66 +564,41 @@ async function fetchBalance() {
   } catch {}
 }
 
-// ── Games ────────────────────────────────────────────────────────────
 async function fetchGames(silent = false) {
   try {
-    const rawGames  = await apiFetch(`${API_BASE}/games/public`);
+    const rawGames = await apiFetch(`${API_BASE}/games/public`);
     const gamesList = Array.isArray(rawGames) ? rawGames : [];
     if (!gamesList.length) { gamesData = []; if (!silent) { renderGames(); updateCounts(0); } return; }
-    const newGames = await Promise.all(
-      gamesList.map(async (g) => {
-        try {
-          const csData = await apiFetch(`${CS_BASE}/${g.id}`);
-          return { ...g, csOptions: csData?.options ?? [], correctScoreMarketStatus: csData?.marketStatus ?? g.correctScoreMarketStatus ?? 'OPEN' };
-        } catch {
-          return { ...g, csOptions: [], correctScoreMarketStatus: g.correctScoreMarketStatus ?? 'OPEN' };
-        }
-      })
-    );
-
+    const newGames = await Promise.all(gamesList.map(async (g) => {
+      try {
+        const csData = await apiFetch(`${CS_BASE}/${g.id}`);
+        return { ...g, csOptions: csData?.options ?? [], correctScoreMarketStatus: csData?.marketStatus ?? g.correctScoreMarketStatus ?? 'OPEN' };
+      } catch { return { ...g, csOptions: [], correctScoreMarketStatus: g.correctScoreMarketStatus ?? 'OPEN' }; }
+    }));
     if (silent) {
-      // Detect score changes vs snapshot
       newGames.forEach(g => {
         const prev = scoreSnapshot[g.id];
-        const curH = g.homeScore ?? null;
-        const curA = g.awayScore ?? null;
-        const curS = g.status;
+        const curH = g.homeScore ?? null, curA = g.awayScore ?? null, curS = g.status;
         if (prev) {
-          const scoreChanged  = (prev.homeScore !== curH || prev.awayScore !== curA) && curH !== null;
+          const scoreChanged = (prev.homeScore !== curH || prev.awayScore !== curA) && curH !== null;
           const statusChanged = prev.status !== curS && curS === 'FINISHED';
-          if (scoreChanged || statusChanged) {
-            showScoreUpdatePopup(g);
-          }
+          if (scoreChanged || statusChanged) showScoreUpdatePopup(g);
         }
         scoreSnapshot[g.id] = { homeScore: curH, awayScore: curA, status: curS };
       });
-      gamesData = newGames;
-      renderGames(); // re-render to update scores on cards
+      gamesData = newGames; renderGames();
     } else {
       gamesData = newGames;
-      // Build initial snapshot
-      gamesData.forEach(g => {
-        scoreSnapshot[g.id] = { homeScore: g.homeScore ?? null, awayScore: g.awayScore ?? null, status: g.status };
-      });
-      renderGames();
-      updateCounts(gamesData.length);
+      gamesData.forEach(g => { scoreSnapshot[g.id] = { homeScore: g.homeScore ?? null, awayScore: g.awayScore ?? null, status: g.status }; });
+      renderGames(); updateCounts(gamesData.length);
     }
   } catch (err) {
-    if (!silent) {
-      gamesData = [];
-      showToast('Failed to load games — ' + (err.message || 'Server error'), 'error');
-      renderGames();
-      updateCounts(0);
-    }
+    if (!silent) { gamesData = []; showToast('Failed to load games — ' + (err.message || 'Server error'), 'error'); renderGames(); updateCounts(0); }
   }
 }
 
-function updateCounts(n) {
-  const lbl = `${n} game${n !== 1 ? 's' : ''}`;
-  document.getElementById('gameCountBadge').textContent = lbl;
-}
+function updateCounts(n) { document.getElementById('gameCountBadge').textContent = `${n} game${n !== 1 ? 's' : ''}`; }
 
-// ── Render ────────────────────────────────────────────────────────────
 function renderGames() {
   const grid = document.getElementById('gamesGrid');
   if (!gamesData.length) {
@@ -781,50 +613,28 @@ function short(n) { return n.replace('Manchester ','Man ').replace('Borussia ','
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function buildCard(g, idx) {
-  const isFinished  = g.status === 'FINISHED';
-  const isCancelled = g.status === 'CANCELLED';
-  const isLive      = g.status === 'LIVE';
-  const isOpen      = !isFinished && !isCancelled;
-  const csOpen      = g.correctScoreMarketStatus === 'OPEN';
-  const csLocked    = g.correctScoreMarketStatus === 'LOCKED';
-
-  // Status badge
+  const isFinished = g.status === 'FINISHED', isCancelled = g.status === 'CANCELLED', isLive = g.status === 'LIVE';
+  const isOpen = !isFinished && !isCancelled, csOpen = g.correctScoreMarketStatus === 'OPEN', csLocked = g.correctScoreMarketStatus === 'LOCKED';
   let statusBadge = '';
-  if (isFinished) {
-    statusBadge = `<div class="gc-status-badge settled"><svg data-lucide="check-circle"></svg>Finished</div>`;
-  } else if (isCancelled) {
-    statusBadge = `<div class="gc-status-badge locked"><svg data-lucide="x-circle"></svg>Cancelled</div>`;
-  } else if (isLive) {
-    statusBadge = `<div class="gc-status-badge live"><span></span>Live</div>`;
-  } else if (csOpen) {
-    statusBadge = `<div class="gc-status-badge open"><svg data-lucide="circle-dot"></svg>Open</div>`;
-  } else if (csLocked) {
-    statusBadge = `<div class="gc-status-badge locked"><svg data-lucide="lock"></svg>Locked</div>`;
-  } else {
-    statusBadge = `<div class="gc-status-badge settled"><svg data-lucide="check-circle"></svg>Settled</div>`;
-  }
-
-  // Score board (show if score available OR finished)
-  let scoreBoard = '';
+  if (isFinished) statusBadge = `<div class="gc-status-badge settled"><svg data-lucide="check-circle"></svg>Finished</div>`;
+  else if (isCancelled) statusBadge = `<div class="gc-status-badge locked"><svg data-lucide="x-circle"></svg>Cancelled</div>`;
+  else if (isLive) statusBadge = `<div class="gc-status-badge live"><span></span>Live</div>`;
+  else if (csOpen) statusBadge = `<div class="gc-status-badge open"><svg data-lucide="circle-dot"></svg>Open</div>`;
+  else if (csLocked) statusBadge = `<div class="gc-status-badge locked"><svg data-lucide="lock"></svg>Locked</div>`;
+  else statusBadge = `<div class="gc-status-badge settled"><svg data-lucide="check-circle"></svg>Settled</div>`;
   const hasScore = g.homeScore !== null && g.homeScore !== undefined && g.awayScore !== null && g.awayScore !== undefined;
+  let scoreBoard = '';
   if (hasScore || isFinished) {
-    const h = g.homeScore ?? 0;
-    const a = g.awayScore ?? 0;
-    scoreBoard = `<div class="gc-score-board ${isFinished ? 'finished' : ''}" id="scoreboard-${g.id}">
-      <span class="gc-score-num">${h}</span>
-      <span class="gc-score-sep">–</span>
-      <span class="gc-score-num">${a}</span>
-    </div>`;
+    const h = g.homeScore ?? 0, a = g.awayScore ?? 0;
+    scoreBoard = `<div class="gc-score-board ${isFinished ? 'finished' : ''}"><span class="gc-score-num">${h}</span><span class="gc-score-sep">–</span><span class="gc-score-num">${a}</span></div>`;
   }
-
-  // 1X2 buttons (disabled if game not open)
   const mkts = [
     { key:'HOME_WIN', lbl:'1', sub:short(g.homeTeam), odds:g.oddsHomeWin },
-    { key:'DRAW',     lbl:'X', sub:'Draw',             odds:g.oddsDraw    },
-    { key:'AWAY_WIN', lbl:'2', sub:short(g.awayTeam),  odds:g.oddsAwayWin },
+    { key:'DRAW', lbl:'X', sub:'Draw', odds:g.oddsDraw },
+    { key:'AWAY_WIN', lbl:'2', sub:short(g.awayTeam), odds:g.oddsAwayWin },
   ];
   const x1html = mkts.map(m => {
-    const sel     = betSlip.some(s => s.gameId === g.id && s.type === '1X2' && s.label === m.key);
+    const sel = betSlip.some(s => s.gameId === g.id && s.type === '1X2' && s.label === m.key);
     const disabled = !isOpen || !m.odds;
     if (!m.odds) return `<div class="odds-btn disabled"><div class="odds-lbl">${m.lbl}</div><div class="odds-val">—</div></div>`;
     return `<div class="odds-btn${sel?' selected':''}${disabled?' disabled':''}" ${disabled?'':
@@ -832,54 +642,30 @@ function buildCard(g, idx) {
       <div class="odds-lbl">${m.lbl}</div><div class="odds-val">${parseFloat(m.odds).toFixed(2)}</div>
       <div class="odds-team">${esc(m.sub)}</div></div>`;
   }).join('');
-
-  // Bottom section
   let bottomSection = '';
   if (isFinished) {
     const h = g.homeScore ?? 0, a = g.awayScore ?? 0;
-    bottomSection = `<div class="gc-finished-banner">
-      <svg data-lucide="check-circle-2"></svg>
-      <span class="gc-finished-txt">Final Score</span>
-      <span class="gc-finished-score">${h} – ${a}</span>
-    </div>`;
+    bottomSection = `<div class="gc-finished-banner"><svg data-lucide="check-circle-2"></svg><span class="gc-finished-txt">Final Score</span><span class="gc-finished-score">${h} – ${a}</span></div>`;
   } else if (isCancelled) {
-    bottomSection = `<div class="gc-cancelled-banner">
-      <svg data-lucide="x-circle"></svg>
-      <span class="gc-cancelled-txt">This game has been cancelled — all stakes refunded</span>
-    </div>`;
+    bottomSection = `<div class="gc-cancelled-banner"><svg data-lucide="x-circle"></svg><span class="gc-cancelled-txt">This game has been cancelled — all stakes refunded</span></div>`;
   } else if (csOpen) {
     const opts = g.csOptions || [];
     if (opts.length) {
       const allBtns = opts.slice(0,5).map(o => {
         const sel = betSlip.some(s => s.gameId === g.id && s.type === 'CS' && s.csOptionId === o.id);
-        return `<div class="score-btn${sel?' selected':''}" onclick="toggleCS('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds})">
-          <div class="sc">${o.homeScore}:${o.awayScore}</div><div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
+        return `<div class="score-btn${sel?' selected':''}" onclick="toggleCS('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds})"><div class="sc">${o.homeScore}:${o.awayScore}</div><div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
       }).join('');
-      const moreBtn = opts.length > 5
-        ? `<div class="score-show-more"><button class="score-show-more-btn" onclick="openScoreModal('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}')">
-            <svg data-lucide="chevrons-down"></svg><span>View all ${opts.length} predictions</span></button></div>` : '';
-      bottomSection = `<div class="gc-cs"><div class="gc-cs-lbl"><svg data-lucide="crosshair"></svg>Predict final score — pick one per game</div>
-        <div class="score-btns-grid">${allBtns}</div>${moreBtn}</div>`;
+      const moreBtn = opts.length > 5 ? `<div class="score-show-more"><button class="score-show-more-btn" onclick="openScoreModal('${g.id}','${esc(g.homeTeam)}','${esc(g.awayTeam)}')"><svg data-lucide="chevrons-down"></svg><span>View all ${opts.length} predictions</span></button></div>` : '';
+      bottomSection = `<div class="gc-cs"><div class="gc-cs-lbl"><svg data-lucide="crosshair"></svg>Predict final score — pick one per game</div><div class="score-btns-grid">${allBtns}</div>${moreBtn}</div>`;
     } else {
-      bottomSection = `<div class="gc-cs"><div style="padding:10px 0;font-size:12px;color:var(--t3);display:flex;align-items:center;gap:6px">
-        <svg data-lucide="info" style="width:12px;height:12px"></svg>No score options yet.</div></div>`;
+      bottomSection = `<div class="gc-cs"><div style="padding:10px 0;font-size:12px;color:var(--t3);display:flex;align-items:center;gap:6px"><svg data-lucide="info" style="width:12px;height:12px"></svg>No score options yet.</div></div>`;
     }
   } else if (csLocked) {
-    bottomSection = `<div class="gc-cs"><div style="padding:10px 0;font-size:12px;color:var(--t3);display:flex;align-items:center;gap:6px">
-      <svg data-lucide="lock" style="width:12px;height:12px;color:var(--red)"></svg>Score market locked.</div></div>`;
+    bottomSection = `<div class="gc-cs"><div style="padding:10px 0;font-size:12px;color:var(--t3);display:flex;align-items:center;gap:6px"><svg data-lucide="lock" style="width:12px;height:12px;color:var(--red)"></svg>Score market locked.</div></div>`;
   }
-
   return `<div class="game-card${isFinished?' finished':''}${isCancelled?' cancelled':''}" style="animation-delay:${idx*.045}s" id="card-${g.id}">
-    <div class="gc-head">
-      <div class="gc-teams">
-        <div class="gc-matchup">${esc(g.homeTeam)}<span class="gc-vs">vs</span>${esc(g.awayTeam)}</div>
-        <div class="gc-meta"><svg data-lucide="clock"></svg><span class="gc-meta-txt">${fmtDate(g.matchDate)}</span></div>
-      </div>
-      <div class="gc-right">${statusBadge}${scoreBoard}</div>
-    </div>
-    <div class="gc-1x2">${x1html}</div>
-    ${bottomSection}
-  </div>`;
+    <div class="gc-head"><div class="gc-teams"><div class="gc-matchup">${esc(g.homeTeam)}<span class="gc-vs">vs</span>${esc(g.awayTeam)}</div><div class="gc-meta"><svg data-lucide="clock"></svg><span class="gc-meta-txt">${fmtDate(g.matchDate)}</span></div></div><div class="gc-right">${statusBadge}${scoreBoard}</div></div>
+    <div class="gc-1x2">${x1html}</div>${bottomSection}</div>`;
 }
 
 function rerenderCard(gameId) {
@@ -893,37 +679,22 @@ function rerenderCard(gameId) {
   lucide.createIcons();
 }
 
-// ── Score Update Popup ───────────────────────────────────────────────
 function showScoreUpdatePopup(game) {
   const container = document.getElementById('scorePopupOverlay');
-  const popup     = document.createElement('div');
+  const popup = document.createElement('div');
   popup.className = 'score-popup';
   const h = game.homeScore ?? 0, a = game.awayScore ?? 0;
-  const isFinished = game.status === 'FINISHED';
-  popup.innerHTML = `
-    <div class="score-popup-icon"><svg data-lucide="activity"></svg></div>
-    <div class="score-popup-body">
-      <div class="score-popup-match">${esc(game.homeTeam)} vs ${esc(game.awayTeam)}</div>
-      <div class="score-popup-label">${isFinished ? '✅ Full time result' : '⚽ Score updated'}</div>
-    </div>
-    <div class="score-popup-score">${h} – ${a}</div>`;
-  container.appendChild(popup);
-  lucide.createIcons();
-  setTimeout(() => {
-    popup.classList.add('fadeOut');
-    setTimeout(() => popup.remove(), 320);
-  }, 5000);
+  popup.innerHTML = `<div class="score-popup-icon"><svg data-lucide="activity"></svg></div><div class="score-popup-body"><div class="score-popup-match">${esc(game.homeTeam)} vs ${esc(game.awayTeam)}</div><div class="score-popup-label">${game.status==='FINISHED'?'✅ Full time result':'⚽ Score updated'}</div></div><div class="score-popup-score">${h} – ${a}</div>`;
+  container.appendChild(popup); lucide.createIcons();
+  setTimeout(() => { popup.classList.add('fadeOut'); setTimeout(() => popup.remove(), 320); }, 5000);
 }
 
-// ── Score Modal ──────────────────────────────────────────────────────
 function openScoreModal(gameId, homeTeam, awayTeam) {
   const g = gamesData.find(x => x.id === gameId);
   if (!g) return;
   const grid = (g.csOptions || []).map(o => {
     const sel = betSlip.some(s => s.gameId === gameId && s.type === 'CS' && s.csOptionId === o.id);
-    return `<div class="score-modal-btn${sel?' selected':''}"
-      onclick="toggleCS('${gameId}','${esc(homeTeam)}','${esc(awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds});closeScoreModal()">
-      <div class="sc">${o.homeScore}:${o.awayScore}</div><div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
+    return `<div class="score-modal-btn${sel?' selected':''}" onclick="toggleCS('${gameId}','${esc(homeTeam)}','${esc(awayTeam)}','${o.id}',${o.homeScore},${o.awayScore},${o.odds});closeScoreModal()"><div class="sc">${o.homeScore}:${o.awayScore}</div><div class="so">${parseFloat(o.odds).toFixed(2)}</div></div>`;
   }).join('');
   document.getElementById('scoreModalContent').innerHTML = `<div class="score-modal-grid">${grid}</div>`;
   lucide.createIcons();
@@ -933,39 +704,30 @@ function openScoreModal(gameId, homeTeam, awayTeam) {
 function closeScoreModal() { document.getElementById('scoreModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 function closeScoreModalOnBg(e) { if (e.target === document.getElementById('scoreModalOverlay')) closeScoreModal(); }
 
-// ── Slip Mutations ───────────────────────────────────────────────────
 function toggleCS(gameId, homeTeam, awayTeam, csOptionId, homeScore, awayScore, odds) {
-  const ex   = betSlip.findIndex(s => s.gameId === gameId && s.type === 'CS');
+  const ex = betSlip.findIndex(s => s.gameId === gameId && s.type === 'CS');
   const same = ex !== -1 && betSlip[ex].csOptionId === csOptionId;
   if (ex !== -1) betSlip.splice(ex, 1);
   if (!same) betSlip.push({ gameId, homeTeam, awayTeam, type:'CS', label:`${homeScore}:${awayScore}`, odds:parseFloat(odds), csOptionId });
   rerenderCard(gameId); renderSlip();
 }
 function toggle1X2(gameId, homeTeam, awayTeam, marketKey, marketLabel, odds) {
-  const ex   = betSlip.findIndex(s => s.gameId === gameId && s.type === '1X2');
+  const ex = betSlip.findIndex(s => s.gameId === gameId && s.type === '1X2');
   const same = ex !== -1 && betSlip[ex].label === marketKey;
   if (ex !== -1) betSlip.splice(ex, 1);
   if (!same) betSlip.push({ gameId, homeTeam, awayTeam, type:'1X2', label:marketKey, displayLabel:marketLabel, odds:parseFloat(odds) });
   rerenderCard(gameId); renderSlip();
 }
-function removeFromSlip(gameId, type) {
-  betSlip = betSlip.filter(s => !(s.gameId === gameId && s.type === type));
-  rerenderCard(gameId); renderSlip();
-}
+function removeFromSlip(gameId, type) { betSlip = betSlip.filter(s => !(s.gameId === gameId && s.type === type)); rerenderCard(gameId); renderSlip(); }
 
-// ── Slip Render ──────────────────────────────────────────────────────
 function renderSlip() {
-  const count     = betSlip.length;
-  const totalOdds = betSlip.reduce((a, s) => a * s.odds, 1);
-  const payout    = _stakeVal * totalOdds;
-
-  // Floating bar (mobile)
+  const count = betSlip.length, totalOdds = betSlip.reduce((a, s) => a * s.odds, 1), payout = _stakeVal * totalOdds;
   const fb = document.getElementById('slipFloat');
   fb.classList.toggle('visible', count > 0);
-  document.getElementById('floatBadge').textContent    = count;
+  document.getElementById('floatBadge').textContent = count;
   document.getElementById('floatPicksTxt').textContent = `${count} pick${count !== 1?'s':''} · odds ${totalOdds.toFixed(2)}`;
-  document.getElementById('floatWinTxt').textContent   = `GHS ${payout.toFixed(2)} potential`;
-  document.getElementById('ssCount').textContent       = count;
+  document.getElementById('floatWinTxt').textContent = `GHS ${payout.toFixed(2)} potential`;
+  document.getElementById('ssCount').textContent = count;
   document.getElementById('sidebarSlipBody').innerHTML = buildSlipHTML(count, totalOdds, payout);
   if (document.getElementById('sheetOverlay').classList.contains('open'))
     document.getElementById('sheetBody').innerHTML = buildSlipHTML(count, totalOdds, payout);
@@ -980,10 +742,22 @@ function buildSlipHTML(count, totalOdds, payout) {
     <div class="success-ref" id="slipRefEl">—</div>
     <button class="btn-new" onclick="resetSlip()">New Slip</button>
   </div>`;
-  if (count === 0) return successEl + `<div class="slip-empty">
+
+  /* Booking code CTA — always shown at top of slip */
+  const bcCta = `<a href="booking-code.html" class="slip-bc-cta">
+    <div class="slip-bc-cta-icon"><svg data-lucide="ticket"></svg></div>
+    <div class="slip-bc-cta-body">
+      <div class="slip-bc-cta-title">Have a Booking Code?</div>
+      <div class="slip-bc-cta-sub">Tap to enter & bet instantly</div>
+    </div>
+    <div class="slip-bc-cta-arrow"><svg data-lucide="arrow-right"></svg></div>
+  </a>`;
+
+  if (count === 0) return successEl + bcCta + `<div class="slip-empty">
     <div class="slip-empty-icon"><svg data-lucide="crosshair"></svg></div>
     <div class="slip-empty-t">No picks yet</div>
     <div class="slip-empty-s">Tap any score or 1X2 odds to add a selection.</div></div>`;
+
   const items = betSlip.map(s => {
     const isCS = s.type === 'CS';
     return `<div class="slip-item">
@@ -992,20 +766,16 @@ function buildSlipHTML(count, totalOdds, payout) {
         <button class="slip-item-rm" onclick="removeFromSlip('${s.gameId}','${s.type}')"><svg data-lucide="x"></svg></button>
       </div>
       <div class="slip-item-bot">
-        <div>
-          <div class="slip-item-type ${isCS?'cs':'x1'}">${isCS?'Correct Score':fmtMkt(s.label)}</div>
-          ${isCS?`<div style="font-size:9px;color:var(--t3);margin-top:2px">@${s.odds.toFixed(2)}</div>`:''}
-        </div>
-        ${isCS
-          ?`<div class="slip-item-score">${s.label}</div>`
-          :`<div class="slip-item-odds-wrap"><div class="slip-item-odds-lbl">odds</div><div class="slip-item-odds">${s.odds.toFixed(2)}</div></div>`}
+        <div><div class="slip-item-type ${isCS?'cs':'x1'}">${isCS?'Correct Score':fmtMkt(s.label)}</div>
+        ${isCS?`<div style="font-size:9px;color:var(--t3);margin-top:2px">@${s.odds.toFixed(2)}</div>`:''}</div>
+        ${isCS?`<div class="slip-item-score">${s.label}</div>`:`<div class="slip-item-odds-wrap"><div class="slip-item-odds-lbl">odds</div><div class="slip-item-odds">${s.odds.toFixed(2)}</div></div>`}
       </div>
     </div>`;
   }).join('');
-  const presets = [5,10,20,50,100].map(v =>
-    `<button class="preset-btn${_stakeVal===v?' active':''}" onclick="setStake(${v})">${v}</button>`
-  ).join('');
-  return successEl + `
+
+  const presets = [5,10,20,50,100].map(v => `<button class="preset-btn${_stakeVal===v?' active':''}" onclick="setStake(${v})">${v}</button>`).join('');
+
+  return successEl + bcCta + `
     <div class="slip-items">${items}</div>
     <div class="slip-stake-section">
       <div class="slip-stake-lbl">Stake (GHS)</div>
@@ -1032,7 +802,6 @@ function updateFloatBar() {
 }
 function setStake(v) { _stakeVal = v; renderSlip(); }
 
-// ── Sheets ────────────────────────────────────────────────────────────
 function openSheet() {
   const count = betSlip.length, tot = betSlip.reduce((a, s) => a * s.odds, 1);
   document.getElementById('sheetBody').innerHTML = buildSlipHTML(count, tot, _stakeVal * tot);
@@ -1043,46 +812,21 @@ function openSheet() {
 function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 function closeSheetOnBg(e) { if (e.target === document.getElementById('sheetOverlay')) closeSheet(); }
 
-function openBetsSheet() {
-  document.getElementById('betsSheetOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  lucide.createIcons();
-  renderMyBetsMobile();
-  // Update bottom nav active
-  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
-  document.getElementById('bnBets').classList.add('active');
-}
-function closeBetsSheet() {
-  document.getElementById('betsSheetOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
-  document.getElementById('bnMarkets').classList.add('active');
-}
-function closeBetsSheetOnBg(e) { if (e.target === document.getElementById('betsSheetOverlay')) closeBetsSheet(); }
-
-// ── Place Bet ─────────────────────────────────────────────────────────
 async function placeBet() {
-  if (!betSlip.length)              { showToast('Add at least one pick','error'); return; }
+  if (!betSlip.length) { showToast('Add at least one pick','error'); return; }
   if (!_stakeVal || _stakeVal <= 0) { showToast('Enter a valid stake','error'); return; }
-  if (!getToken())                  { showToast('Please log in to place a bet','error'); return; }
-  document.querySelectorAll('.btn-place').forEach(b => {
-    b.disabled = true;
-    b.innerHTML = '<svg data-lucide="loader" class="spin"></svg><span>Placing…</span>';
-  });
+  if (!getToken()) { showToast('Please log in to place a bet','error'); return; }
+  document.querySelectorAll('.btn-place').forEach(b => { b.disabled = true; b.innerHTML = '<svg data-lucide="loader" class="spin"></svg><span>Placing…</span>'; });
   lucide.createIcons();
-  const csPicks = betSlip.filter(s => s.type === 'CS');
-  const x1Picks = betSlip.filter(s => s.type === '1X2');
-  const refs    = [];
-  const stakePerType = _stakeVal / (csPicks.length && x1Picks.length ? 2 : 1);
+  const csPicks = betSlip.filter(s => s.type === 'CS'), x1Picks = betSlip.filter(s => s.type === '1X2');
+  const refs = [], stakePerType = _stakeVal / (csPicks.length && x1Picks.length ? 2 : 1);
   try {
     for (const pick of csPicks) {
-      const d = await apiFetch(`${CS_BASE}/bet`, { method:'POST',
-        body: JSON.stringify({ gameId:pick.gameId, correctScoreOptionId:pick.csOptionId, stake:parseFloat(stakePerType.toFixed(2)) }) });
+      const d = await apiFetch(`${CS_BASE}/bet`, { method:'POST', body: JSON.stringify({ gameId:pick.gameId, correctScoreOptionId:pick.csOptionId, stake:parseFloat(stakePerType.toFixed(2)) }) });
       if (d?.slipReference) refs.push(d.slipReference);
     }
     if (x1Picks.length) {
-      const d = await apiFetch(`${API_BASE}/bets`, { method:'POST',
-        body: JSON.stringify({ stake:parseFloat(stakePerType.toFixed(2)), selections:x1Picks.map(p => ({ gameId:p.gameId, marketType:p.label })) }) });
+      const d = await apiFetch(`${API_BASE}/bets`, { method:'POST', body: JSON.stringify({ stake:parseFloat(stakePerType.toFixed(2)), selections:x1Picks.map(p => ({ gameId:p.gameId, marketType:p.label })) }) });
       if (d?.slipReference) refs.push(d.slipReference);
     }
     showSuccess(refs.join(' · ') || '—');
@@ -1097,13 +841,7 @@ async function placeBet() {
 }
 
 function showInsufficientFunds() {
-  const html = `<div class="funds-card">
-    <div class="funds-icon"><svg data-lucide="wallet"></svg></div>
-    <div class="funds-title">Insufficient Funds</div>
-    <div class="funds-sub">You don't have enough balance. Top up your wallet to continue.</div>
-    <a href="wallet.html" class="funds-topup"><svg data-lucide="plus-circle"></svg>Top Up Wallet</a>
-    <button class="funds-back" onclick="closeInsufficientFunds()">Back to Slip</button>
-  </div>`;
+  const html = `<div class="funds-card"><div class="funds-icon"><svg data-lucide="wallet"></svg></div><div class="funds-title">Insufficient Funds</div><div class="funds-sub">You don't have enough balance. Top up your wallet to continue.</div><a href="wallet.html" class="funds-topup"><svg data-lucide="plus-circle"></svg>Top Up Wallet</a><button class="funds-back" onclick="closeInsufficientFunds()">Back to Slip</button></div>`;
   document.querySelectorAll('#sidebarSlipBody, #sheetBody').forEach(el => { el.innerHTML = html; });
   lucide.createIcons();
 }
@@ -1111,171 +849,14 @@ function closeInsufficientFunds() { renderSlip(); }
 
 function showSuccess(ref) {
   betSlip = []; renderGames(); renderSlip();
-  setTimeout(() => {
-    document.querySelectorAll('.slip-success').forEach(el => { el.style.display = 'flex'; });
-    document.querySelectorAll('#slipRefEl').forEach(el => { el.textContent = ref; });
-    lucide.createIcons();
-  }, 60);
+  setTimeout(() => { document.querySelectorAll('.slip-success').forEach(el => { el.style.display = 'flex'; }); document.querySelectorAll('#slipRefEl').forEach(el => { el.textContent = ref; }); lucide.createIcons(); }, 60);
   showToast('Bet placed! Good luck!','success');
-  loadMyBets();
 }
 function resetSlip() { _stakeVal = 10; betSlip = []; renderGames(); renderSlip(); closeSheet(); }
 
-// ── My Bets ───────────────────────────────────────────────────────────
-function parseSlipToBet(slip) {
-  const sel  = (slip.selections || [])[0];
-  const isCS = sel?.marketType === 'CORRECT_SCORE';
-  const match = sel ? `${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}` : 'Bet Slip';
-  const pick  = isCS ? `@ ${parseFloat(sel.oddsAtPlacement || slip.totalOdds || 0).toFixed(2)}` : fmtMkt(sel?.marketType || '');
-  return { id:slip.id, ref:slip.slipReference||slip.id, match, type:isCS?'CS':'1X2', pick, odds:slip.totalOdds??'—',
-    stake:slip.stake, payout:slip.potentialPayout??null, actualPayout:slip.actualPayout??null,
-    status:normaliseStatus(slip.status), placedAt:slip.placedAt||slip.createdAt };
-}
-
-async function loadMyBets() {
-  if (!getToken()) return;
-  try {
-    let bets = [];
-    try {
-      const slips = await apiFetch(`${API_BASE}/bets/my`);
-      for (const slip of (Array.isArray(slips)?slips:[])) {
-        const sels = slip.selections || [];
-        if (sels.length) {
-          for (const sel of sels) {
-            bets.push({ id:`${slip.id}-${sel.gameId}`, ref:slip.slipReference||slip.id,
-              match:`${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}`, type:'1X2', pick:fmtMkt(sel.marketType||''),
-              odds:sel.oddsAtPlacement??slip.totalOdds??'—', stake:slip.stake,
-              payout:slip.potentialPayout??null, actualPayout:slip.actualPayout??null,
-              status:normaliseStatus(slip.status), placedAt:slip.placedAt||slip.createdAt });
-          }
-        } else { bets.push(parseSlipToBet(slip)); }
-      }
-    } catch {}
-    try {
-      const csSlips = await apiFetch(`${CS_BASE}/bets/my`);
-      for (const slip of (Array.isArray(csSlips)?csSlips:[])) bets.push(parseSlipToBet(slip));
-    } catch {}
-    bets.sort((a,b) => new Date(b.placedAt) - new Date(a.placedAt));
-    allMyBets = bets;
-    renderMyBets();
-    renderMyBetsMobile();
-    updateBetTabBadge();
-  } catch {}
-}
-
-function normaliseStatus(s) {
-  if (!s) return 'PENDING';
-  const u = String(s).toUpperCase();
-  if (u==='WON'||u==='WIN') return 'WON';
-  if (u==='LOST'||u==='LOSE'||u==='LOSS') return 'LOST';
-  if (u==='REFUNDED'||u==='CANCELLED') return 'REFUNDED';
-  return 'PENDING';
-}
-
-function filterBets(filter, btn) {
-  currentBetFilter = filter;
-  document.querySelectorAll('#bhFilterRow .bh-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMyBets();
-}
-function filterBetsMobile(filter, btn) {
-  currentBetFilterMob = filter;
-  document.querySelectorAll('#bhFilterRowMobile .bh-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMyBetsMobile();
-}
-
-function buildBetCards(bets) {
-  if (!bets.length) return `<div class="empty-state"><div class="empty-icon"><svg data-lucide="filter-x"></svg></div>
-    <div class="empty-t">No bets here</div><div class="empty-s">Nothing to show for this filter.</div></div>`;
-  return bets.map((b, i) => {
-    const st = b.status.toLowerCase();
-    const stLabel = st==='pending'?'Active':b.status;
-    const stIcon  = st==='won'?'trophy':st==='lost'?'x-circle':'clock';
-    const isCS    = b.type === 'CS';
-    const payoutStr = b.status==='WON'
-      ? `GHS ${parseFloat(b.actualPayout??b.payout??0).toFixed(2)}`
-      : b.status==='PENDING'&&b.payout ? `GHS ${parseFloat(b.payout).toFixed(2)}`
-      : b.status==='LOST' ? `–GHS ${parseFloat(b.stake??0).toFixed(2)}` : '—';
-    const payoutClass = b.status==='WON'?'':b.status==='LOST'?'lost':'pending';
-    return `<div class="bet-card ${st}" style="animation-delay:${i*.04}s">
-      <div class="bet-card-head">
-        <div class="bet-card-match">${esc(b.match)}</div>
-        <div class="bet-status-pill ${st}"><svg data-lucide="${stIcon}"></svg>${stLabel}</div>
-      </div>
-      <div class="bet-card-body">
-        <div class="bet-pick-box">
-          <div class="bet-pick-type ${isCS?'cs':'x1'}">${isCS?'Correct Score':'1X2'}</div>
-          <div class="bet-pick-val ${st}">${esc(b.pick)}</div>
-        </div>
-        <div class="bet-money-col">
-          <div class="bet-money-lbl">${b.status==='WON'?'Won':b.status==='LOST'?'Lost':'Potential'}</div>
-          <div class="bet-money-win ${payoutClass}">${payoutStr}</div>
-          <div class="bet-money-stake">Stake: GHS ${parseFloat(b.stake??0).toFixed(2)}</div>
-        </div>
-      </div>
-      <div class="bet-card-foot">
-        <span class="bet-ref">${esc(String(b.ref).slice(0,16))}</span>
-        <span class="bet-date">${b.placedAt?fmtDate(b.placedAt):'—'}</span>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function renderMyBets() {
-  const pending = allMyBets.filter(b => b.status==='PENDING');
-  const won     = allMyBets.filter(b => b.status==='WON');
-  const lost    = allMyBets.filter(b => b.status==='LOST');
-  document.getElementById('statPending').textContent = pending.length;
-  document.getElementById('statWon').textContent     = won.length;
-  document.getElementById('statLost').textContent    = lost.length;
-  const filtered = currentBetFilter==='ALL'?allMyBets:currentBetFilter==='PENDING'?pending:currentBetFilter==='WON'?won:lost;
-  const container = document.getElementById('betsContainer');
-  if (!allMyBets.length) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg data-lucide="receipt"></svg></div>
-      <div class="empty-t">No Bets Yet</div><div class="empty-s">Place your first bet!</div></div>`;
-    lucide.createIcons(); return;
-  }
-  container.innerHTML = buildBetCards(filtered);
-  lucide.createIcons();
-}
-
-function renderMyBetsMobile() {
-  const pending = allMyBets.filter(b => b.status==='PENDING');
-  const won     = allMyBets.filter(b => b.status==='WON');
-  const lost    = allMyBets.filter(b => b.status==='LOST');
-  const pEl = document.getElementById('statPendingM');
-  const wEl = document.getElementById('statWonM');
-  const lEl = document.getElementById('statLostM');
-  if (pEl) pEl.textContent = pending.length;
-  if (wEl) wEl.textContent = won.length;
-  if (lEl) lEl.textContent = lost.length;
-  const filtered = currentBetFilterMob==='ALL'?allMyBets:currentBetFilterMob==='PENDING'?pending:currentBetFilterMob==='WON'?won:lost;
-  const container = document.getElementById('betsContainerMobile');
-  if (!container) return;
-  if (!allMyBets.length) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg data-lucide="receipt"></svg></div>
-      <div class="empty-t">No Bets Yet</div><div class="empty-s">Place your first bet!</div></div>`;
-    lucide.createIcons(); return;
-  }
-  container.innerHTML = buildBetCards(filtered);
-  lucide.createIcons();
-}
-
-function updateBetTabBadge() {
-  const pending = allMyBets.filter(b => b.status==='PENDING').length;
-  const badge   = document.getElementById('bnBadge');
-  if (badge) { badge.textContent = pending; badge.classList.toggle('show', pending > 0); }
-}
-
-// ── Win Detection ─────────────────────────────────────────────────────
-function getSeenWins() {
-  try { return new Set(JSON.parse(localStorage.getItem(SEEN_WINS_KEY)||'[]')); } catch { return new Set(); }
-}
-function markWinSeen(ref) {
-  const seen = getSeenWins(); seen.add(String(ref));
-  localStorage.setItem(SEEN_WINS_KEY, JSON.stringify([...seen]));
-}
+/* Win detection */
+function getSeenWins() { try { return new Set(JSON.parse(localStorage.getItem(SEEN_WINS_KEY)||'[]')); } catch { return new Set(); } }
+function markWinSeen(ref) { const seen = getSeenWins(); seen.add(String(ref)); localStorage.setItem(SEEN_WINS_KEY, JSON.stringify([...seen])); }
 
 async function checkForWins() {
   if (!getToken()) return;
@@ -1285,97 +866,66 @@ async function checkForWins() {
       const slips = await apiFetch(`${API_BASE}/bets/my`);
       for (const slip of (Array.isArray(slips)?slips:[])) {
         const sel = (slip.selections||[])[0];
-        bets.push({ ref:slip.slipReference||slip.id, status:normaliseStatus(slip.status),
-          match:sel?`${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}`:'Bet',
-          payout:slip.actualPayout??slip.potentialPayout??0, type:'1X2', pick:fmtMkt(sel?.marketType||'') });
+        bets.push({ ref:slip.slipReference||slip.id, status:normaliseStatus(slip.status), match:sel?`${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}`:'Bet', payout:slip.actualPayout??slip.potentialPayout??0, type:'1X2', pick:fmtMkt(sel?.marketType||'') });
       }
     } catch {}
     try {
       const csSlips = await apiFetch(`${CS_BASE}/bets/my`);
       for (const slip of (Array.isArray(csSlips)?csSlips:[])) {
         const sel = (slip.selections||[])[0];
-        bets.push({ ref:slip.slipReference||slip.id, status:normaliseStatus(slip.status),
-          match:sel?`${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}`:'Correct Score Bet',
-          payout:slip.actualPayout??slip.potentialPayout??0, type:'CS',
-          pick:`@ ${parseFloat(sel?.oddsAtPlacement||slip.totalOdds||0).toFixed(2)}` });
+        bets.push({ ref:slip.slipReference||slip.id, status:normaliseStatus(slip.status), match:sel?`${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}`:'Correct Score Bet', payout:slip.actualPayout??slip.potentialPayout??0, type:'CS', pick:`@ ${parseFloat(sel?.oddsAtPlacement||slip.totalOdds||0).toFixed(2)}` });
       }
     } catch {}
-    const seen    = getSeenWins();
+    const seen = getSeenWins();
     const newWins = bets.filter(b => b.status==='WON' && !seen.has(String(b.ref)));
     if (newWins.length > 0) showWinPopup(newWins);
   } catch {}
 }
 
-function startPolling() {
-  if (pollInterval) clearInterval(pollInterval);
-  pollInterval = setInterval(() => {
-    fetchGames(true);     // silent refresh → detects score changes
-    checkForWins();       // check for new wins
-  }, 15000);
-}
+function startPolling() { if (pollInterval) clearInterval(pollInterval); pollInterval = setInterval(() => { fetchGames(true); checkForWins(); }, 15000); }
 
 function showWinPopup(wins) {
   const totalPayout = wins.reduce((sum, w) => sum + parseFloat(w.payout||0), 0);
-  document.getElementById('winBetsList').innerHTML = wins.map(w =>
-    `<div class="win-bet-row">
-      <div class="win-bet-match">${esc(w.match)}<br>
-        <span style="font-size:9px;color:var(--t3);font-weight:400">${w.type==='CS'?'Correct Score':esc(w.pick)}</span>
-      </div>
-      <div class="win-bet-amt">+GHS ${parseFloat(w.payout||0).toFixed(2)}</div>
-    </div>`
-  ).join('');
+  document.getElementById('winBetsList').innerHTML = wins.map(w => `<div class="win-bet-row"><div class="win-bet-match">${esc(w.match)}<br><span style="font-size:9px;color:var(--t3);font-weight:400">${w.type==='CS'?'Correct Score':esc(w.pick)}</span></div><div class="win-bet-amt">+GHS ${parseFloat(w.payout||0).toFixed(2)}</div></div>`).join('');
   document.getElementById('winSub').textContent = wins.length===1 ? 'Your bet has been settled — you won!' : `${wins.length} bets settled — you won!`;
   document.getElementById('winPayoutAmt').textContent = `GHS ${totalPayout.toFixed(2)}`;
   spawnConfetti();
   document.getElementById('winOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
   wins.forEach(w => markWinSeen(w.ref));
-  lucide.createIcons();
-  fetchBalance();
+  lucide.createIcons(); fetchBalance();
 }
-
-function dismissWin() {
-  document.getElementById('winOverlay').classList.remove('show');
-  document.body.style.overflow = '';
-  loadMyBets();
-}
+function dismissWin() { document.getElementById('winOverlay').classList.remove('show'); document.body.style.overflow = ''; }
 
 function spawnConfetti() {
-  const c = document.getElementById('confettiC');
-  c.innerHTML = '';
+  const c = document.getElementById('confettiC'); c.innerHTML = '';
   const colors = ['#F5A623','#22C55E','#60A5FA','#A78BFA','#EF4444','#fff','#FBBF24'];
   for (let i = 0; i < 80; i++) {
-    const el = document.createElement('div');
-    el.className = 'confetti-piece';
+    const el = document.createElement('div'); el.className = 'confetti-piece';
     el.style.cssText = `left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-delay:${Math.random()*1.5}s;animation-duration:${2+Math.random()*2}s;`;
     c.appendChild(el);
   }
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────
-function toggleTheme() {
-  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
-  document.getElementById('themeIco').setAttribute('data-lucide', dark ? 'sun' : 'moon');
-  lucide.createIcons();
+function normaliseStatus(s) {
+  if (!s) return 'PENDING'; const u = String(s).toUpperCase();
+  if (u==='WON'||u==='WIN') return 'WON'; if (u==='LOST'||u==='LOSE'||u==='LOSS') return 'LOST';
+  if (u==='REFUNDED'||u==='CANCELLED') return 'REFUNDED'; return 'PENDING';
 }
-function showToast(msg, type = 'info') {
-  const icons = { success:'check-circle-2', error:'alert-circle', info:'zap', 'score-update':'activity' };
-  const c = document.getElementById('toastC');
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  t.innerHTML = `<svg data-lucide="${icons[type]||'zap'}"></svg><span>${esc(msg)}</span>`;
+function toggleTheme() { const dark = document.documentElement.getAttribute('data-theme')==='dark'; document.documentElement.setAttribute('data-theme',dark?'light':'dark'); document.getElementById('themeIco').setAttribute('data-lucide',dark?'sun':'moon'); lucide.createIcons(); }
+function showToast(msg, type='info') {
+  const icons = { success:'check-circle-2', error:'alert-circle', info:'zap' };
+  const c = document.getElementById('toastC'), t = document.createElement('div');
+  t.className = `toast ${type}`; t.innerHTML = `<svg data-lucide="${icons[type]||'zap'}"></svg><span>${esc(msg)}</span>`;
   c.appendChild(t); lucide.createIcons();
   setTimeout(() => { t.classList.add('fadeOut'); setTimeout(() => t.remove(), 280); }, 3500);
 }
 function fmtDate(iso) {
-  if (!iso) return '—';
-  const d = new Date(iso), now = new Date();
-  const isToday = d.toDateString() === now.toDateString();
-  const tmrw = new Date(now); tmrw.setDate(now.getDate()+1);
-  const isTmrw = d.toDateString() === tmrw.toDateString();
+  if (!iso) return '—'; const d = new Date(iso), now = new Date();
+  const isToday = d.toDateString()===now.toDateString(); const tmrw = new Date(now); tmrw.setDate(now.getDate()+1);
+  const isTmrw = d.toDateString()===tmrw.toDateString();
   const pre = isToday?'Today':isTmrw?'Tomorrow':d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-  return pre + ' · ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  return pre+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
 }
 function fmtMkt(m) { return { HOME_WIN:'Home Win', DRAW:'Draw', AWAY_WIN:'Away Win' }[m] || m; }
 </script>
