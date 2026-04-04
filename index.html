@@ -381,7 +381,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     <div id="user-auth">
       <a href="wallet.html" class="wallet-chip">
         <span class="mi">account_balance_wallet</span>
-        <span class="wallet-bal" id="header-balance">GHS &mdash;</span>
+        <span class="wallet-bal" id="header-balance">&#8212;</span>
       </a>
       <div class="user-wrap">
         <div class="user-avatar" id="user-avatar" onclick="toggleDropdown()">??</div>
@@ -499,7 +499,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
   <div id="bs-bet-area" style="display:none;">
     <div id="bet-items" style="padding:8px 12px 0;"></div>
     <div class="stake-sec">
-      <div class="stake-lbl">Stake (GHS)</div>
+      <div class="stake-lbl">Stake (<span id="currency-label-stake">GHS</span>)</div>
       <input class="stake-inp" type="number" id="stake-inp" value="10" min="1" oninput="calcPayout()">
       <div class="qs-row">
         <button class="qs" onclick="setStake(5)">5</button>
@@ -512,8 +512,8 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     <div class="payout-sec">
       <div class="pw"><span class="lbl">Selections</span><span class="val" id="sel-count">0</span></div>
       <div class="pw"><span class="lbl">Total odds</span><span class="val" id="tot-odds">1.00</span></div>
-      <div class="pw"><span class="lbl">Potential win</span><span class="val" id="pot-win">GHS 0.00</span></div>
-      <div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" id="tot-payout">GHS 10.00</span></div>
+      <div class="pw"><span class="lbl">Potential win</span><span class="val" id="pot-win">0.00</span></div>
+      <div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" id="tot-payout">10.00</span></div>
     </div>
     <button class="place-btn" onclick="goToBetting()"><span class="mi">receipt_long</span> Go to Bet Now</button>
   </div>
@@ -622,7 +622,113 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 const API_BASE='https://kikiwebbackend.onrender.com';
 const FOOTBALL_BASE='https://kikiwebbackend.onrender.com';
 
-/* ── AUTH — reads gstake_token from localStorage OR sessionStorage ── */
+/* ── CURRENCY DETECTION via IP ── */
+// Maps country codes to currency info: { code, symbol, name }
+const COUNTRY_CURRENCY_MAP = {
+  // West Africa
+  GH: { code:'GHS', symbol:'GHS', name:'Ghana Cedi' },
+  NG: { code:'NGN', symbol:'₦',   name:'Nigerian Naira' },
+  SN: { code:'XOF', symbol:'CFA', name:'West African Franc' },
+  CI: { code:'XOF', symbol:'CFA', name:'West African Franc' },
+  CM: { code:'XAF', symbol:'CFA', name:'Central African Franc' },
+  KE: { code:'KES', symbol:'KSh', name:'Kenyan Shilling' },
+  ZA: { code:'ZAR', symbol:'R',   name:'South African Rand' },
+  UG: { code:'UGX', symbol:'USh', name:'Ugandan Shilling' },
+  TZ: { code:'TZS', symbol:'TSh', name:'Tanzanian Shilling' },
+  // Europe
+  GB: { code:'GBP', symbol:'£',   name:'British Pound' },
+  DE: { code:'EUR', symbol:'€',   name:'Euro' },
+  FR: { code:'EUR', symbol:'€',   name:'Euro' },
+  IT: { code:'EUR', symbol:'€',   name:'Euro' },
+  ES: { code:'EUR', symbol:'€',   name:'Euro' },
+  PT: { code:'EUR', symbol:'€',   name:'Euro' },
+  NL: { code:'EUR', symbol:'€',   name:'Euro' },
+  BE: { code:'EUR', symbol:'€',   name:'Euro' },
+  AT: { code:'EUR', symbol:'€',   name:'Euro' },
+  CH: { code:'CHF', symbol:'CHF', name:'Swiss Franc' },
+  SE: { code:'SEK', symbol:'kr',  name:'Swedish Krona' },
+  NO: { code:'NOK', symbol:'kr',  name:'Norwegian Krone' },
+  DK: { code:'DKK', symbol:'kr',  name:'Danish Krone' },
+  PL: { code:'PLN', symbol:'zł',  name:'Polish Zloty' },
+  // Americas
+  US: { code:'USD', symbol:'$',   name:'US Dollar' },
+  CA: { code:'CAD', symbol:'CA$', name:'Canadian Dollar' },
+  BR: { code:'BRL', symbol:'R$',  name:'Brazilian Real' },
+  // Asia/Other
+  IN: { code:'INR', symbol:'₹',   name:'Indian Rupee' },
+  AU: { code:'AUD', symbol:'A$',  name:'Australian Dollar' },
+};
+
+// Active currency for this session (default Ghana)
+let activeCurrency = { code:'GHS', symbol:'GHS', name:'Ghana Cedi' };
+
+async function detectCurrencyByIP() {
+  // Try multiple free IP geolocation APIs as fallbacks
+  const apis = [
+    () => fetch('https://ipapi.co/json/', {signal: AbortSignal.timeout(5000)})
+            .then(r => r.ok ? r.json() : null)
+            .then(d => d?.country_code || null),
+    () => fetch('https://ip.nf/me.json', {signal: AbortSignal.timeout(5000)})
+            .then(r => r.ok ? r.json() : null)
+            .then(d => d?.ip?.country_code || null),
+    () => fetch('https://freeipapi.com/api/json', {signal: AbortSignal.timeout(5000)})
+            .then(r => r.ok ? r.json() : null)
+            .then(d => d?.countryCode || null),
+  ];
+
+  for (const apiFn of apis) {
+    try {
+      const countryCode = await apiFn();
+      if (countryCode && COUNTRY_CURRENCY_MAP[countryCode]) {
+        return COUNTRY_CURRENCY_MAP[countryCode];
+      } else if (countryCode) {
+        // Country detected but not in map — check if EU country
+        // (broad fallback for any EU not listed)
+        const EU_COUNTRIES = ['LU','FI','IE','EE','LV','LT','SK','SI','CY','MT','HR','CZ','HU','RO','BG','GR'];
+        if (EU_COUNTRIES.includes(countryCode)) return { code:'EUR', symbol:'€', name:'Euro' };
+      }
+    } catch (_) {}
+  }
+  return null; // detection failed — keep default
+}
+
+function formatBalance(amount, currency) {
+  const num = parseFloat(amount).toFixed(2);
+  // For symbols that are words/abbreviations (GHS, NGN, CFA, etc.) put before with space
+  const wordSymbols = ['GHS','NGN','XOF','XAF','KES','UGX','TZS','CHF','SEK','NOK','DKK','PLN','AUD','CAD'];
+  if (wordSymbols.includes(currency.symbol)) return `${currency.symbol} ${num}`;
+  return `${currency.symbol}${num}`;
+}
+
+function applyActiveCurrency(currency) {
+  activeCurrency = currency;
+  // Update all currency label elements in the UI
+  document.querySelectorAll('[id^="currency-label"]').forEach(el => {
+    el.textContent = currency.code;
+  });
+  // Re-run payout calc if betslip is showing
+  try { calcPayout(); } catch(_) {}
+}
+
+async function initCurrency() {
+  // Check if already cached in sessionStorage to avoid repeat API calls
+  try {
+    const cached = sessionStorage.getItem('gstake_currency');
+    if (cached) {
+      applyActiveCurrency(JSON.parse(cached));
+      return;
+    }
+  } catch(_) {}
+
+  const detected = await detectCurrencyByIP();
+  if (detected) {
+    applyActiveCurrency(detected);
+    try { sessionStorage.setItem('gstake_currency', JSON.stringify(detected)); } catch(_) {}
+  }
+  // If detection fails, activeCurrency stays as default GHS
+}
+
+/* ── AUTH ── */
 function getToken(){
   return localStorage.getItem('gstake_token')||sessionStorage.getItem('gstake_token')||null;
 }
@@ -666,7 +772,8 @@ async function fetchBalance(){
       const data=await res.json(),payload=data.data||data;
       const bal=payload.walletBalance??payload.balance??payload.wallet?.balance??null;
       if(bal!==null){
-        const fmt='GHS '+parseFloat(bal).toFixed(2);
+        // Use detected currency for display
+        const fmt=formatBalance(bal, activeCurrency);
         document.getElementById('header-balance').textContent=fmt;
         const mb=document.getElementById('mob-ubal');if(mb)mb.textContent=fmt;
       }
@@ -721,6 +828,7 @@ function renderDrawer(){
     </div>`;return;
   }
   const tot=items.reduce((a,b)=>a*b.odd,1);
+  const cur=activeCurrency.symbol;
   let html='<div style="padding:10px 14px 0;">';
   html+=items.map(b=>`<div class="drawer-bet-item">
     <button class="drawer-bet-rm" onclick="removeAndRefreshDrawer('${b.id}')"><span class="mi">close</span></button>
@@ -734,7 +842,7 @@ function renderDrawer(){
     <div class="drawer-payout">
       <div class="drawer-pw"><span class="lbl">Selections</span><span class="val">${items.length}</span></div>
       <div class="drawer-pw"><span class="lbl">Total odds</span><span class="val">${tot.toFixed(2)}</span></div>
-      <div class="drawer-pw tot"><span class="lbl" style="font-weight:700;">Est. payout (GHS 10)</span><span class="val">GHS ${(10*tot).toFixed(2)}</span></div>
+      <div class="drawer-pw tot"><span class="lbl" style="font-weight:700;">Est. payout (${cur} 10)</span><span class="val">${formatBalance(10*tot, activeCurrency)}</span></div>
     </div>
     <button class="drawer-go-btn" onclick="goToBetting()"><span class="mi">receipt_long</span> Go to Bet Now</button>
     <button class="drawer-clear-btn" onclick="clearSlipAndDrawer()">Clear all selections</button>
@@ -973,6 +1081,7 @@ function goToBetting(){localStorage.setItem('ps_slip',JSON.stringify(slip));wind
 
 function renderBsMainArea(){
   const area=document.getElementById('bs-main-area'),betArea=document.getElementById('bs-bet-area'),items=Object.values(slip);
+  const cur=activeCurrency.symbol;
   if(!isLoggedIn()){
     area.style.display='block';betArea.style.display='none';
     area.innerHTML=`<div class="bs-locked"><span class="mi" style="font-size:40px;color:#ccc;display:block;margin-bottom:10px;">lock</span>
@@ -1014,6 +1123,9 @@ function renderBsMainArea(){
       <div><div class="bet-sel">${esc(b.label)}</div><div class="bet-mkt">Full Time</div></div>
       <div class="bet-odd">${parseFloat(b.odd).toFixed(2)}</div>
     </div></div>`).join('');
+  // Update stake label with live currency
+  const stakeLabel = document.querySelector('.stake-lbl');
+  if(stakeLabel) stakeLabel.innerHTML = `Stake (${cur})`;
   calcPayout();
 }
 
@@ -1021,7 +1133,14 @@ const winners=[{n:'Kwame A***',a:'GHS 11,928',t:'Sports Betting',c:'#e74c3c'},{n
 function renderWinners(){const el=document.getElementById('winners-list');if(!el)return;el.innerHTML=winners.slice(0,4).map(w=>`<div class="winner-item"><div class="w-av" style="background:${w.c};"><span class="mi">person</span></div><div class="w-info"><div class="w-name">${w.n}</div><div class="w-type">${w.t}</div></div><div><div class="w-amt">${w.a}</div><div class="w-time">Just now</div></div></div>`).join('');}
 setInterval(()=>{const names=['Nana K***','Kwesi L***','Akua T***','Fiifi G***'],types=['Sports Betting','Jackpot 12','Hi-Lo','UCL Acca'],colors=['#e74c3c','#3498db','#2ecc71','#9b59b6','#e67e22'];winners.unshift({n:names[Math.floor(Math.random()*names.length)],a:'GHS '+(Math.random()*15000+200|0).toLocaleString(),t:types[Math.floor(Math.random()*types.length)],c:colors[Math.floor(Math.random()*colors.length)]});if(winners.length>20)winners.pop();renderWinners();},6000);
 
-function calcPayout(){const items=Object.values(slip),tot=items.reduce((a,b)=>a*b.odd,1),stake=parseFloat(document.getElementById('stake-inp').value)||0;document.getElementById('sel-count').textContent=items.length;document.getElementById('tot-odds').textContent=tot.toFixed(2);document.getElementById('pot-win').textContent='GHS '+(stake*tot-stake).toFixed(2);document.getElementById('tot-payout').textContent='GHS '+(stake*tot).toFixed(2);}
+function calcPayout(){
+  const items=Object.values(slip),tot=items.reduce((a,b)=>a*b.odd,1),stake=parseFloat(document.getElementById('stake-inp').value)||0;
+  const cur=activeCurrency;
+  document.getElementById('sel-count').textContent=items.length;
+  document.getElementById('tot-odds').textContent=tot.toFixed(2);
+  document.getElementById('pot-win').textContent=formatBalance(stake*tot-stake, cur);
+  document.getElementById('tot-payout').textContent=formatBalance(stake*tot, cur);
+}
 function setStake(v){document.getElementById('stake-inp').value=v;calcPayout();}
 function updateBadges(){
   const c=Object.keys(slip).length;
@@ -1036,9 +1155,18 @@ function showToast(msg){
   if(!t){t=document.createElement('div');t.id='ps-toast';t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a8a3c;color:#fff;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 4px 14px rgba(0,0,0,.2);white-space:nowrap;pointer-events:none;transition:opacity .3s;';document.body.appendChild(t);}
   t.textContent=msg;t.style.opacity='1';clearTimeout(t._to);t._to=setTimeout(()=>{t.style.opacity='0';},2800);
 }
+
 setInterval(async()=>{const live=await fetchLiveGames();if(live!==null)renderLiveMatches(live);},30000);
 window.addEventListener('resize',updateBadges);
-applyAuthState();renderBsMainArea();updateBadges();loadAllData();
+
+/* ── INIT ── */
+// Detect currency first, then apply auth + load data
+initCurrency().then(() => {
+  applyAuthState();
+  renderBsMainArea();
+  updateBadges();
+  loadAllData();
+});
 </script>
 </body>
 </html>
