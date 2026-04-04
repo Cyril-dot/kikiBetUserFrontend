@@ -226,7 +226,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .modal-btns a{flex:1;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px;text-decoration:none;}
 .modal-login{border:1.5px solid var(--gray3);color:var(--text);}
 .modal-reg{background:var(--green);color:#fff;}
-.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--red);z-index:300;border-top:2px solid #a80000;}
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--red);z-index:302;border-top:2px solid #a80000;}
 .mob-nav-inner{display:flex;}
 .mob-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;cursor:pointer;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;gap:2px;transition:color .15s;text-decoration:none;}
 .mob-item .mi{font-size:22px;}
@@ -337,14 +337,16 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .inline-history-panel.open{max-height:2000px;padding:14px 14px 18px;}
 .hist-mob-drawer-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:470;}
 .hist-mob-drawer-overlay.open{display:block;}
-.hist-mob-drawer{position:fixed;bottom:0;left:0;right:0;z-index:480;background:var(--white);border-radius:18px 18px 0 0;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease;}
+/* ✅ FIX: drawer sits above mob-nav (z-index:300), uses flex column so body scrolls independently */
+.hist-mob-drawer{position:fixed;bottom:0;left:0;right:0;z-index:490;background:var(--white);border-radius:18px 18px 0 0;max-height:88vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s ease;overflow:hidden;}
 .hist-mob-drawer.open{transform:translateY(0);}
-.hist-mob-handle{width:36px;height:4px;background:var(--gray3);border-radius:2px;margin:12px auto 0;}
-.hist-mob-head{padding:10px 16px 6px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--gray2);}
+.hist-mob-handle{width:36px;height:4px;background:var(--gray3);border-radius:2px;margin:12px auto 4px;flex-shrink:0;}
+.hist-mob-head{padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--gray2);flex-shrink:0;}
 .hist-mob-head-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;}
 .hist-mob-head-title .mi{font-size:20px;color:var(--green);}
 .hist-mob-close{background:none;border:none;cursor:pointer;color:var(--muted);}
-.hist-mob-body{padding:12px 14px 32px;}
+/* ✅ FIX: body is the only scrolling part, padding-bottom accounts for the bottom nav bar */
+.hist-mob-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px 80px;}
 @media(max-width:1100px){.sidebar{display:none;}.mobile-chips{display:flex;}}
 @media(max-width:900px){.betslip{display:none;}.bet-bubble{display:flex;}}
 @media(max-width:800px){
@@ -725,17 +727,20 @@ function toggleInlineHistory(){
 // Also resets the mobile filter to 'ALL' so the container is always populated.
 function openHistoryMobile(){
   document.getElementById('hist-mob-overlay').classList.add('open');
-  document.getElementById('hist-mob-drawer').classList.add('open');
+  const drawer=document.getElementById('hist-mob-drawer');
+  drawer.classList.add('open');
+  const body=drawer.querySelector('.hist-mob-body');
+  if(body)body.scrollTop=0;
   document.querySelectorAll('.mchip').forEach(c=>c.classList.remove('active'));
   document.getElementById('mchip-history')?.classList.add('active');
-  // Reset mobile filter buttons to ALL so stale filter doesn't hide results
   ['ALL','PENDING','WON','LOST','CODE'].forEach(k=>{
     const el=document.getElementById('mhf-'+k);
     if(el)el.className='hf-btn'+(k==='ALL'?' active':'');
   });
-  histFilter='ALL';
-  // Always fetch fresh data when drawer opens
-  loadBetHistory(false, true);
+  mobHistFilter='ALL';
+  // Wait for 300ms CSS slide-up transition before injecting content
+  // Mobile browsers suppress repaints during transform animations
+  setTimeout(()=>loadBetHistory(false,true), 320);
 }
 
 function closeHistoryMobile(){
