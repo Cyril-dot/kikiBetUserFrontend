@@ -1,745 +1,1039 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>GStake — Bet Smarter</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<meta name="google-site-verification" content="pPHfsoDR7BU0yEX8ylsgazu1T9O5GqLsgewsoVZqfP4" />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GStake – Bet &amp; Win</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <style>
-:root {
-  --bg0:#07090F;--bg1:#0C101A;--bg2:#131825;--bg3:#1B2235;
-  --accent:#F5A623;--accentBg:rgba(245,166,35,0.10);--accentBg2:rgba(245,166,35,0.18);
-  --green:#22C55E;--greenBg:rgba(34,197,94,0.12);
-  --red:#EF4444;--redBg:rgba(239,68,68,0.10);
-  --blue:#60A5FA;--blueBg:rgba(96,165,250,0.08);
-  --purple:#A78BFA;--purpleBg:rgba(167,139,250,0.08);
-  --t1:#EEF2FF;--t2:#8892A8;--t3:#4A5568;
-  --border:rgba(255,255,255,0.055);--borderHov:rgba(255,255,255,0.11);--borderAcc:rgba(245,166,35,0.4);
-  --shadow:0 8px 40px rgba(0,0,0,0.6);
-  --r:10px;--rLg:14px;
-  --ff:'DM Sans',sans-serif;--ffC:'Barlow Condensed',sans-serif;
-  --nav:66px;
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#cc0000;--red2:#e60000;--green:#1a8a3c;--green2:#22a848;--yellow:#f5c518;--dark:#111;--dark2:#1e1e1e;--dark3:#2a2a2a;--text:#1a1a1a;--muted:#666;--muted2:#999;--gray:#f0f0f0;--gray2:#e4e4e4;--gray3:#ccc;--white:#fff;}
+html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--text);font-size:14px;overflow-x:hidden;}
+.mi{font-family:'Material Icons Round';font-size:20px;line-height:1;vertical-align:middle;display:inline-flex;align-items:center;}
+.header{background:var(--red);position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.4);}
+.header-top{display:flex;align-items:center;gap:10px;padding:0 16px;height:56px;}
+.wordmark{display:inline-flex;align-items:center;text-decoration:none;flex-shrink:0;}
+.wm-box{background:var(--dark);border-radius:6px 0 0 6px;padding:5px 10px;}
+.wm-text{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:-0.5px;text-transform:uppercase;}
+.wm-g{color:#fff;}.wm-s{color:var(--yellow);}
+.wm-bar{width:4px;height:38px;background:var(--yellow);border-radius:0 3px 3px 0;}
+.header-nav{display:flex;gap:2px;flex:1;margin-left:10px;overflow-x:auto;scrollbar-width:none;}
+.header-nav::-webkit-scrollbar{display:none;}
+.hnav{padding:7px 11px;color:rgba(255,255,255,.82);font-size:12.5px;font-weight:600;cursor:pointer;border-radius:4px;white-space:nowrap;transition:background .15s;text-decoration:none;display:flex;align-items:center;gap:5px;}
+.hnav .mi{font-size:16px;}
+.hnav:hover,.hnav.active{background:rgba(0,0,0,.22);color:#fff;}
+.live-pill{background:var(--red2);color:#fff;font-size:9px;font-weight:800;padding:1px 6px;border-radius:10px;}
+#guest-auth{display:flex;gap:7px;flex-shrink:0;align-items:center;}
+.btn-login{background:transparent;border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:12px;font-weight:700;padding:6px 16px;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;text-decoration:none;white-space:nowrap;}
+.btn-reg{background:var(--yellow);border:none;color:#000;font-size:12px;font-weight:900;padding:6px 16px;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;text-decoration:none;white-space:nowrap;}
+#user-auth{display:none;align-items:center;gap:8px;flex-shrink:0;}
+.wallet-chip{display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.25);border-radius:20px;padding:5px 12px;cursor:pointer;text-decoration:none;}
+.wallet-chip .mi{font-size:15px;color:var(--yellow);}
+.wallet-bal{font-size:12px;font-weight:700;color:#fff;}
+.user-avatar{width:34px;height:34px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:#000;cursor:pointer;border:2px solid rgba(255,255,255,.3);flex-shrink:0;}
+.user-wrap{position:relative;}
+.user-dropdown{position:absolute;top:46px;right:0;background:var(--white);border-radius:6px;box-shadow:0 4px 20px rgba(0,0,0,.2);min-width:190px;z-index:300;display:none;overflow:hidden;}
+.user-dropdown.open{display:block;}
+.ud-header{padding:12px 14px;background:var(--dark2);border-bottom:1px solid #333;}
+.ud-name{font-size:13px;font-weight:700;color:#fff;}
+.ud-email{font-size:10px;color:#888;margin-top:1px;}
+.ud-item{display:flex;align-items:center;gap:8px;padding:11px 14px;font-size:12.5px;color:var(--text);text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer;}
+.ud-item:hover{background:#f8f8f8;color:var(--red);}
+.ud-item .mi{font-size:16px;color:var(--green);}
+.ud-logout{color:var(--red)!important;}.ud-logout .mi{color:var(--red)!important;}
+.hamburger{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:4px;flex-shrink:0;}
+.mob-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--dark2);z-index:190;border-bottom:2px solid #333;max-height:calc(100vh - 56px);overflow-y:auto;}
+.mob-menu.open{display:block;}
+.mob-menu-lbl{padding:8px 16px;font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.8px;}
+.mob-menu-item{padding:12px 16px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;text-decoration:none;border-bottom:1px solid #2a2a2a;cursor:pointer;}
+.mob-menu-item:hover,.mob-menu-item.active{background:#252525;color:#fff;}
+.mob-menu-item .mi{font-size:18px;color:var(--green);}
+.mob-menu-divider{height:6px;background:#111;}
+.mob-auth-row{display:flex;gap:8px;padding:12px 16px;}
+.mob-auth-row a{flex:1;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px;text-decoration:none;}
+.mob-auth-row .mob-login{border:1.5px solid #666;color:#ccc;}
+.mob-auth-row .mob-reg{background:var(--yellow);color:#000;}
+.mob-user-bar{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#1a1a1a;border-bottom:1px solid #2a2a2a;}
+.mob-av{width:38px;height:38px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;color:#000;flex-shrink:0;}
+.mob-user-info .mob-uname{font-size:13px;font-weight:700;color:#fff;}
+.mob-user-info .mob-ubal{font-size:11px;color:var(--green);font-weight:600;}
+.mob-logout-btn{margin-left:auto;background:rgba(204,0,0,.2);border:1px solid rgba(204,0,0,.4);color:var(--red2);border-radius:4px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
+.layout{display:flex;min-height:calc(100vh - 56px);}
+.center{flex:1;padding:10px;min-width:0;overflow:hidden;}
+.hero{background:var(--dark);border-radius:8px;padding:24px 28px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;min-height:180px;}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.55) 55%,rgba(0,0,0,.18) 100%);z-index:1;}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:0;filter:saturate(1.1) brightness(0.85);}
+.hero-content{position:relative;z-index:2;}
+.hero-badge{background:var(--yellow);color:#000;font-size:11px;font-weight:900;padding:3px 10px;border-radius:3px;display:inline-block;margin-bottom:10px;text-transform:uppercase;}
+.hero h2{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:900;color:#fff;line-height:1.1;text-transform:uppercase;}
+.hero h2 em{color:var(--yellow);font-style:normal;}
+.hero p{color:rgba(255,255,255,.75);font-size:13px;margin-top:6px;}
+.hero-btn{margin-top:16px;display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;border:none;border-radius:5px;padding:11px 24px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;}
+.hero-btn:hover{background:var(--green2);}
+.promo-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+.promo-card{border-radius:6px;padding:14px 16px;cursor:pointer;position:relative;overflow:hidden;}
+.promo-card h4{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:#fff;text-transform:uppercase;}
+.promo-card p{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px;}
+.pc-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);opacity:.18;}
+.pc-icon .mi{font-size:44px;color:#fff;}
+.live-row{display:flex;gap:8px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.live-row::-webkit-scrollbar{display:none;}
+.live-card{background:var(--white);border-radius:6px;padding:10px 14px;min-width:175px;border:1px solid var(--gray2);cursor:pointer;flex-shrink:0;}
+.live-card:hover{border-color:var(--red);}
+.lc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.lc-league{font-size:10px;color:var(--muted2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;}
+.live-badge{background:var(--red2);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;display:flex;align-items:center;gap:3px;flex-shrink:0;letter-spacing:.5px;}
+.live-badge .mi{font-size:10px;}
+.lc-teams{font-size:12.5px;font-weight:700;color:var(--dark);line-height:1.5;}
+.lc-score{font-size:22px;font-weight:900;color:var(--red);font-family:'Barlow Condensed',sans-serif;letter-spacing:-1px;}
+.lc-time{font-size:10px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:3px;}
+.lc-time .mi{font-size:12px;}
+.sc{background:var(--white);border-radius:6px;border:1px solid var(--gray2);margin-bottom:10px;}
+.sc-head{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--gray2);}
+.sc-dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.sc-dot.live{background:var(--red2);}
+.sc-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;}
+.sc-actions{margin-left:auto;display:flex;gap:8px;}
+.sc-btn{font-size:11px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:4px;padding:4px 9px;border-radius:3px;border:1px solid var(--gray2);background:none;font-family:'Barlow',sans-serif;text-decoration:none;}
+.sc-btn .mi{font-size:15px;}
+.sc-btn:hover{color:var(--red);border-color:var(--red);}
+.match-hdr{display:grid;grid-template-columns:190px 1fr;gap:4px;padding:4px 14px;background:#fafafa;border-bottom:1px solid var(--gray2);}
+.mhg{display:grid;grid-template-columns:repeat(3,1fr) 46px 1fr 38px;gap:3px;}
+.mhl{font-size:10px;color:var(--muted2);text-align:center;font-weight:700;text-transform:uppercase;}
+.match-row{display:grid;grid-template-columns:190px 1fr;gap:4px;padding:7px 14px;border-bottom:1px solid #f3f3f3;align-items:center;}
+.match-row:hover{background:#fafafa;}
+.match-left{display:flex;gap:8px;align-items:center;}
+.match-time-col{text-align:center;min-width:44px;}
+.match-time{font-size:11px;color:var(--muted);font-weight:600;}
+.match-time.live-time{color:var(--red2);font-weight:700;}
+.match-teams{flex:1;min-width:0;}
+.crest{width:16px;height:16px;border-radius:50%;object-fit:contain;vertical-align:middle;margin-right:4px;background:#eee;}
+.team{font-size:12.5px;color:var(--dark);line-height:1.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px;}
+.score-inline{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;color:var(--red);margin-left:auto;margin-right:6px;}
+.odds-grid{display:grid;grid-template-columns:repeat(3,1fr) 46px 1fr 38px;gap:3px;align-items:center;}
+.odd{background:var(--green);border:none;border-radius:3px;padding:7px 3px;text-align:center;cursor:pointer;font-size:12px;font-weight:700;color:#fff;font-family:'Barlow',sans-serif;}
+.odd:hover{background:var(--green2);}
+.odd.sel{background:var(--yellow);color:#000;}
+.odd.unavail{background:#e8e8e8;color:#aaa;cursor:default;}
+.goals-c{display:flex;flex-direction:column;align-items:center;}
+.goals-v{background:#e8f5ec;border:1px solid var(--green);border-radius:3px;padding:3px 5px;font-size:11px;font-weight:700;color:var(--green);min-width:28px;text-align:center;}
+.more-btn{font-size:10px;color:var(--green);font-weight:700;text-align:center;cursor:pointer;}
+.more-btn:hover{color:var(--red);}
+.league-hdr-row{padding:6px 14px;font-size:11px;font-weight:700;color:#fff;background:var(--dark2);display:flex;align-items:center;gap:6px;}
+.league-hdr-row .mi{font-size:14px;color:var(--yellow);}
+.live-sec{background:var(--dark);border-radius:6px;margin-bottom:10px;border:1px solid #333;overflow:hidden;}
+.live-sec-head{display:flex;align-items:center;gap:8px;padding:11px 14px;background:var(--dark2);}
+.live-league-bar{padding:6px 14px;background:#1a1a1a;display:flex;align-items:center;gap:8px;border-bottom:1px solid #222;}
+.live-league-bar .mi{font-size:14px;color:var(--green);}
+.ll-name{font-size:12px;font-weight:700;color:#bbb;}
+.live-match{padding:10px 14px;border-bottom:1px solid #262626;display:flex;flex-direction:column;gap:8px;}
+.live-match:hover{background:#161616;}
+.lm-top{display:flex;align-items:center;gap:6px;margin-bottom:2px;}
+.lm-badge{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--red2);font-weight:700;}
+.lm-badge .mi{font-size:11px;}
+.lm-period{font-size:10px;color:#555;background:#1e1e1e;padding:1px 6px;border-radius:2px;margin-left:auto;}
+.lm-teams{display:flex;align-items:center;gap:8px;}
+.lm-names{flex:1;min-width:0;}
+.lm-team{font-size:13px;color:#ccc;font-weight:600;line-height:1.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:5px;}
+.lm-team img{width:16px;height:16px;border-radius:50%;object-fit:contain;background:#1e1e1e;flex-shrink:0;}
+.lm-scorebox{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#1a1a1a;border-radius:4px;min-width:54px;padding:6px 8px;gap:1px;flex-shrink:0;border:1px solid #2a2a2a;}
+.lm-score{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:#fff;line-height:1.1;}
+.lm-sep{font-size:9px;color:#333;line-height:1;}
+.lm-odds{display:grid;grid-template-columns:repeat(3,1fr) 38px 1fr 28px;gap:4px;align-items:center;}
+.lodd{background:#1e3d29;border:1px solid #2a5a32;border-radius:3px;padding:7px 3px;text-align:center;cursor:pointer;font-size:12px;font-weight:700;color:#7ae07a;font-family:'Barlow',sans-serif;transition:background .15s;}
+.lodd:hover{background:var(--green);color:#fff;}
+.lodd.sel{background:var(--yellow);color:#000;border-color:var(--yellow);}
+.lm-goals-v{background:#1a3a22;border:1px solid #2a5a32;border-radius:3px;padding:3px 2px;font-size:10px;font-weight:700;color:#7ae07a;text-align:center;}
+.lm-more{font-size:10px;color:#7ae07a;font-weight:700;text-align:center;cursor:pointer;}
+.lm-more:hover{color:var(--yellow);}
+.jackpot{background:var(--dark);border-radius:6px;padding:16px 22px;margin-bottom:10px;display:flex;align-items:center;gap:18px;border:1px solid #5a0000;}
+.jp-logo{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;color:#fff;}
+.jp-logo span{color:var(--yellow);}
+.jp-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;color:var(--yellow);display:flex;align-items:center;gap:6px;}
+.jp-amt{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--yellow);margin-left:auto;}
+.jp-btn{background:var(--yellow);color:#000;border:none;border-radius:5px;padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;cursor:pointer;flex-shrink:0;}
+.state-box{padding:32px 20px;text-align:center;color:var(--muted);}
+.state-box .mi{font-size:40px;color:#ccc;display:block;margin-bottom:8px;}
+.state-box p{font-size:13px;line-height:1.6;}
+.state-box .retry-btn{margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;border:none;border-radius:4px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
+.state-box.dark-state{background:#1a1a1a;}
+.state-box.dark-state .mi{color:#333;}
+.state-box.dark-state p{color:#555;}
+.skel{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;border-radius:3px;height:14px;margin-bottom:6px;}
+.skel.dark{background:linear-gradient(90deg,#222 25%,#2a2a2a 50%,#222 75%);background-size:200% 100%;}
+.skel-row{padding:12px 14px;border-bottom:1px solid #f3f3f3;display:flex;gap:12px;align-items:center;}
+.skel-row.dark-row{border-bottom:1px solid #222;}
+.betslip{width:255px;flex-shrink:0;background:var(--white);border-left:1px solid var(--gray2);display:flex;flex-direction:column;max-height:calc(100vh - 56px);position:sticky;top:56px;overflow-y:auto;}
+.bs-tabs{display:flex;border-bottom:2px solid var(--gray2);}
+.bs-tab{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;justify-content:center;gap:5px;}
+.bs-tab .mi{font-size:16px;}
+.bs-tab.active{color:var(--green);border-bottom-color:var(--green);}
+.rs-wrap{display:flex;padding:8px 12px;}
+.rs{flex:1;padding:6px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray3);color:var(--muted);}
+.rs:first-child{border-radius:4px 0 0 4px;}
+.rs:last-child{border-radius:0 4px 4px 0;}
+.rs.active{background:var(--green);color:#fff;border-color:var(--green);}
+.bs-locked{padding:20px 14px;text-align:center;}
+.bs-lock-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;}
+.bs-lock-txt{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.bs-lock-btns{display:flex;gap:8px;}
+.bs-lock-btns a{flex:1;text-align:center;padding:9px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;}
+.bs-lock-login{border:1.5px solid var(--gray3);color:var(--text);}
+.bs-lock-reg{background:var(--green);color:#fff;}
+.bs-empty{padding:14px;}
+.bs-empty-txt{color:var(--muted);font-size:12.5px;line-height:1.65;margin-bottom:12px;}
+.book-section{padding:10px 12px;border-top:1px solid var(--gray2);}
+.book-section-lbl{font-size:12px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px;color:var(--text);}
+.book-section-lbl .mi{font-size:15px;color:var(--green);}
+.book-section-hint{font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.5;}
+.book-inp{width:100%;border:1.5px solid var(--gray3);border-radius:4px;padding:9px 10px;font-size:13px;font-weight:700;letter-spacing:1px;outline:none;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;transition:border-color .2s;}
+.book-inp:focus{border-color:var(--green);}
+.book-inp::placeholder{font-weight:400;letter-spacing:0;text-transform:none;font-family:'Barlow',sans-serif;font-size:12px;}
+.book-load-btn{width:100%;margin-top:6px;background:var(--green);border:none;border-radius:4px;padding:9px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s;}
+.book-load-btn:hover{background:var(--green2);}
+.book-load-btn:disabled{background:#aaa;cursor:not-allowed;}
+.book-err{margin-top:6px;padding:8px 10px;background:#fff0f0;border:1px solid #ffcccc;border-radius:4px;font-size:11px;color:var(--red);font-weight:600;display:flex;align-items:flex-start;gap:5px;}
+.book-err .mi{font-size:14px;flex-shrink:0;margin-top:1px;}
+.book-result{margin-top:8px;border:1px solid var(--gray2);border-radius:5px;overflow:hidden;}
+.book-result-head{background:var(--dark2);padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.book-result-code{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;}
+.book-result-code .mi{font-size:14px;color:var(--yellow);}
+.book-result-odds{font-size:11px;color:var(--yellow);font-weight:700;}
+.book-game{padding:9px 12px;border-bottom:1px solid #f0f0f0;display:flex;flex-direction:column;gap:3px;}
+.book-game:last-child{border-bottom:none;}
+.book-game-teams{font-size:12px;font-weight:700;color:var(--dark);line-height:1.4;}
+.book-game-pick{display:flex;align-items:center;justify-content:space-between;margin-top:2px;}
+.book-game-pick-lbl{font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:3px;}
+.book-game-pick-lbl .mi{font-size:12px;}
+.book-game-odd{font-size:14px;font-weight:900;color:var(--green);font-family:'Barlow Condensed',sans-serif;}
+.book-game-date{font-size:10px;color:var(--muted2);}
+.book-add-btn{width:100%;background:var(--green);border:none;padding:12px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s;}
+.book-add-btn:hover{background:var(--green2);}
+.book-add-btn.login-needed{background:var(--red);}
+.winners{border-top:1px solid var(--gray2);padding:10px 12px;}
+.wf-title{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.wf-title .mi{font-size:16px;color:var(--yellow);}
+.winner-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #f8f8f8;}
+.w-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+.w-av .mi{font-size:18px;}
+.w-info{flex:1;min-width:0;}
+.w-name{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.w-type{font-size:10px;color:var(--muted);}
+.w-amt{font-size:13px;font-weight:800;color:var(--green);}
+.w-time{font-size:10px;color:var(--muted2);}
+.mini-g{border-top:1px solid var(--gray2);padding:10px 12px 12px;}
+.mg-title{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.mg-title .mi{font-size:16px;color:var(--red);}
+.mg-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.mg-card{background:var(--dark2);border-radius:5px;padding:10px 6px;text-align:center;cursor:pointer;text-decoration:none;display:block;}
+.mg-card:hover{background:var(--dark3);}
+.mg-card .mi{font-size:24px;display:block;margin-bottom:4px;}
+.mg-name{font-size:10px;font-weight:700;color:#ccc;}
+.bet-item{border:1px solid var(--gray2);border-radius:4px;padding:8px 10px;margin-bottom:6px;position:relative;}
+.bet-rm{position:absolute;top:5px;right:5px;background:none;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;}
+.bet-rm .mi{font-size:16px;}
+.bet-rm:hover .mi{color:var(--red);}
+.bet-league{font-size:10px;color:var(--muted);margin-bottom:2px;}
+.bet-match{font-size:11.5px;font-weight:600;padding-right:18px;}
+.bet-sel-row{display:flex;align-items:center;justify-content:space-between;margin-top:3px;}
+.bet-sel{font-size:11px;color:var(--green);font-weight:600;}
+.bet-odd{font-size:15px;font-weight:900;color:var(--green);}
+.bet-mkt{font-size:10px;color:var(--muted);}
+.stake-sec{padding:8px 12px;border-top:1px solid var(--gray2);}
+.stake-lbl{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600;}
+.stake-inp{width:100%;border:1.5px solid var(--gray3);border-radius:4px;padding:9px;font-size:18px;font-weight:700;text-align:center;outline:none;font-family:'Barlow Condensed',sans-serif;}
+.stake-inp:focus{border-color:var(--green);}
+.qs-row{display:flex;gap:4px;margin-top:6px;}
+.qs{flex:1;background:var(--gray);border:1px solid var(--gray3);border-radius:3px;padding:5px 2px;font-size:11px;font-weight:700;cursor:pointer;text-align:center;color:var(--dark);font-family:'Barlow',sans-serif;}
+.qs:hover{background:var(--green);color:#fff;border-color:var(--green);}
+.payout-sec{padding:6px 12px 4px;}
+.pw{display:flex;justify-content:space-between;padding:4px 0;font-size:12.5px;border-bottom:1px solid #f8f8f8;}
+.pw .lbl{color:var(--muted);}
+.pw .val{font-weight:700;}
+.pw.tot{border-bottom:none;}
+.pw.tot .val{color:var(--green);font-size:15px;}
+.place-btn{margin:6px 12px 10px;width:calc(100% - 24px);padding:12px;background:var(--green);border:none;border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+.place-btn .mi{font-size:20px;}
+.place-btn:hover{background:var(--green2);}
+.period-badge{font-size:9px;font-weight:800;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.3px;}
+.pb-live{background:rgba(230,0,0,.1);color:var(--red2);}
+.pb-ft{background:rgba(26,138,60,.1);color:var(--green);}
+.pb-up{background:var(--gray2);color:var(--muted);}
+.bet-bubble{position:fixed;bottom:72px;right:18px;z-index:400;display:none;flex-direction:column;align-items:center;gap:4px;cursor:pointer;border:none;background:none;padding:0;}
+.bet-bubble-btn{width:58px;height:58px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);border:3px solid var(--green2);position:relative;transition:transform .15s,background .15s;}
+.bet-bubble-btn:hover{transform:scale(1.08);background:var(--green2);}
+.bet-bubble-btn .mi{font-size:26px;color:#fff;}
+.bet-bubble-count{position:absolute;top:-5px;right:-5px;background:var(--yellow);color:#000;font-size:11px;font-weight:900;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #fff;}
+.bet-bubble-label{font-size:9px;font-weight:800;color:#fff;background:rgba(0,0,0,.55);border-radius:3px;padding:2px 6px;white-space:nowrap;letter-spacing:.3px;}
+.bs-drawer-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:450;display:none;}
+.bs-drawer-overlay.open{display:block;}
+.bs-drawer{position:fixed;bottom:0;left:0;right:0;z-index:460;background:var(--white);border-radius:16px 16px 0 0;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease;}
+.bs-drawer.open{transform:translateY(0);}
+.bs-drawer-handle{width:36px;height:4px;background:var(--gray3);border-radius:2px;margin:10px auto 0;}
+.bs-drawer-head{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gray2);}
+.bs-drawer-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.bs-drawer-title .mi{font-size:20px;color:var(--green);}
+.bs-drawer-close{background:none;border:none;cursor:pointer;color:var(--muted);display:flex;align-items:center;}
+.bs-drawer-close .mi{font-size:22px;}
+.drawer-tabs{display:flex;border-bottom:2px solid var(--gray2);}
+.drawer-tab{flex:1;padding:10px 6px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;justify-content:center;gap:4px;}
+.drawer-tab .mi{font-size:15px;}
+.drawer-tab.active{color:var(--green);border-bottom-color:var(--green);}
+.drawer-pane{display:none;}
+.drawer-pane.active{display:block;}
+.bs-drawer-body{padding:0 0 16px;}
+.drawer-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6;}
+.drawer-empty .mi{font-size:40px;color:var(--gray3);display:block;margin-bottom:8px;}
+.drawer-bet-item{border:1px solid var(--gray2);border-radius:4px;padding:10px 12px;margin-bottom:6px;position:relative;background:#fafffe;}
+.drawer-bet-rm{position:absolute;top:7px;right:7px;background:none;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;}
+.drawer-bet-rm .mi{font-size:16px;}
+.drawer-bet-rm:hover .mi{color:var(--red);}
+.drawer-go-btn{width:100%;padding:14px;background:var(--green);border:none;border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;}
+.drawer-go-btn .mi{font-size:22px;}
+.drawer-go-btn:hover{background:var(--green2);}
+.drawer-clear-btn{width:100%;background:none;border:none;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;padding:10px;font-family:'Barlow',sans-serif;margin-top:2px;}
+.drawer-clear-btn:hover{color:var(--red);}
+.drawer-payout{padding:8px 0 4px;}
+.drawer-pw{display:flex;justify-content:space-between;padding:4px 0;font-size:12.5px;border-bottom:1px solid #f8f8f8;}
+.drawer-pw .lbl{color:var(--muted);}
+.drawer-pw .val{font-weight:700;}
+.drawer-pw.tot{border-bottom:none;}
+.drawer-pw.tot .val{color:var(--green);font-size:15px;font-weight:800;}
+.booking-loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:600;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.booking-loading-overlay.show{display:flex;}
+.bl-spinner{width:52px;height:52px;border:4px solid rgba(255,255,255,.15);border-top-color:var(--green);border-radius:50%;animation:bspin .7s linear infinite;}
+@keyframes bspin{to{transform:rotate(360deg)}}
+.bl-msg{color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.3px;}
+.bl-sub{color:rgba(255,255,255,.55);font-size:13px;}
+.footer{background:var(--dark);color:#ccc;}
+.ft-top{padding:30px 24px 20px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:24px;border-bottom:1px solid #2a2a2a;}
+.ft-col h4{font-size:12px;font-weight:700;color:#fff;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+.ft-col ul{list-style:none;}
+.ft-col ul li{margin-bottom:7px;}
+.ft-col ul li a{color:#777;font-size:12px;text-decoration:none;display:flex;align-items:center;gap:5px;}
+.ft-col ul li a .mi{font-size:14px;color:var(--green);}
+.ft-col ul li a:hover{color:var(--yellow);}
+.ft-contact .ci{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px;color:#777;}
+.ft-contact .ci .mi{font-size:15px;color:var(--green);}
+.ft-bot{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.ft-legal{font-size:11px;color:#555;max-width:580px;line-height:1.55;}
+.badge-18{width:32px;height:32px;border-radius:50%;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#555;}
+.pay-icons{display:flex;gap:6px;align-items:center;}
+.pay-ic{background:#fff;border-radius:3px;padding:3px 8px;font-size:10px;font-weight:800;color:var(--dark);}
+.ft-copy{padding:10px 24px;border-top:1px solid #1a1a1a;text-align:center;font-size:11px;color:#444;}
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--red);z-index:300;border-top:2px solid #a80000;}
+.mob-nav-inner{display:flex;}
+.mob-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;cursor:pointer;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;gap:2px;text-decoration:none;}
+.mob-item .mi{font-size:22px;}
+.mob-item.active,.mob-item:hover{color:#fff;}
+.mob-badge-wrap{position:relative;}
+.mob-badge{position:absolute;background:var(--yellow);color:#000;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;top:-4px;right:-6px;padding:0 3px;}
+@media(max-width:900px){.betslip{display:none;}}
+@media(max-width:800px){
+  .header-nav,#guest-auth,#user-auth{display:none!important;}
+  .hamburger{display:flex;}
+  .mob-nav{display:block;}
+  .layout{flex-direction:column;}
+  .center{padding:8px 8px 72px;}
+  .hero{padding:18px;min-height:140px;}
+  .hero h2{font-size:24px;}
+  .hero p{font-size:12px;}
+  .match-row,.live-match{grid-template-columns:1fr;gap:6px;}
+  .match-hdr{display:none;}
+  .ft-top{grid-template-columns:1fr 1fr;}
+  .jackpot{flex-wrap:wrap;gap:10px;}
+  .jp-amt{margin-left:0;font-size:28px;}
+  .promo-row{grid-template-columns:repeat(2,1fr);}
+  .odds-grid,.mhg{grid-template-columns:repeat(3,1fr) 36px 1fr 28px;}
 }
-[data-theme="light"]{
-  --bg0:#EEF1F8;--bg1:#F7F9FF;--bg2:#FFFFFF;--bg3:#FFFFFF;
-  --accent:#C8820A;--accentBg:rgba(200,130,10,0.08);--accentBg2:rgba(200,130,10,0.15);
-  --green:#16A34A;--greenBg:rgba(22,163,74,0.09);
-  --red:#DC2626;--redBg:rgba(220,38,38,0.09);
-  --blue:#2563EB;--blueBg:rgba(37,99,235,0.07);
-  --purple:#7C3AED;--purpleBg:rgba(124,58,237,0.07);
-  --t1:#0F172A;--t2:#475569;--t3:#94A3B8;
-  --border:rgba(0,0,0,0.065);--borderHov:rgba(0,0,0,0.13);--borderAcc:rgba(200,130,10,0.45);
-  --shadow:0 8px 40px rgba(0,0,0,0.10);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{font-family:var(--ff);background:var(--bg0);color:var(--t1);min-height:100vh;overflow-x:hidden;line-height:1.5;transition:background .25s,color .25s}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav);background:rgba(7,9,15,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px}
-[data-theme="light"] nav{background:rgba(247,249,255,0.96)}
-.logo{font-family:var(--ffC);font-size:26px;font-weight:800;letter-spacing:1px;color:var(--t1);text-decoration:none;flex-shrink:0;margin-right:28px}
-.logo em{color:var(--accent);font-style:normal}
-.nav-links{display:flex;gap:2px;flex:1;justify-content:center}
-.nav-links a{font-size:13px;font-weight:500;color:var(--t2);text-decoration:none;padding:7px 13px;border-radius:8px;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:5px}
-.nav-links a svg{width:14px;height:14px}
-.nav-links a:hover{color:var(--t1);background:var(--border)}
-.nav-links a.active{color:var(--accent);background:var(--accentBg)}
-.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:28px}
-.icon-btn{background:transparent;border:1px solid var(--border);width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex-shrink:0;text-decoration:none}
-.icon-btn:hover{border-color:var(--borderHov);background:var(--bg3)}
-.icon-btn svg{width:16px;height:16px;color:var(--t2)}
-.nav-auth{display:flex;gap:8px;align-items:center}
-.btn-signin{background:transparent;border:1px solid var(--border);color:var(--t1);padding:8px 18px;border-radius:9px;font-family:var(--ff);font-weight:600;font-size:13px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center}
-.btn-signin:hover{border-color:var(--borderHov);background:var(--bg3)}
-.btn-register{background:var(--accent);border:none;color:#000;padding:8px 18px;border-radius:9px;font-family:var(--ff);font-weight:700;font-size:13px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center}
-.btn-register:hover{filter:brightness(1.1)}
-.nav-user{display:flex;align-items:center;gap:8px}
-.nav-balance-pill{display:flex;align-items:center;gap:6px;background:var(--accentBg);border:1px solid var(--borderAcc);border-radius:9px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;white-space:nowrap;transition:all .15s}
-.nav-balance-pill:hover{background:var(--accentBg2)}
-.nav-balance-pill svg{width:13px;height:13px}
-.nav-avatar{width:38px;height:38px;border-radius:9px;border:1px solid var(--borderAcc);background:var(--accentBg);display:flex;align-items:center;justify-content:center;font-family:var(--ffC);font-size:13px;font-weight:800;color:var(--accent);text-decoration:none;flex-shrink:0;transition:all .15s;letter-spacing:.5px}
-.nav-avatar:hover{background:var(--accentBg2);border-color:var(--accent);box-shadow:0 0 10px rgba(245,166,35,0.2)}
-.btn-logout{background:transparent;border:1px solid var(--border);color:var(--t3);padding:7px 12px;border-radius:9px;font-family:var(--ff);font-weight:600;font-size:12px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.btn-logout:hover{border-color:rgba(239,68,68,.4);color:var(--red);background:var(--redBg)}
-.btn-logout svg{width:13px;height:13px}
-.ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px;background:none;border:none}
-.ham span{width:20px;height:2px;background:var(--t2);border-radius:2px;display:block;transition:all .2s}
-.ham.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-.ham.open span:nth-child(2){opacity:0}
-.ham.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.mob-nav{display:none;position:fixed;top:var(--nav);left:0;right:0;z-index:190;background:var(--bg1);border-bottom:1px solid var(--border);flex-direction:column;padding:8px 14px 18px}
-.mob-nav.open{display:flex}
-.mob-nav a{font-size:15px;font-weight:500;color:var(--t2);text-decoration:none;padding:13px 8px;border-bottom:1px solid var(--border);transition:color .15s;display:flex;align-items:center;gap:10px}
-.mob-nav a svg{width:16px;height:16px}
-.mob-nav a:last-child{border-bottom:none}
-.mob-nav a.active{color:var(--accent)}
-.mob-nav-btns{display:flex;gap:8px;margin-top:14px}
-.mob-nav-btns button,.mob-nav-btns a{flex:1;padding:11px;border-radius:9px;font-family:var(--ff);font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .15s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center}
-.mob-btn-ghost{background:var(--bg3);color:var(--t1)}
-.mob-btn-accent{background:var(--accent);color:#000}
-.mob-btn-red{background:var(--redBg);color:var(--red);border:1px solid rgba(239,68,68,.25) !important}
-
-/* Hero */
-.hero{margin-top:var(--nav);position:relative;overflow:hidden;min-height:460px;display:flex;align-items:center}
-.hero-bg{position:absolute;inset:0;z-index:0;background:#0C101A}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:right center;display:block}
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,9,15,0.97) 0%,rgba(7,9,15,0.90) 35%,rgba(7,9,15,0.65) 60%,rgba(7,9,15,0.15) 100%),linear-gradient(0deg,rgba(7,9,15,0.80) 0%,transparent 50%)}
-[data-theme="light"] .hero-bg::after{background:linear-gradient(90deg,rgba(238,241,248,0.97) 0%,rgba(238,241,248,0.90) 35%,rgba(238,241,248,0.68) 60%,rgba(238,241,248,0.15) 100%),linear-gradient(0deg,rgba(238,241,248,0.85) 0%,transparent 50%)}
-.hero-inner{width:100%;position:relative;z-index:1;padding:56px 5% 52px 5%;display:flex;align-items:center;justify-content:flex-start}
-.hero-content{max-width:540px;text-align:left;margin-left:0;margin-right:auto}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;background:var(--accentBg);border:1px solid var(--borderAcc);border-radius:20px;padding:5px 14px}
-.pulse{width:7px;height:7px;background:var(--green);border-radius:50%;flex-shrink:0;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}60%{box-shadow:0 0 0 6px rgba(34,197,94,0)}}
-.hero-title{font-family:var(--ffC);font-size:clamp(38px,6vw,68px);font-weight:800;line-height:1.02;letter-spacing:.5px;margin-bottom:14px}
-.hero-title em{color:var(--accent);font-style:normal}
-.hero-sub{font-size:14px;color:var(--t2);max-width:460px;margin-bottom:28px;line-height:1.7}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.hbtn{display:inline-flex;align-items:center;gap:9px;font-family:var(--ffC);font-weight:700;font-size:17px;letter-spacing:.6px;text-transform:uppercase;border:none;cursor:pointer;border-radius:11px;transition:all .2s;text-decoration:none;padding:14px 28px;flex-shrink:0;line-height:1}
-.hbtn svg{width:19px;height:19px;flex-shrink:0}
-.hbtn-primary{background:var(--accent);color:#000;box-shadow:0 4px 20px rgba(245,166,35,.3)}
-.hbtn-primary:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,166,35,.45)}
-.hbtn-outline{background:rgba(255,255,255,0.08);color:var(--t1);border:2px solid rgba(255,255,255,0.15);backdrop-filter:blur(8px)}
-.hbtn-outline:hover{background:rgba(255,255,255,0.14);border-color:var(--borderAcc);color:var(--accent)}
-.hero-trust{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
-.trust-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--t3);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px;padding:5px 12px}
-.trust-pill svg{width:11px;height:11px;color:var(--green)}
-
-/* Feed */
-.feed-section{background:var(--bg0);border-bottom:1px solid var(--border)}
-.feed-header{max-width:1260px;margin:0 auto;padding:28px 24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.feed-title{font-family:var(--ffC);font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
-.feed-title svg{width:18px;height:18px;color:var(--accent)}
-.feed-sub{font-size:13px;color:var(--t3);margin-top:2px}
-.api-bar{display:flex;gap:6px;flex-wrap:wrap;padding:12px 24px;max-width:1260px;margin:0 auto;align-items:center}
-.api-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--t3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:3px 9px;text-transform:uppercase;letter-spacing:.4px}
-.api-badge.ok svg{color:var(--green)}
-.api-badge.err svg{color:var(--red)}
-.api-badge svg{width:10px;height:10px;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-.api-badge.loading svg{color:var(--accent);animation:spin .75s linear infinite}
-.last-updated{font-size:10px;color:var(--t3);margin-left:auto;display:flex;align-items:center;gap:4px}
-.last-updated svg{width:10px;height:10px}
-.main-wrap{max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr;padding-bottom:80px}
-@media(min-width:1060px){.main-wrap{grid-template-columns:1fr 340px}}
-.feed{padding:16px 20px}
-.sec-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.sec-lbl span{display:flex;align-items:center;gap:6px}
-.sec-lbl.wc{color:var(--green)}
-.mcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rLg);padding:15px 17px;cursor:default;transition:all .18s;margin-bottom:10px;animation:fadeUp .3s ease both;position:relative;overflow:hidden}
-.mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .18s}
-.mcard:hover{background:var(--bg3);border-color:var(--borderHov);transform:translateY(-1px);box-shadow:var(--shadow)}
-.mcard:hover::before{background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.mcard.live-card::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
-.mcard.wc-card{border-left:3px solid rgba(34,197,94,.3)}
-.mcard.wc-card:hover::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.ctop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:6px}
-.league-tag{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
-.league-tag.wct{color:var(--green)}
-.ctop-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.live-badge{display:inline-flex;align-items:center;gap:5px;background:var(--greenBg);color:var(--green);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;border:1px solid rgba(34,197,94,.15)}
-.live-badge .dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse 1.6s infinite}
-.time-tag{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px}
-.time-tag svg{width:12px;height:12px}
-.trow{display:flex;align-items:center;gap:10px;margin-bottom:13px}
-.team-blk{flex:1;display:flex;align-items:center;gap:9px;min-width:0}
-.team-blk.away{flex-direction:row-reverse}
-.tcrest{width:28px;height:28px;object-fit:contain;border-radius:50%;flex-shrink:0}
-.tname{font-size:14px;font-weight:600;color:var(--t1);line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tname.away{text-align:right}
-.score-box{background:var(--bg0);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-family:var(--ffC);font-size:20px;font-weight:700;color:var(--t1);text-align:center;min-width:68px;flex-shrink:0}
-.vs-box{font-family:var(--ffC);font-size:13px;font-weight:700;color:var(--t3);text-align:center;min-width:36px;flex-shrink:0}
-.og{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.obtn{background:var(--bg0);border:1px solid var(--border);border-radius:9px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .15s;font-family:var(--ff);user-select:none}
-.obtn:hover{background:var(--accentBg);border-color:rgba(245,166,35,.25)}
-.obtn .ol{font-size:10px;color:var(--t3);display:block;margin-bottom:3px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
-.obtn .ov{font-size:15px;font-weight:700;color:var(--t1);display:block;font-family:var(--ffC)}
-.gg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px}
-.gbtn{background:var(--blueBg);border:1px solid rgba(96,165,250,.10);border-radius:8px;padding:8px 4px;text-align:center;cursor:pointer;transition:all .15s;font-family:var(--ff);user-select:none}
-.gbtn:hover{background:rgba(96,165,250,.16);border-color:var(--blue)}
-.gbtn .gl{font-size:10px;color:var(--blue);display:block;font-weight:600;text-transform:uppercase}
-.gbtn .gv{font-size:14px;font-weight:700;color:var(--t1);font-family:var(--ffC)}
-.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:16px}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite}
-.empty-wrap{padding:60px 20px;text-align:center;color:var(--t3);font-size:13px;display:flex;flex-direction:column;align-items:center;gap:10px}
-.empty-wrap svg{width:32px;height:32px}
-
-/* Sidebar slip */
-.dslip{display:none;flex-direction:column;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rLg);overflow:hidden;margin:16px 20px 16px 0;position:sticky;top:calc(var(--nav) + 20px)}
-@media(min-width:1060px){.dslip{display:flex}}
-.dhead{padding:13px 16px;border-bottom:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:space-between}
-.dtitle{font-family:var(--ffC);font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
-.dtitle svg{width:16px;height:16px;color:var(--accent)}
-.login-prompt{padding:28px 18px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
-.login-prompt-icon{width:54px;height:54px;background:var(--accentBg);border:1px solid var(--borderAcc);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.login-prompt-icon svg{width:24px;height:24px;color:var(--accent)}
-.login-prompt h3{font-family:var(--ffC);font-size:17px;font-weight:700;color:var(--t1)}
-.login-prompt p{font-size:12px;color:var(--t2);line-height:1.6;max-width:200px}
-.lp-btn-register{width:100%;padding:12px;border-radius:9px;background:var(--accent);color:#000;font-family:var(--ffC);font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer;border:none;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .15s}
-.lp-btn-register:hover{filter:brightness(1.1)}
-.lp-btn-register svg{width:15px;height:15px;color:#000}
-.lp-btn-signin{width:100%;padding:10px;border-radius:9px;background:transparent;color:var(--t1);font-family:var(--ff);font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .15s}
-.lp-btn-signin:hover{border-color:var(--borderHov);background:var(--bg3)}
-.lp-btn-signin svg{width:14px;height:14px}
-.lp-divider{font-size:11px;color:var(--t3);position:relative;width:100%;text-align:center}
-.lp-divider::before,.lp-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--border)}
-.lp-divider::before{left:0}.lp-divider::after{right:0}
-.lp-features{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.lp-feat{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t2)}
-.lp-feat svg{width:12px;height:12px;color:var(--green);flex-shrink:0}
-.slip-logged{padding:20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
-.slip-logged-icon{width:54px;height:54px;background:var(--greenBg);border:1px solid rgba(34,197,94,.25);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.slip-logged-icon svg{width:24px;height:24px;color:var(--green)}
-
-/* Footer */
-footer{background:var(--bg1);border-top:1px solid var(--border);padding:40px 24px 30px}
-.footer-inner{max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px}
-.footer-logo{font-family:var(--ffC);font-size:26px;font-weight:800;color:var(--t1);margin-bottom:10px}
-.footer-logo em{color:var(--accent);font-style:normal}
-.footer-tagline{font-size:13px;color:var(--t3);line-height:1.6;max-width:200px;margin-bottom:16px}
-.footer-badges{display:flex;gap:6px;flex-wrap:wrap}
-.fbadge{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;color:var(--t3);display:flex;align-items:center;gap:5px;text-transform:uppercase;letter-spacing:.5px}
-.fbadge svg{width:11px;height:11px;color:var(--green)}
-.footer-col h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);margin-bottom:14px}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-.footer-col ul li a{font-size:13px;color:var(--t2);text-decoration:none;transition:color .15s}
-.footer-col ul li a:hover{color:var(--accent)}
-.footer-bottom{max-width:1260px;margin:28px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.footer-copy{font-size:12px;color:var(--t3)}
-.footer-legal{font-size:12px;color:var(--t3);max-width:500px;line-height:1.6}
-.resp-badge{display:inline-flex;align-items:center;gap:5px;background:var(--redBg);border:1px solid rgba(239,68,68,.15);border-radius:5px;padding:4px 9px;font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px}
-.resp-badge svg{width:11px;height:11px}
-
-/* ── WINNER POPUP SYSTEM ── */
-.wpop-container{position:fixed;bottom:24px;left:24px;z-index:9999;display:flex;flex-direction:column-reverse;gap:10px;pointer-events:none;max-width:310px}
-.wpop{pointer-events:auto;background:var(--bg2);border:1px solid var(--borderAcc);border-radius:14px;padding:13px 36px 13px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 12px 40px rgba(0,0,0,0.65),0 0 0 1px rgba(245,166,35,0.12);transform:translateX(-360px);opacity:0;transition:transform 0.5s cubic-bezier(.22,.68,0,1.2),opacity 0.35s ease;position:relative;overflow:hidden;min-width:275px}
-.wpop::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--accent) 0%,rgba(245,166,35,0.15) 100%)}
-.wpop.show{transform:translateX(0);opacity:1}
-.wpop.hide{transform:translateX(-360px);opacity:0;transition:transform 0.38s cubic-bezier(.4,0,1,.6),opacity 0.28s ease}
-.wpop-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--borderAcc);flex-shrink:0;background:var(--bg3);display:block}
-.wpop-body{flex:1;min-width:0}
-.wpop-header{display:flex;align-items:baseline;justify-content:space-between;gap:6px;margin-bottom:2px}
-.wpop-name{font-size:13px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px}
-.wpop-amount{font-family:var(--ffC);font-size:16px;font-weight:800;color:var(--accent);letter-spacing:.4px;white-space:nowrap;flex-shrink:0}
-.wpop-status{font-size:11px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:4px;margin-bottom:4px}
-.wpop-status svg{width:11px;height:11px;flex-shrink:0}
-.wpop-review{font-size:11px;color:var(--t2);line-height:1.5;font-style:italic}
-.wpop-close{position:absolute;top:9px;right:9px;background:none;border:none;cursor:pointer;color:var(--t3);padding:3px;display:flex;align-items:center;border-radius:4px;transition:all .15s;line-height:0}
-.wpop-close:hover{color:var(--t1);background:var(--border)}
-.wpop-close svg{width:13px;height:13px}
-.wpop-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--border)}
-.wpop-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),rgba(245,166,35,0.4));transform-origin:left;animation:wbar linear forwards}
-@keyframes wbar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
-@media(max-width:480px){.wpop-container{bottom:14px;left:10px;right:10px;max-width:none}.wpop{min-width:0;width:100%}}
-
-/* ── MOBILE ── */
-@media(max-width:1059px){
-  nav{padding:0 16px}
-  .nav-links{display:none}
-  .logo{display:none}
-  .icon-btn#themeBtn{display:none}
-  .nav-auth{display:flex}
-  .nav-user{display:flex}
-  .nav-right{margin-left:auto;gap:6px}
-  .ham{display:flex;margin-left:8px}
-  .footer-inner{grid-template-columns:1fr 1fr;gap:24px}
-}
-@media(max-width:1059px){
-  .nav-auth{gap:6px}
-  .btn-signin{padding:7px 12px;font-size:12px}
-  .btn-register{padding:7px 12px;font-size:12px}
-  .nav-balance-pill{padding:5px 9px;font-size:12px}
-  .nav-balance-pill svg{display:none}
-  .nav-avatar{width:34px;height:34px;font-size:12px}
-  .btn-logout{display:none}
-}
-@media(max-width:640px){
-  nav{padding:0 12px}
-  .hero-inner{padding:36px 14px 34px}
-  .hero-title{font-size:36px}
-  .feed{padding:12px 14px}
-  .mcard{padding:12px 13px}
-  .tname{font-size:13px}
-  .footer-inner{grid-template-columns:1fr 1fr;gap:20px}
-  .api-bar{padding:6px 14px}
-  .hero-btns{gap:8px}
-  .hbtn{font-size:15px;padding:12px 22px}
-}
-@media(max-width:400px){
-  .og{gap:4px}.gg{gap:4px}.obtn{padding:8px 4px}.gbtn{padding:7px 3px}
-  .score-box{min-width:56px;padding:5px 10px;font-size:18px}.tname{font-size:12px}
-  .hbtn{padding:10px 18px;font-size:13px}
-  .footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column;align-items:flex-start}
-}
+@media(max-width:600px){.ft-top{grid-template-columns:1fr;}.promo-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.promo-row{grid-template-columns:1fr 1fr;}.hero h2{font-size:20px;}.jp-title{font-size:18px;}.jp-amt{font-size:22px;}}
+@media(min-width:901px){.bet-bubble{display:none!important;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="/" class="logo">G<em>S</em>TAKE</a>
-  <div class="nav-links">
-    <a href="/" class="active"><svg data-lucide="home"></svg>Home</a>
-    <a href="betting.html"><svg data-lucide="list"></svg>My Bets</a>
-    <a href="wallet.html"><svg data-lucide="wallet"></svg>Wallet</a>
-    <a href="results.html"><svg data-lucide="bar-chart-2"></svg>Results</a>
+<div class="booking-loading-overlay" id="booking-loading-overlay">
+  <div class="bl-spinner"></div>
+  <div class="bl-msg">Loading your slip&hellip;</div>
+  <div class="bl-sub">Taking you to Bet Now to place your stake</div>
+</div>
+
+<header class="header">
+  <div class="header-top">
+    <a href="index.html" class="wordmark">
+      <div class="wm-box"><span class="wm-text"><span class="wm-g">G</span><span class="wm-s">STAKE</span></span></div>
+      <div class="wm-bar"></div>
+    </a>
+    <nav class="header-nav">
+      <a class="hnav active" href="index.html"><span class="mi">home</span> Home</a>
+      <a class="hnav" href="betting.html"><span class="mi">receipt_long</span> Bet Now</a>      <a class="hnav" href="wallet.html"><span class="mi">account_balance_wallet</span> Wallet</a>
+      <a class="hnav" href="profile.html"><span class="mi">person</span> Profile</a>
+    </nav>
+    <div id="guest-auth">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="register.html" class="btn-reg">Register</a>
+    </div>
+    <div id="user-auth">
+      <a href="wallet.html" class="wallet-chip">
+        <span class="mi">account_balance_wallet</span>
+        <span class="wallet-bal" id="header-balance">GHS &mdash;</span>
+      </a>
+      <div class="user-wrap">
+        <div class="user-avatar" id="user-avatar" onclick="toggleDropdown()">??</div>
+        <div class="user-dropdown" id="user-dropdown">
+          <div class="ud-header"><div class="ud-name" id="dd-name">&mdash;</div><div class="ud-email" id="dd-email">&mdash;</div></div>
+          <a class="ud-item" href="wallet.html"><span class="mi">account_balance_wallet</span> My Wallet</a>
+          <a class="ud-item" href="betting.html"><span class="mi">receipt_long</span> Bet Now</a>
+          <a class="ud-item" href="profile.html"><span class="mi">person</span> Profile</a>
+          <div class="ud-item ud-logout" onclick="logout()"><span class="mi">logout</span> Sign Out</div>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()"><span class="mi">menu</span></button>
   </div>
-  <div class="nav-right">
-    <div class="nav-auth" id="navGuest">
-      <a href="login.html" class="btn-signin">Sign In</a>
-      <a href="register.html" class="btn-register">Register Free</a>
+</header>
+
+<div class="mob-menu" id="mob-menu">
+  <div id="mob-guest-section">
+    <div class="mob-auth-row">
+      <a href="login.html" class="mob-login">Login</a>
+      <a href="register.html" class="mob-reg">Register</a>
     </div>
-    <div class="nav-user" id="navUser" style="display:none">
-      <a href="profile.html" class="nav-avatar" id="navAvatar" title="My Profile">
-        <span id="navInitials"><svg data-lucide="user" style="width:16px;height:16px"></svg></span>
-      </a>
-      <a href="wallet.html" class="nav-balance-pill">
-        <svg data-lucide="wallet"></svg>
-        <span id="navBalance">GHS 0.00</span>
-      </a>
-      <button class="btn-logout" onclick="logout()">
-        <svg data-lucide="log-out"></svg>Sign Out
+  </div>
+  <div id="mob-user-section" style="display:none;">
+    <div class="mob-user-bar">
+      <div class="mob-av" id="mob-av">??</div>
+      <div class="mob-user-info">
+        <div class="mob-uname" id="mob-uname">&mdash;</div>
+        <div class="mob-ubal" id="mob-ubal">Loading balance&hellip;</div>
+      </div>
+      <button class="mob-logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="mob-menu-divider"></div>
+  <div class="mob-menu-lbl">Navigation</div>
+  <a class="mob-menu-item active" href="index.html"><span class="mi">home</span> Home</a>
+  <a class="mob-menu-item" href="betting.html"><span class="mi">receipt_long</span> Bet Now</a>  <a class="mob-menu-item" href="wallet.html"><span class="mi">account_balance_wallet</span> Wallet</a>
+  <a class="mob-menu-item" href="profile.html"><span class="mi">person</span> Profile</a>
+</div>
+
+<div class="layout">
+<main class="center">
+  <div class="hero">
+    <img class="hero-img" src="https://cdn.modernghana.com/content__/640/457/4292025124051-k5frj7u2h1-cedi-dollar.jpg" alt="" onerror="this.style.display='none'">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="mi" style="font-size:13px;">card_giftcard</span> Welcome Bonus</div>
+      <h2>150% on Your<br><em>First Deposit</em></h2>
+      <p>Up to GHS 500 bonus &bull; ACCA Boost up to 1000% &bull; Free Bet GHS 20</p>
+      <a href="register.html" class="hero-btn" id="hero-cta"><span class="mi">person_add</span> Register Now</a>
+    </div>
+  </div>
+
+  <div class="promo-row">
+    <div class="promo-card" style="background:#1a3d29;" onclick="location.href='betting.html'"><h4><span class="mi" style="font-size:15px;">percent</span> ACCA Boost</h4><p>Up to 1000% on accumulators</p><div class="pc-icon"><span class="mi">trending_up</span></div></div>
+    <div class="promo-card" style="background:#4a0000;" onclick="location.href='betting.html'"><h4><span class="mi" style="font-size:15px;">replay</span> Cashback</h4><p>10% cashback every Monday</p><div class="pc-icon"><span class="mi">replay</span></div></div>
+    <div class="promo-card" style="background:#1a1a00;" onclick="location.href='register.html'"><h4><span class="mi" style="font-size:15px;">confirmation_number</span> Free Bet</h4><p>GHS 20 free bet on sign up</p><div class="pc-icon"><span class="mi">emoji_events</span></div></div>
+    <div class="promo-card" style="background:#001a3d;" onclick="location.href='betting.html'"><h4><span class="mi" style="font-size:15px;">sports_soccer</span> ACCA Insurance</h4><p>One leg lets you down? Refund!</p><div class="pc-icon"><span class="mi">shield</span></div></div>
+  </div>
+
+  <div class="live-row" id="live-cards-row"></div>
+
+  <div class="sc">
+    <div class="sc-head">
+      <div class="sc-dot"></div>
+      <span class="sc-title">Today's Matches</span>
+      <span id="today-count-badge" style="font-size:11px;color:var(--muted);margin-left:4px;"></span>
+      <div class="sc-actions">
+        <button class="sc-btn" onclick="loadAllData()"><span class="mi">refresh</span> Refresh</button>
+        <a class="sc-btn" href="live-games.html" style="color:var(--red);border-color:var(--red);"><span class="mi">cell_tower</span> Go Live</a>
+      </div>
+    </div>
+    <div class="match-hdr">
+      <div></div>
+      <div class="mhg">
+        <div class="mhl">1</div><div class="mhl">X</div><div class="mhl">2</div>
+        <div class="mhl">Goals</div><div class="mhl">Over</div><div></div>
+      </div>
+    </div>
+    <div id="match-list"></div>
+  </div>
+
+  <div class="live-sec">
+    <div class="live-sec-head sc-head">
+      <div class="sc-dot live"></div>
+      <span class="sc-title" style="color:#fff;">Live Betting</span>
+      <span style="font-size:12px;color:#666;font-family:'Barlow',sans-serif;font-weight:400;margin-left:4px;" id="live-count-badge"></span>
+      <div class="sc-actions">
+        <a class="sc-btn" href="live-games.html" style="border-color:#22a848;color:#22a848;background:none;text-decoration:none;"><span class="mi">open_in_new</span> View All</a>
+      </div>
+    </div>
+    <div id="live-list"></div>
+  </div>
+
+  <div class="jackpot">
+    <div>
+      <div class="jp-logo">G<span>STAKE</span></div>
+      <div class="jp-title"><span class="mi">emoji_events</span> JACKPOT 12</div>
+      <div style="font-size:12px;color:#aaa;">Pick 12 correct scores &mdash; Win massive</div>
+    </div>
+    <div class="jp-amt">GHS 150,000</div>
+    <button class="jp-btn" onclick="location.href='betting.html'"><span class="mi">confirmation_number</span> BET NOW</button>
+  </div>
+</main>
+
+<aside class="betslip" id="betslip-panel">
+  <div class="bs-tabs">
+    <div class="bs-tab active"><span class="mi">receipt_long</span> Betslip</div>
+    <div class="bs-tab"><span class="mi">payments</span> Cashout</div>
+  </div>
+  <div class="rs-wrap"><div class="rs active">REAL</div><div class="rs">SIM</div></div>
+  <div id="bs-main-area"></div>
+  <div id="bs-bet-area" style="display:none;">
+    <div id="bet-items" style="padding:8px 12px 0;"></div>
+    <div class="stake-sec">
+      <div class="stake-lbl">Stake (GHS)</div>
+      <input class="stake-inp" type="number" id="stake-inp" value="10" min="1" oninput="calcPayout()">
+      <div class="qs-row">
+        <button class="qs" onclick="setStake(5)">5</button>
+        <button class="qs" onclick="setStake(10)">10</button>
+        <button class="qs" onclick="setStake(20)">20</button>
+        <button class="qs" onclick="setStake(50)">50</button>
+        <button class="qs" onclick="setStake(100)">100</button>
+      </div>
+    </div>
+    <div class="payout-sec">
+      <div class="pw"><span class="lbl">Selections</span><span class="val" id="sel-count">0</span></div>
+      <div class="pw"><span class="lbl">Total odds</span><span class="val" id="tot-odds">1.00</span></div>
+      <div class="pw"><span class="lbl">Potential win</span><span class="val" id="pot-win">GHS 0.00</span></div>
+      <div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" id="tot-payout">GHS 10.00</span></div>
+    </div>
+    <button class="place-btn" onclick="goToBetting()"><span class="mi">receipt_long</span> Go to Bet Now</button>
+  </div>
+</aside>
+</div>
+
+<button class="bet-bubble" id="bet-bubble" onclick="openDrawer()">
+  <div class="bet-bubble-btn">
+    <span class="mi">receipt_long</span>
+    <span class="bet-bubble-count" id="bubble-count">0</span>
+  </div>
+  <span class="bet-bubble-label">BETSLIP</span>
+</button>
+
+<div class="bs-drawer-overlay" id="bs-drawer-overlay" onclick="closeDrawer()"></div>
+<div class="bs-drawer" id="bs-drawer">
+  <div class="bs-drawer-handle"></div>
+  <div class="bs-drawer-head">
+    <span class="bs-drawer-title"><span class="mi">receipt_long</span> Betslip</span>
+    <button class="bs-drawer-close" onclick="closeDrawer()"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-tabs">
+    <div class="drawer-tab active" id="dtab-slip" onclick="switchDrawerTab('slip')">
+      <span class="mi">receipt_long</span> Betslip
+      <span id="drawer-slip-badge" style="background:var(--yellow);color:#000;font-size:9px;font-weight:900;padding:1px 5px;border-radius:8px;margin-left:3px;display:none;">0</span>
+    </div>
+    <div class="drawer-tab" id="dtab-book" onclick="switchDrawerTab('book')">
+      <span class="mi">confirmation_number</span> Booking Code
+    </div>
+  </div>
+  <div class="drawer-pane active" id="dpane-slip">
+    <div class="bs-drawer-body" id="bs-drawer-body"></div>
+  </div>
+  <div class="drawer-pane" id="dpane-book">
+    <div style="padding:16px 16px 24px;">
+      <div style="font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:8px;color:var(--dark);">
+        <span class="mi" style="color:var(--green);">confirmation_number</span> Load a Booking Code
+      </div>
+      <p style="font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:12px;">
+        Enter a booking code to preview your games. Tap <strong>Load &amp; Bet Now</strong> and you'll be taken straight to place your stake.
+      </p>
+      <input class="book-inp" id="mob-book-inp" placeholder="e.g. ABC123" style="font-size:16px;padding:13px 12px;"
+        onkeydown="if(event.key==='Enter')loadMobBookingCode()">
+      <button class="book-load-btn" id="mob-book-load-btn" onclick="loadMobBookingCode()" style="padding:13px;font-size:15px;margin-top:10px;">
+        <span class="mi" style="font-size:18px;">download</span> Load &amp; Bet Now
       </button>
+      <div id="mob-book-result-area" style="margin-top:4px;"></div>
     </div>
-    <div class="icon-btn" id="themeBtn" onclick="toggleTheme()"><svg data-lucide="moon" id="themeIco"></svg></div>
-    <button class="ham" id="hamBtn" onclick="toggleMobNav()"><span></span><span></span><span></span></button>
+  </div>
+</div>
+
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a class="mob-item active" href="index.html"><span class="mi">home</span><span>Home</span></a>
+    <a class="mob-item" href="bet-history.html"><span class="mi">history</span><span>History</span></a>
+    <div class="mob-item" onclick="openDrawer()">
+      <div class="mob-badge-wrap"><span class="mi">receipt_long</span><span class="mob-badge" id="mob-badge">0</span></div>
+      <span>Betslip</span>
+    </div>
+    <a class="mob-item" href="wallet.html"><span class="mi">account_balance_wallet</span><span>Wallet</span></a>
+    <a class="mob-item" href="profile.html"><span class="mi">person</span><span>Profile</span></a>
   </div>
 </nav>
 
-<!-- MOBILE NAV -->
-<div class="mob-nav" id="mobNav">
-  <a href="/" class="active"><svg data-lucide="home"></svg>Home</a>
-  <a href="betting.html"><svg data-lucide="list"></svg>My Bets</a>
-  <a href="wallet.html"><svg data-lucide="wallet"></svg>Wallet</a>
-  <a href="results.html"><svg data-lucide="bar-chart-2"></svg>Results</a>
-  <a href="profile.html" id="mobProfile" style="display:none"><svg data-lucide="user"></svg>My Profile</a>
-  <div class="mob-nav-btns" id="mobAuthBtns">
-    <button class="mob-btn-ghost" onclick="window.location='login.html'">Sign In</button>
-    <button class="mob-btn-accent" onclick="window.location='register.html'">Register Now</button>
-  </div>
-  <div class="mob-nav-btns" id="mobUserBtns" style="display:none">
-    <button class="mob-btn-ghost" onclick="window.location='profile.html'">My Profile</button>
-    <button class="mob-btn-red" onclick="logout()">Sign Out</button>
-  </div>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-bg">
-    <img src="https://oddsmatrix.com/wp-content/uploads/2022/10/greatest-sports-betting-stories-768x403.png" alt="" onerror="this.style.display='none'">
-  </div>
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-title">Bet Smarter.<br><em>Win Bigger.</em></div>
-      <div class="hero-sub">Real-time odds — Premier League, UCL, La Liga, Bundesliga, Serie A, Ligue 1 &amp; FIFA World Cup 2026.</div>
-      <div class="hero-btns" id="heroGuestBtns">
-        <a href="register.html" class="hbtn hbtn-primary"><svg data-lucide="user-plus"></svg>Join Free — Start Winning</a>
-        <a href="login.html" class="hbtn hbtn-outline"><svg data-lucide="log-in"></svg>Sign In</a>
+<footer class="footer">
+  <div class="ft-top">
+    <div class="ft-col">
+      <div style="display:inline-flex;align-items:center;">
+        <div style="background:#222;border-radius:6px 0 0 6px;padding:5px 10px;"><span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;"><span style="color:#fff;">G</span><span style="color:#f5c518;">STAKE</span></span></div>
+        <div style="width:4px;height:34px;background:#f5c518;border-radius:0 3px 3px 0;"></div>
       </div>
-      <div class="hero-btns" id="heroUserBtns" style="display:none">
-        <a href="correct-score.html" class="hbtn hbtn-primary"><svg data-lucide="crosshair"></svg>Correct Score</a>
-        <a href="wallet.html" class="hbtn hbtn-outline"><svg data-lucide="wallet"></svg>My Wallet</a>
-      </div>
-      <div class="hero-trust">
-        <span class="trust-pill"><svg data-lucide="shield-check"></svg>Licensed in Ghana</span>
-        <span class="trust-pill"><svg data-lucide="zap"></svg>Instant Withdrawals</span>
-        <span class="trust-pill"><svg data-lucide="lock"></svg>Secure &amp; Encrypted</span>
-      </div>
+      <p style="font-size:12px;color:#555;margin-top:10px;line-height:1.7;">Official Sports Betting Platform. Licensed by the Gaming Commission of Ghana.</p>
+    </div>
+    <div class="ft-col"><h4>Company</h4><ul>
+      <li><a href="#"><span class="mi">chevron_right</span> About Us</a></li>
+      <li><a href="#"><span class="mi">chevron_right</span> Terms &amp; Conditions</a></li>
+      <li><a href="#"><span class="mi">chevron_right</span> Responsible Gaming</a></li>
+      <li><a href="#"><span class="mi">chevron_right</span> Privacy Policy</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Account</h4><ul>
+      <li><a href="betting.html"><span class="mi">chevron_right</span> Bet Now</a></li>
+      <li><a href="bet-history.html"><span class="mi">chevron_right</span> Bet History</a></li>
+      <li><a href="wallet.html"><span class="mi">chevron_right</span> Wallet</a></li>
+      <li><a href="profile.html"><span class="mi">chevron_right</span> Profile</a></li>
+    </ul></div>
+    <div class="ft-col ft-contact"><h4>Contact</h4>
+      <div class="ci"><span class="mi">phone</span> +233 059 692 1899</div>
+      <div class="ci"><span class="mi">email</span> support@gstake.com</div>
+      <div class="ci"><span class="mi">location_on</span> Accra, Ghana</div>
     </div>
   </div>
-</div>
-
-<!-- FEED HEADER -->
-<div class="feed-section">
-  <div class="feed-header">
-    <div>
-      <div class="feed-title"><svg data-lucide="layout-grid"></svg>Fixtures &amp; Odds</div>
-      <div class="feed-sub">Top 6 European leagues · FIFA World Cup 2026</div>
+  <div class="ft-bot">
+    <div class="badge-18">18+</div>
+    <p class="ft-legal">Age 18+ only. Play Responsibly. GStake is licensed by the Gaming Commission of Ghana under Act 721.</p>
+    <div class="pay-icons">
+      <div class="pay-ic">VISA</div><div class="pay-ic">Mastercard</div>
+      <div class="pay-ic" style="color:#ffcb00;font-weight:900;">MTN</div>
+      <div class="pay-ic" style="color:#e60000;">Vodafone</div>
+      <div class="pay-ic" style="color:#00a0e3;font-size:10px;">AirtelTigo</div>
     </div>
   </div>
-  <div class="api-bar" id="apiBar">
-    <span class="api-badge loading"><svg data-lucide="loader"></svg>Loading fixtures…</span>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main-wrap">
-  <div><div class="feed" id="feed">
-    <div class="loading-wrap">
-      <div class="spinner"></div>
-      <span style="font-size:13px;color:var(--t3)">Fetching fixtures…</span>
-    </div>
-  </div></div>
-  <div><div class="dslip">
-    <div class="dhead"><div class="dtitle"><svg data-lucide="ticket"></svg>Bet Slip</div></div>
-    <div class="login-prompt" id="slipGuest">
-      <div class="login-prompt-icon"><svg data-lucide="lock"></svg></div>
-      <h3>Login to Place Bets</h3>
-      <p>Create a free account or sign in to select odds and place bets.</p>
-      <a href="register.html" class="lp-btn-register"><svg data-lucide="user-plus"></svg>Register Free</a>
-      <div class="lp-divider">or</div>
-      <a href="login.html" class="lp-btn-signin"><svg data-lucide="log-in"></svg>Sign In</a>
-      <div class="lp-features">
-        <div class="lp-feat"><svg data-lucide="check-circle"></svg>Instant deposits via MoMo</div>
-        <div class="lp-feat"><svg data-lucide="check-circle"></svg>Same-day withdrawals</div>
-        <div class="lp-feat"><svg data-lucide="check-circle"></svg>Live betting &amp; cash out</div>
-        <div class="lp-feat"><svg data-lucide="check-circle"></svg>Welcome bonus on signup</div>
-      </div>
-    </div>
-    <div class="slip-logged" id="slipUser" style="display:none">
-      <div class="slip-logged-icon"><svg data-lucide="check-circle"></svg></div>
-      <div style="font-family:var(--ffC);font-size:16px;font-weight:700;color:var(--t1)" id="slipWelcome">Welcome back!</div>
-      <div style="font-size:12px;color:var(--t2);line-height:1.6">Click any odds to add them to your slip.</div>
-      <a href="correct-score.html" style="width:100%;padding:11px;border-radius:9px;background:var(--accent);color:#000;font-family:var(--ffC);font-size:14px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:4px">
-        <svg data-lucide="crosshair" style="width:14px;height:14px"></svg>Correct Score Market
-      </a>
-      <a href="betting.html" style="width:100%;padding:10px;border-radius:9px;background:transparent;color:var(--t1);font-family:var(--ff);font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--border);margin-top:2px">
-        <svg data-lucide="list" style="width:13px;height:13px"></svg>View My Bets
-      </a>
-    </div>
-  </div></div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">G<em>S</em>TAKE</div>
-      <div class="footer-tagline">Ghana's premier sports betting platform. Real-time odds, instant payouts.</div>
-      <div class="footer-badges">
-        <span class="fbadge"><svg data-lucide="shield-check"></svg>Licensed</span>
-        <span class="fbadge"><svg data-lucide="lock"></svg>Secure</span>
-        <span class="fbadge"><svg data-lucide="zap"></svg>Live</span>
-      </div>
-    </div>
-    <div class="footer-col"><h4>Sports</h4><ul><li><a href="football.html">Football</a></li><li><a href="basketball.html">Basketball</a></li><li><a href="tennis.html">Tennis</a></li><li><a href="live-betting.html">Live Betting</a></li></ul></div>
-    <div class="footer-col"><h4>Account</h4><ul><li><a href="register.html">Register</a></li><li><a href="login.html">Login</a></li><li><a href="deposit.html">Deposit</a></li><li><a href="withdraw.html">Withdraw</a></li></ul></div>
-    <div class="footer-col"><h4>Help</h4><ul><li><a href="how-to-bet.html">How to Bet</a></li><li><a href="responsible-gambling.html">Responsible Gambling</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">&copy; 2026 GStake Ghana. All rights reserved.</div>
-    <div class="footer-legal"><span class="resp-badge"><svg data-lucide="alert-triangle"></svg>18+</span>&nbsp;Gambling can be addictive. Please play responsibly. GStake is licensed by the Gaming Commission of Ghana.</div>
-  </div>
+  <div class="ft-copy">&copy; 2026 GStake. All rights reserved.</div>
 </footer>
 
-<!-- WINNER POPUP CONTAINER -->
-<div class="wpop-container" id="wpopContainer"></div>
-
 <script>
-/* ══════════════════════════════════════════
-   CORE APP
-══════════════════════════════════════════ */
-const BASE_URL     = 'https://kikiwebbackend.onrender.com';
-const FIXTURES_URL = `${BASE_URL}/api/v1/football/fixtures`;
+const API_BASE='https://kikiwebbackend.onrender.com';
+const FOOTBALL_BASE='https://kikiwebbackend.onrender.com';
 
-function getToken() { return localStorage.getItem('gstake_token') || sessionStorage.getItem('gstake_token') || null; }
-function getUser()  { try { const r=localStorage.getItem('gstake_user')||sessionStorage.getItem('gstake_user'); return r?JSON.parse(r):null; } catch{return null;} }
-function logout()   { ['gstake_token','gstake_user'].forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k);}); window.location.href='/'; }
+/* ── AUTH — reads gstake_token from localStorage OR sessionStorage ── */
+function getToken(){
+  return localStorage.getItem('gstake_token')||sessionStorage.getItem('gstake_token')||null;
+}
+function getUser(){
+  try{
+    const raw=localStorage.getItem('gstake_user')||sessionStorage.getItem('gstake_user')||'{}';
+    return JSON.parse(raw)||{};
+  }catch{return{};}
+}
+function isLoggedIn(){return !!getToken();}
+function getDisplayName(u){if(u.firstName||u.lastName)return[u.firstName,u.lastName].filter(Boolean).join(' ');return u.name||u.username||(u.email?u.email.split('@')[0]:'My Account');}
+function getInitials(u){if(u.firstName||u.lastName)return((u.firstName||'').charAt(0)+(u.lastName||'').charAt(0)).toUpperCase();if(u.name)return u.name.substring(0,2).toUpperCase();if(u.email)return u.email.charAt(0).toUpperCase();return'?';}
 
-window.addEventListener('load', () => {
-  lucide.createIcons();
-  applyAuthState();
-  loadMatches();
-  startWinnerPopups();
+function applyAuthState(){
+  const guestEl=document.getElementById('guest-auth'),userEl=document.getElementById('user-auth');
+  if(isLoggedIn()){
+    const u=getUser();
+    guestEl.style.display='none';userEl.style.display='flex';
+    document.getElementById('user-avatar').textContent=getInitials(u);
+    document.getElementById('dd-name').textContent=getDisplayName(u);
+    document.getElementById('dd-email').textContent=u.email||'';
+    const heroCta=document.getElementById('hero-cta');
+    if(heroCta){heroCta.href='betting.html';heroCta.innerHTML='<span class="mi">receipt_long</span> Bet Now';}
+    document.getElementById('mob-guest-section').style.display='none';
+    document.getElementById('mob-user-section').style.display='block';
+    document.getElementById('mob-av').textContent=getInitials(u);
+    document.getElementById('mob-uname').textContent=getDisplayName(u);
+    fetchBalance();
+  }else{
+    guestEl.style.display='flex';userEl.style.display='none';
+    document.getElementById('mob-guest-section').style.display='block';
+    document.getElementById('mob-user-section').style.display='none';
+  }
+}
+
+async function fetchBalance(){
+  const token=getToken();if(!token)return;
+  try{
+    const res=await fetch(`${API_BASE}/api/v1/users/me`,{headers:{'Authorization':`Bearer ${token}`},signal:AbortSignal.timeout(10000)});
+    if(res.ok){
+      const data=await res.json(),payload=data.data||data;
+      const bal=payload.walletBalance??payload.balance??payload.wallet?.balance??null;
+      if(bal!==null){
+        const fmt='GHS '+parseFloat(bal).toFixed(2);
+        document.getElementById('header-balance').textContent=fmt;
+        const mb=document.getElementById('mob-ubal');if(mb)mb.textContent=fmt;
+      }
+    }else if(res.status===401)logout(false);
+  }catch{}
+}
+
+function logout(redirect=true){
+  ['gstake_token','gstake_user','ps_slip'].forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k);});
+  if(redirect)window.location.href='login.html';
+}
+function toggleDropdown(){document.getElementById('user-dropdown').classList.toggle('open');}
+function toggleMenu(){document.getElementById('mob-menu').classList.toggle('open');}
+document.addEventListener('click',e=>{
+  const ua=document.getElementById('user-auth');
+  if(ua&&!ua.contains(e.target))document.getElementById('user-dropdown')?.classList.remove('open');
+  const menu=document.getElementById('mob-menu'),ham=document.querySelector('.hamburger');
+  if(menu?.classList.contains('open')&&!menu.contains(e.target)&&!ham?.contains(e.target))menu.classList.remove('open');
 });
 
-function applyAuthState() {
-  const token=getToken(), user=getUser();
-  if (token && user) {
-    document.getElementById('navGuest').style.display='none';
-    document.getElementById('navUser').style.display='flex';
-    document.getElementById('slipGuest').style.display='none';
-    document.getElementById('slipUser').style.display='flex';
-    document.getElementById('heroGuestBtns').style.display='none';
-    document.getElementById('heroUserBtns').style.display='flex';
-    document.getElementById('mobAuthBtns').style.display='none';
-    document.getElementById('mobUserBtns').style.display='flex';
-    document.getElementById('mobProfile').style.display='flex';
-    const first=(user.firstName||'').trim(), last=(user.lastName||'').trim();
-    const ini=(first[0]||'')+(last[0]||first[1]||'');
-    if(ini) document.getElementById('navInitials').textContent=ini.toUpperCase();
-    document.getElementById('slipWelcome').textContent=`Welcome back, ${user.firstName||'Champ'}!`;
-    fetchBalance();
-  } else {
-    document.getElementById('navGuest').style.display='flex';
-    document.getElementById('navUser').style.display='none';
-    document.getElementById('slipGuest').style.display='flex';
-    document.getElementById('slipUser').style.display='none';
-    document.getElementById('heroGuestBtns').style.display='flex';
-    document.getElementById('heroUserBtns').style.display='none';
+/* ── SLIP ── */
+let slip={};
+try{const s=localStorage.getItem('ps_slip');if(s)slip=JSON.parse(s);}catch{}
+
+/* ── DRAWER TABS ── */
+let activeDrawerTab='slip';
+function switchDrawerTab(tab){
+  activeDrawerTab=tab;
+  document.getElementById('dtab-slip').classList.toggle('active',tab==='slip');
+  document.getElementById('dtab-book').classList.toggle('active',tab==='book');
+  document.getElementById('dpane-slip').classList.toggle('active',tab==='slip');
+  document.getElementById('dpane-book').classList.toggle('active',tab==='book');
+}
+function openDrawer(tab){
+  if(tab)switchDrawerTab(tab);
+  renderDrawer();
+  document.getElementById('bs-drawer-overlay').classList.add('open');
+  document.getElementById('bs-drawer').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('bs-drawer-overlay').classList.remove('open');
+  document.getElementById('bs-drawer').classList.remove('open');
+}
+function renderDrawer(){
+  const body=document.getElementById('bs-drawer-body'),items=Object.values(slip);
+  if(!items.length){
+    body.innerHTML=`<div class="drawer-empty"><span class="mi">receipt_long</span>No selections yet.<br>Tap any odds to add them here.</div>
+    <div style="padding:0 16px 8px;">
+      <button onclick="switchDrawerTab('book')" style="width:100%;padding:12px;background:none;border:1.5px dashed var(--green);border-radius:6px;color:var(--green);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Barlow',sans-serif;">
+        <span class="mi">confirmation_number</span> Load a Booking Code
+      </button>
+    </div>`;return;
   }
-  lucide.createIcons();
-}
-
-async function fetchBalance() {
-  try {
-    const res=await fetch(`${BASE_URL}/api/v1/wallet/balance`,{headers:{Authorization:`Bearer ${getToken()}`}});
-    const d=await res.json();
-    const bal=d.data?.balance??d.balance??null;
-    if(bal!==null) document.getElementById('navBalance').textContent=`GHS ${parseFloat(bal).toFixed(2)}`;
-  } catch{}
-}
-
-let allMatches=[];
-function sr(n){let s=n;s^=s<<13;s^=s>>17;s^=s<<5;return(s>>>0)/4294967296;}
-function odds(id){return{home:+(1.35+sr(id)*2.5).toFixed(2),draw:+(2.60+sr(id*7919)*1.5).toFixed(2),away:+(1.35+sr(id*6271)*2.5).toFixed(2),o15:+(1.12+sr(id+1)*0.4).toFixed(2),o25:+(1.55+sr(id+2)*0.7).toFixed(2),o35:+(2.10+sr(id+3)*1.4).toFixed(2)};}
-function hashStr(s){let h=0;for(let i=0;i<s.length;i++)h=(Math.imul(31,h)+s.charCodeAt(i))|0;return Math.abs(h);}
-
-async function loadMatches(){
-  showLoad();
-  try{
-    const res=await fetch(FIXTURES_URL);
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data=await res.json();
-    const club=[],wc=[];
-    (data.matches||[]).forEach(m=>{if(isWC(m))wc.push(normalise(m));else club.push(normalise(m));});
-    allMatches=[...club,...wc];
-    updateApiBadge(club.length,wc.length);
-    renderFeed();
-  }catch(e){
-    console.error('Failed to load fixtures:',e);
-    updateApiBadgeError();
-    showError();
-  }
-}
-
-function isWC(m){const c=(m.competition||'').toLowerCase();return c.includes('world cup')||c.includes('wc')||m.category==='wc';}
-function normalise(m){return{_uid:m.uid||`m-${Math.random()}`,_comp:m.competition||'Football',_cat:isWC(m)?'wc':'club',_isLive:m.live===true||m.status==='IN_PLAY'||m.status==='PAUSED',_date:m.utcDate||new Date().toISOString(),_min:m.minute||'',_ht:m.teams?.home?.name||m.homeTeam||'Home',_at:m.teams?.away?.name||m.awayTeam||'Away',_hc:m.crests?.home||m.teams?.home?.crest||'',_ac:m.crests?.away||m.teams?.away?.crest||'',_hs:m.scores?.home??null,_as:m.scores?.away??null,_venue:m.venue||'',_odds:m.odds||null};}
-
-function updateApiBadge(c,w){
-  const now=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('apiBar').innerHTML=`
-    <span class="api-badge ${c>0?'ok':'err'}"><svg data-lucide="${c>0?'check-circle':'x-circle'}"></svg>${c>0?`✓ ${c} Club Fixtures`:'Club Leagues Offline'}</span>
-    <span class="api-badge ${w>0?'ok':'err'}"><svg data-lucide="${w>0?'check-circle':'x-circle'}"></svg>${w>0?`✓ ${w} WC 2026 Fixtures`:'WC 2026 Offline'}</span>
-    <span class="last-updated"><svg data-lucide="refresh-cw"></svg>Updated ${now}</span>`;
-  lucide.createIcons();
-}
-function updateApiBadgeError(){document.getElementById('apiBar').innerHTML=`<span class="api-badge err"><svg data-lucide="x-circle"></svg>Backend Unreachable</span>`;lucide.createIcons();}
-function showLoad(){document.getElementById('feed').innerHTML='<div class="loading-wrap"><div class="spinner"></div><span style="font-size:13px;color:var(--t3)">Fetching fixtures…</span></div>';}
-function showError(){document.getElementById('feed').innerHTML=`<div class="empty-wrap"><svg data-lucide="wifi-off"></svg><span>Could not reach the server.</span><button onclick="loadMatches()" style="margin-top:8px;padding:8px 20px;border-radius:8px;background:var(--accent);color:#000;border:none;font-weight:700;cursor:pointer;font-family:var(--ff)">Retry</button></div>`;lucide.createIcons();}
-
-function renderFeed(){
-  const feed=document.getElementById('feed');
-  const club=allMatches.filter(m=>m._cat==='club');
-  const wc=allMatches.filter(m=>m._cat==='wc');
-  const sortFn=(a,b)=>{if(a._isLive&&!b._isLive)return -1;if(!a._isLive&&b._isLive)return 1;return new Date(a._date)-new Date(b._date);};
-  club.sort(sortFn);wc.sort(sortFn);
-  let html='';
-  if(club.length) html+=mkSection('Top 6 European Leagues','shield','var(--accent)','',club,0);
-  if(wc.length)   html+=mkSection('FIFA World Cup 2026','trophy','var(--green)','wc',wc,club.length);
-  feed.innerHTML=html||'<div class="empty-wrap"><svg data-lucide="calendar-x"></svg><span>No fixtures available right now.</span></div>';
-  lucide.createIcons();
-}
-
-function mkSection(title,icon,color,type,arr,off){
-  const cls=type==='wc'?'sec-lbl wc':'sec-lbl';
-  let h=`<div class="${cls}" style="margin-top:${off>0?'24px':'0'}"><span><svg data-lucide="${icon}" style="width:12px;height:12px;color:${color}"></svg>${title}</span><span style="font-family:var(--ffC);color:${color}">${arr.length}</span></div>`;
-  arr.forEach((m,i)=>{h+=buildCard(m,off+i);});
-  return h;
-}
-
-function fmtT(u){const d=new Date(u),n=new Date();const t=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const tm=new Date();tm.setDate(n.getDate()+1);if(d.toDateString()===n.toDateString())return'Today '+t;if(d.toDateString()===tm.toDateString())return'Tomorrow '+t;return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+' '+t;}
-
-function buildCard(m,idx){
-  const oid=hashStr(m._uid)%900000+100000;
-  const od=m._odds?{home:m._odds.home,draw:m._odds.draw,away:m._odds.away,o15:m._odds.over15,o25:m._odds.over25,o35:m._odds.over35}:odds(oid);
-  const crest=src=>src?`<img src="${src}" class="tcrest" onerror="this.style.display='none'" alt="">`:'' ;
-  const scoreHtml=m._hs!=null?`<div class="score-box">${m._hs} – ${m._as}</div>`:m._isLive?`<div class="score-box">– –</div>`:`<div class="vs-box">VS</div>`;
-  const statusHtml=m._isLive?`<span class="live-badge"><div class="dot"></div>${m._min||'LIVE'}</span>`:`<span class="time-tag"><svg data-lucide="clock" style="width:12px;height:12px"></svg>${fmtT(m._date)}</span>`;
-  const leagueCls=m._cat==='wc'?'league-tag wct':'league-tag';
-  const cardCls=`mcard${m._isLive?' live-card':''}${m._cat==='wc'?' wc-card':''}`;
-  return `<div class="${cardCls}" style="animation-delay:${idx*25}ms">
-<div class="ctop"><div class="${leagueCls}">${m._comp||'Football'}</div><div class="ctop-right">${statusHtml}</div></div>
-${m._venue?`<div style="font-size:11px;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:4px"><svg data-lucide="map-pin" style="width:11px;height:11px"></svg>${m._venue}</div>`:''}
-<div class="trow">
-  <div class="team-blk">${crest(m._hc)}<div class="tname">${m._ht}</div></div>
-  ${scoreHtml}
-  <div class="team-blk away"><div class="tname away">${m._at}</div>${crest(m._ac)}</div>
-</div>
-<div class="og">
-  <div class="obtn"><span class="ol">1 Home</span><span class="ov">${od.home}</span></div>
-  <div class="obtn"><span class="ol">X Draw</span><span class="ov">${od.draw}</span></div>
-  <div class="obtn"><span class="ol">2 Away</span><span class="ov">${od.away}</span></div>
-</div>
-<div class="gg">
-  <div class="gbtn"><span class="gl">Over 1.5</span><span class="gv">${od.o15}</span></div>
-  <div class="gbtn"><span class="gl">Over 2.5</span><span class="gv">${od.o25}</span></div>
-  <div class="gbtn"><span class="gl">Over 3.5</span><span class="gv">${od.o35}</span></div>
-</div>
-</div>`;
-}
-
-function toggleTheme(){const dark=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',dark?'light':'dark');const i=document.getElementById('themeIco');if(i)i.setAttribute('data-lucide',dark?'sun':'moon');lucide.createIcons();}
-function toggleMobNav(){document.getElementById('mobNav').classList.toggle('open');document.getElementById('hamBtn').classList.toggle('open');}
-setInterval(loadMatches,60*60*1000);
-
-
-/* ══════════════════════════════════════════
-   WINNER POPUP SYSTEM
-══════════════════════════════════════════ */
-const WINNER_DATA = [
-  // Ghana winners
-  {name:'Kwame Asante',      country:'GH', amt:'GH₵ 48,200',  review:"Couldn't believe it — placed a 5-fold and it landed!"},
-  {name:'Ama Serwah',        country:'GH', amt:'GH₵ 92,400',  review:"GStake paid out within minutes. Absolutely mad winnings!"},
-  {name:'Yaw Frimpong',      country:'GH', amt:'GH₵ 130,500', review:"First big win after 3 months. The odds were perfect."},
-  {name:'Akosua Darko',      country:'GH', amt:'GH₵ 55,000',  review:"Trusted my gut on Real Madrid. Never looking back!"},
-  {name:'Kofi Entsie',       country:'GH', amt:'GH₵ 410,000', review:"This platform is different — instant cashout every time."},
-  {name:'Efua Koomson',      country:'GH', amt:'GH₵ 200,000', review:"Weekend accumulator came through. Amazing feeling!"},
-  {name:'Mensah Poku',       country:'GH', amt:'GH₵ 88,000',  review:"The live odds are so sharp. Won big on Champions League."},
-  {name:'Adwoa Tabi',        country:'GH', amt:'GH₵ 320,000', review:"Best betting site in Ghana. No questions asked payout!"},
-  {name:'Nana Boateng',      country:'GH', amt:'GH₵ 74,500',  review:"My mate recommended GStake. So glad he did — cashed out!"},
-  {name:'Kwabena Acheampong',country:'GH', amt:'GH₵ 230,000', review:"4 games, all wins. GStake never disappoints!"},
-  {name:'Maame Agyei',       country:'GH', amt:'GH₵ 115,000', review:"Picked all 3 correct scores. Life-changing money!"},
-  {name:'Serwa Amoah',       country:'GH', amt:'GH₵ 260,000', review:"Fast payout, no stress. This is the real deal."},
-  {name:'Kojo Nyarko',       country:'GH', amt:'GH₵ 500,000', review:"Half a million cedis — I screamed! GStake for life."},
-  // Nigeria winners
-  {name:'Emeka Okonkwo',  country:'NG', amt:'₦ 312,500',   review:"Bundesliga double came in. Credited same day!"},
-  {name:'Chidi Nwosu',    country:'NG', amt:'₦ 580,000',   review:"Been using GStake for 6 months. Best platform, no doubt."},
-  {name:'Tunde Balogun',  country:'NG', amt:'₦ 920,000',   review:"Over 2.5 in 4 games, all hit! Unbelievable night."},
-  {name:'Dele Adeleke',   country:'NG', amt:'₦ 1,200,000', review:"Premier League weekend sorted my month. Thank you GStake!"},
-  {name:'Segun Peters',   country:'NG', amt:'₦ 750,000',   review:"La Liga treble. 45-minute payout. These guys are legit."},
-  {name:'Biodun Lawal',   country:'NG', amt:'₦ 2,100,000', review:"I've won before but never like this. GStake is top tier!"},
-  {name:'Akin Rasheed',   country:'NG', amt:'₦ 3,500,000', review:"Correct score on 3 matches. Absolute madness. I'm rich!"},
-  {name:'Uche Dike',      country:'NG', amt:'₦ 445,000',   review:"Naija betting just levelled up with GStake. Payout instant!"},
-  {name:'Femi Adeyemi',   country:'NG', amt:'₦ 660,000',   review:"Trusted my analysis. GStake delivered without drama."},
-  {name:'Jide Ogunleye',  country:'NG', amt:'₦ 1,800,000', review:"Saturday accumulator was perfect. Never felt this good!"},
-  {name:'Rotimi Saka',    country:'NG', amt:'₦ 980,000',   review:"Six-leg bet, all won. I still can't believe it happened!"},
-  {name:'Babatunde Kalu', country:'NG', amt:'₦ 4,200,000', review:"This is the biggest I've ever won anywhere. GStake is it!"},
-  {name:'Lanre Taiwo',    country:'NG', amt:'₦ 720,000',   review:"Champions League final leg came through. Paid immediately."},
-  {name:'Nkechi Ibe',     country:'NG', amt:'₦ 1,100,000', review:"Took a risk on a double chance. Paid off massively!"},
-  {name:'Olumide Femi',   country:'NG', amt:'₦ 3,000,000', review:"Sunday games went my way. GStake is the most reliable!"},
-  {name:'Chukwuma Jaja',  country:'NG', amt:'₦ 2,700,000', review:"My biggest win yet. Platform is clean and payouts are fast."},
-  // USD winners
-  {name:'James Korvah',   country:'US', amt:'$ 8,750',  review:"UCL bet came in big. Very impressed with GStake!"},
-  {name:'Michael Torres', country:'US', amt:'$ 14,300', review:"Great odds, instant withdrawal. Will bet here forever."},
-  {name:'Sarah Williams', country:'US', amt:'$ 22,000', review:"I doubled down on Serie A and it paid beautifully."},
-  {name:'Brian O\'Connor',country:'US', amt:'$ 5,600',  review:"Recommended by a friend. Now I'm a believer!"},
-  {name:'Chris Murphy',   country:'US', amt:'$ 31,400', review:"Accumulator with 6 legs all landed. Unreal weekend!"},
-  {name:'Tyler Hughes',   country:'US', amt:'$ 9,900',  review:"Loved the live betting feature. Won back-to-back!"},
-  {name:'Marcus Davis',   country:'US', amt:'$ 42,000', review:"This was my biggest sports bet ever. GStake delivered!"},
-  {name:'Rachel Newton',  country:'US', amt:'$ 11,200', review:"The app is smooth and the payouts are lightning fast."},
-  {name:'David Patel',    country:'US', amt:'$ 28,500', review:"Correct score market is where it's at on GStake. Love it!"},
-  {name:'Alex Warner',    country:'US', amt:'$ 6,300',  review:"Started small, built up, and now I'm cashing out big!"},
-  {name:'Jerome Bell',    country:'US', amt:'$ 19,700', review:"Bundesliga weekend was profitable. GStake ftw!"},
-  {name:'Nathan Cole',    country:'US', amt:'$ 35,000', review:"My bankroll grew 10x last month. GStake is fire!"},
-  {name:'Lisa Kim',       country:'US', amt:'$ 52,000', review:"Biggest payout I've ever received from any platform."},
-];
-
-/* Random avatar pools — faces from randomuser.me */
-const AVATAR_SEEDS_MALE   = [10,20,30,40,50,60,70,80,11,21,31,41,51,61,71,81,12,22,32,42];
-const AVATAR_SEEDS_FEMALE = [1,2,3,4,5,6,7,8,9,13,14,15,16,17,18,19,23,24,25,26];
-
-const REVIEWS_EXTRA = [
-  "Withdrew in under 10 minutes. Absolutely elite service!",
-  "GStake's odds beat every other site I've tried.",
-  "Told all my friends — this is the best betting platform around.",
-  "My Saturday morning bet made me smile all week.",
-  "Clean interface, sharp odds, instant payout. Perfect combo!",
-  "Never thought I'd win this much from an accumulator. GStake!",
-  "Correct score on 2 games. Payout was there before I blinked.",
-  "Support team is helpful too. Genuinely love this platform.",
-];
-
-let wpopQueue = [];
-let wpopActive = false;
-let wpopShuffled = [];
-let wpopIdx = 0;
-
-function shuffleArr(arr) {
-  const a=[...arr];
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a;
-}
-
-function getAvatarUrl(name, idx) {
-  /* Use randomuser.me with a seed derived from name for consistency */
-  const gender = ['Ama','Akosua','Efua','Adwoa','Maame','Serwa','Sarah','Rachel','Lisa','Nkechi'].some(f=>name.startsWith(f)) ? 'women' : 'men';
-  const pool   = gender === 'women' ? AVATAR_SEEDS_FEMALE : AVATAR_SEEDS_MALE;
-  const seed   = pool[Math.abs(idx) % pool.length];
-  return `https://randomuser.me/api/portraits/${gender}/${seed}.jpg`;
-}
-
-function startWinnerPopups() {
-  wpopShuffled = shuffleArr(WINNER_DATA);
-  wpopIdx = 0;
-  /* First popup: 4-9 seconds after load */
-  const firstDelay = 4000 + Math.random() * 5000;
-  setTimeout(showNextWinnerPop, firstDelay);
-}
-
-function showNextWinnerPop() {
-  if (wpopIdx >= wpopShuffled.length) {
-    wpopShuffled = shuffleArr(WINNER_DATA);
-    wpopIdx = 0;
-  }
-  const winner = wpopShuffled[wpopIdx++];
-  createWinnerPop(winner, wpopIdx);
-
-  /* Next popup: 8–18 seconds later */
-  const nextDelay = 8000 + Math.random() * 10000;
-  setTimeout(showNextWinnerPop, nextDelay);
-}
-
-function createWinnerPop(winner, idx) {
-  const DURATION = 6; /* seconds visible */
-  const avatarUrl = getAvatarUrl(winner.name, idx);
-
-  /* Pick a review — use winner's own or a random extra */
-  const review = winner.review || REVIEWS_EXTRA[Math.floor(Math.random() * REVIEWS_EXTRA.length)];
-
-  const pop = document.createElement('div');
-  pop.className = 'wpop';
-
-  pop.innerHTML = `
-    <img class="wpop-avatar" src="${avatarUrl}"
-         onerror="this.src='https://randomuser.me/api/portraits/men/${(idx%80)+1}.jpg'"
-         alt="${winner.name}">
-    <div class="wpop-body">
-      <div class="wpop-header">
-        <span class="wpop-name">${winner.name}</span>
-        <span class="wpop-amount">${winner.amt}</span>
-      </div>
-      <div class="wpop-status">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Successful Cashout
-      </div>
-      <div class="wpop-review">"${review}"</div>
+  const tot=items.reduce((a,b)=>a*b.odd,1);
+  let html='<div style="padding:10px 14px 0;">';
+  html+=items.map(b=>`<div class="drawer-bet-item">
+    <button class="drawer-bet-rm" onclick="removeAndRefreshDrawer('${b.id}')"><span class="mi">close</span></button>
+    <div class="bet-league">${esc(b.league)}</div>
+    <div class="bet-match">${esc(b.teams)}</div>
+    <div class="bet-sel-row">
+      <div><div class="bet-sel">${esc(b.label)}</div><div class="bet-mkt">Full Time</div></div>
+      <div class="bet-odd">${parseFloat(b.odd).toFixed(2)}</div>
+    </div></div>`).join('');
+  html+=`</div><div style="padding:0 14px;">
+    <div class="drawer-payout">
+      <div class="drawer-pw"><span class="lbl">Selections</span><span class="val">${items.length}</span></div>
+      <div class="drawer-pw"><span class="lbl">Total odds</span><span class="val">${tot.toFixed(2)}</span></div>
+      <div class="drawer-pw tot"><span class="lbl" style="font-weight:700;">Est. payout (GHS 10)</span><span class="val">GHS ${(10*tot).toFixed(2)}</span></div>
     </div>
-    <button class="wpop-close" onclick="dismissPop(this.closest('.wpop'))">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <div class="wpop-bar"><div class="wpop-bar-fill" style="animation-duration:${DURATION}s"></div></div>`;
+    <button class="drawer-go-btn" onclick="goToBetting()"><span class="mi">receipt_long</span> Go to Bet Now</button>
+    <button class="drawer-clear-btn" onclick="clearSlipAndDrawer()">Clear all selections</button>
+  </div>`;
+  body.innerHTML=html;
+}
+function removeAndRefreshDrawer(id){delete slip[id];localStorage.setItem('ps_slip',JSON.stringify(slip));renderBsMainArea();updateBadges();renderDrawer();}
+function clearSlipAndDrawer(){slip={};localStorage.setItem('ps_slip',JSON.stringify(slip));renderBsMainArea();updateBadges();renderDrawer();}
 
-  const container = document.getElementById('wpopContainer');
-  container.appendChild(pop);
-
-  /* Enforce max 2 visible at once */
-  const all = container.querySelectorAll('.wpop');
-  if (all.length > 2) {
-    dismissPop(all[0]);
+/* ── BOOKING CODE ── */
+let loadedBooking=null,loadedMobBooking=null;
+async function _fetchBookingCode(code){
+  const r1=await fetch(`${API_BASE}/api/v1/booking-codes/standard/${code}`,{signal:AbortSignal.timeout(14000)});
+  if(r1.ok)return{data:await r1.json(),isCorrectScore:false};
+  if(r1.status===400||r1.status===404){
+    const r2=await fetch(`${API_BASE}/api/v1/booking-codes/correct-score/${code}`,{signal:AbortSignal.timeout(14000)});
+    if(r2.ok)return{data:await r2.json(),isCorrectScore:true};
+    if(r2.status===404)throw new Error('Booking code not found. Please check and try again.');
+    if(r2.status===410)throw new Error('This booking code has expired or been disabled.');
+    throw new Error('Could not load booking code. Try again.');
   }
-
-  /* Trigger show animation next frame */
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => { pop.classList.add('show'); });
+  if(r1.status===410)throw new Error('This booking code has expired or been disabled.');
+  throw new Error('Could not load booking code. Try again.');
+}
+function _bookingToSlip(data,isCorrectScore){
+  const entries={};
+  (data.games||[]).forEach(g=>{
+    const gameId=g.gameId?String(g.gameId):`${g.homeTeam}_${g.awayTeam}`;
+    const pickType=isCorrectScore?'CS':'1X2';
+    const subKey=g.pick||g.optId||gameId;
+    const key=`${gameId}-${pickType}-${subKey}`;
+    const label=isCorrectScore&&g.scorePrediction?`Score ${g.scorePrediction} (Correct Score)`:(g.pickLabel||g.pick||'Selection');
+    entries[key]={key,id:key,gameId,t:g.pick,type:isCorrectScore?'CS':'1X2',label,odd:parseFloat(g.odds)||1,league:g.league||'Booking Code',teams:`${g.homeTeam} v ${g.awayTeam}`,isScore:isCorrectScore,optId:g.optId||g.correctScoreOptionId||null};
   });
-
-  /* Auto-dismiss after DURATION */
-  const timer = setTimeout(() => dismissPop(pop), DURATION * 1000);
-  pop._timer = timer;
+  return entries;
+}
+function _buildBookingResultHtml(data,isCorrectScore,addFn){
+  if(!data||!data.games||!data.games.length)return'<div class="book-err"><span class="mi">error_outline</span>No games found in this booking code.</div>';
+  const combinedOdds=data.combinedOdds?parseFloat(data.combinedOdds).toFixed(2):'&mdash;';
+  const count=data.gameCount||data.games.length;
+  const gamesHtml=data.games.map(g=>{
+    const pickLabel=g.pickLabel||g.pick||'';
+    const oddVal=g.odds?parseFloat(g.odds).toFixed(2):'&mdash;';
+    const scoreLine=isCorrectScore&&g.scorePrediction?`<div style="font-size:10px;color:var(--muted);"><span class="mi" style="font-size:11px;">scoreboard</span> ${esc(g.scorePrediction)}</div>`:'';
+    const dateStr=g.matchDate?new Date(g.matchDate).toLocaleDateString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+    return`<div class="book-game">
+      <div class="book-game-teams">${esc(g.homeTeam||'Home')} <span style="color:var(--muted);font-weight:400;font-size:10px;">vs</span> ${esc(g.awayTeam||'Away')}</div>
+      ${scoreLine}
+      <div class="book-game-pick"><span class="book-game-pick-lbl"><span class="mi">check_circle</span>${esc(pickLabel)}</span><span class="book-game-odd">${oddVal}</span></div>
+      ${dateStr?`<div class="book-game-date"><span class="mi" style="font-size:11px;">schedule</span> ${dateStr}</div>`:''}
+    </div>`;
+  }).join('');
+  const loggedIn=isLoggedIn();
+  const btnClass=loggedIn?'book-add-btn':'book-add-btn login-needed';
+  const btnLabel=loggedIn?`Add ${count} game${count>1?'s':''} &amp; Go to Bet Now`:'Login to Place This Bet';
+  const btnIcon=loggedIn?'arrow_forward':'login';
+  return`<div class="book-result">
+    <div class="book-result-head">
+      <span class="book-result-code"><span class="mi">confirmation_number</span>${count} game${count>1?'s':''}&nbsp;&bull;&nbsp;${isCorrectScore?'Correct Score':'Standard'}</span>
+      <span class="book-result-odds">Combined: ${combinedOdds}x</span>
+    </div>${gamesHtml}
+    <button class="${btnClass}" onclick="${addFn}()"><span class="mi">${btnIcon}</span>${btnLabel}</button>
+  </div>`;
+}
+async function loadBookingCode(){
+  const inp=document.getElementById('book-inp'),btn=document.getElementById('book-load-btn'),resultEl=document.getElementById('book-result-area');
+  if(!inp||!btn||!resultEl)return;
+  const code=(inp.value||'').trim().toUpperCase();if(!code){inp.focus();return;}
+  btn.disabled=true;btn.innerHTML='<span class="mi" style="font-size:16px;">hourglass_empty</span> Loading&hellip;';
+  resultEl.innerHTML='';loadedBooking=null;
+  try{const result=await _fetchBookingCode(code);loadedBooking=result;resultEl.innerHTML=_buildBookingResultHtml(result.data,result.isCorrectScore,'addDesktopBookingToSlip');}
+  catch(e){resultEl.innerHTML=`<div class="book-err"><span class="mi">error_outline</span>${esc(e.message||'Network error.')}</div>`;}
+  btn.disabled=false;btn.innerHTML='<span class="mi" style="font-size:16px;">download</span> Load Code';
+}
+function addDesktopBookingToSlip(){
+  if(!loadedBooking)return;
+  if(!isLoggedIn()){const inp=document.getElementById('book-inp');if(inp)localStorage.setItem('ps_pending_booking_code',inp.value.trim().toUpperCase());showToast('Please login to place this bet');setTimeout(()=>window.location.href='login.html',900);return;}
+  const entries=_bookingToSlip(loadedBooking.data,loadedBooking.isCorrectScore);
+  slip={...slip,...entries};localStorage.setItem('ps_slip',JSON.stringify(slip));
+  document.getElementById('booking-loading-overlay').classList.add('show');
+  setTimeout(()=>window.location.href='betting.html',900);
+}
+async function loadMobBookingCode(){
+  const inp=document.getElementById('mob-book-inp'),btn=document.getElementById('mob-book-load-btn'),resultEl=document.getElementById('mob-book-result-area');
+  if(!inp||!btn||!resultEl)return;
+  const code=(inp.value||'').trim().toUpperCase();if(!code){inp.focus();return;}
+  btn.disabled=true;btn.innerHTML='<span class="mi" style="font-size:16px;">hourglass_empty</span> Loading&hellip;';
+  resultEl.innerHTML='';loadedMobBooking=null;
+  try{
+    const result=await _fetchBookingCode(code);
+    loadedMobBooking=result;
+    resultEl.innerHTML=_buildBookingResultHtml(result.data,result.isCorrectScore,'confirmMobBooking');
+    resultEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(e){
+    resultEl.innerHTML=`<div class="book-err"><span class="mi">error_outline</span>${esc(e.message||'Network error.')}</div>`;
+    btn.disabled=false;btn.innerHTML='<span class="mi" style="font-size:16px;">download</span> Load &amp; Bet Now';return;
+  }
+  btn.disabled=false;btn.innerHTML='<span class="mi" style="font-size:16px;">download</span> Load &amp; Bet Now';
+}
+function confirmMobBooking(){
+  if(!loadedMobBooking)return;
+  if(!isLoggedIn()){
+    const inp=document.getElementById('mob-book-inp');
+    if(inp)localStorage.setItem('ps_pending_booking_code',inp.value.trim().toUpperCase());
+    showToast('Please log in first to place this bet');
+    setTimeout(()=>window.location.href='login.html',900);return;
+  }
+  const entries=_bookingToSlip(loadedMobBooking.data,loadedMobBooking.isCorrectScore);
+  slip={...slip,...entries};
+  localStorage.setItem('ps_slip',JSON.stringify(slip));
+  document.getElementById('booking-loading-overlay').classList.add('show');
+  setTimeout(()=>window.location.href='betting.html',900);
 }
 
-function dismissPop(pop) {
-  if (!pop || pop.classList.contains('hide')) return;
-  clearTimeout(pop._timer);
-  pop.classList.remove('show');
-  pop.classList.add('hide');
-  setTimeout(() => { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 420);
+/* ── FOOTBALL ── */
+async function fetchTodayGames(){try{const res=await fetch(`${FOOTBALL_BASE}/api/v1/football/games/today`,{signal:AbortSignal.timeout(30000)});if(!res.ok)throw 0;return(await res.json()).data||[];}catch{return null;}}
+async function fetchLiveGames(){try{const res=await fetch(`${FOOTBALL_BASE}/api/v1/football/games/live`,{signal:AbortSignal.timeout(30000)});if(!res.ok)throw 0;return(await res.json()).data||[];}catch{return null;}}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function fmt(v){if(v==null||v<=0)return null;return parseFloat(v).toFixed(2);}
+function skeletonRows(n,dark){let h='';for(let i=0;i<n;i++){const sc=dark?'skel dark':'skel';const div=`<div class="${sc}" style="width:44px;height:32px;border-radius:3px;"></div>`;h+=`<div class="skel-row${dark?' dark-row':''}" style="${dark?'background:#1a1a1a;':''}"><div style="flex:1"><div class="${sc}" style="width:${55+i*5}%;height:12px;"></div><div class="${sc}" style="width:${40+i*3}%;height:12px;margin-top:6px;"></div></div><div style="display:flex;gap:4px;margin-left:12px;">${div.repeat(6)}</div></div>`;}return h;}
+function toGhanaTime(raw){if(!raw)return'--:--';try{const d=/[+\-]\d{2}:?\d{2}$|Z$/.test(raw)?new Date(raw):new Date(raw+'+04:00');if(isNaN(d))return'--:--';return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Africa/Accra'});}catch{return'--:--';}}
+
+function renderTodayMatches(matches){
+  const container=document.getElementById('match-list'),badge=document.getElementById('today-count-badge');
+  if(!matches||!matches.length){badge.textContent='';container.innerHTML=`<div class="state-box"><span class="mi">sports_soccer</span><p>No matches available for today.</p><button class="retry-btn" onclick="loadAllData()"><span class="mi">refresh</span> Try Again</button></div>`;return;}
+  badge.textContent=`(${matches.length} matches)`;
+  const grouped={};matches.forEach(m=>{const k=m.league||'Other';if(!grouped[k])grouped[k]=[];grouped[k].push(m);});
+  let html='';
+  for(const[league,ms]of Object.entries(grouped)){
+    html+=`<div class="league-hdr-row"><span class="mi">sports_soccer</span>${esc(league)}<span style="margin-left:auto;font-size:10px;color:#888;">${ms.length} match${ms.length>1?'es':''}</span></div>`;
+    ms.forEach(m=>{
+      const matchKey=m.externalFixtureId||(m.homeTeam+'_'+m.awayTeam),sel=slip[matchKey]||{};
+      const isLive=m.status==='LIVE',isFin=m.status==='FINISHED',showScore=isLive||isFin;
+      const koTime=toGhanaTime(m.kickoffTime);
+      const timeDisplay=isLive?`<div class="match-time live-time">${m.elapsedMinutes?m.elapsedMinutes+"'":'&#11044;'}</div>`:`<div class="match-time">${koTime}</div>`;
+      const periodLabel=m.matchPeriod||(isLive?'Live':isFin?'FT':'Upcoming');
+      const periodBadge=isLive?`<span class="period-badge pb-live"><span class="mi" style="font-size:9px;">circle</span> ${esc(periodLabel)}</span>`:isFin?`<span class="period-badge pb-ft">FT</span>`:`<span class="period-badge pb-up">${koTime}</span>`;
+      const homeCrest=m.homeLogo?`<img class="crest" src="${esc(m.homeLogo)}" onerror="this.style.display='none'" alt="">`:''
+      const awayCrest=m.awayLogo?`<img class="crest" src="${esc(m.awayLogo)}" onerror="this.style.display='none'" alt="">`:''
+      const hw=fmt(m.homeWinOdds),dr=fmt(m.drawOdds),aw=fmt(m.awayWinOdds),ov=fmt(m.over25Odds);
+      const goals=m.over25Odds?'2.5':(m.over15Odds?'1.5':'&mdash;');
+      const lq=esc(league),tm=`${esc(m.homeTeam)} v ${esc(m.awayTeam)}`;
+      html+=`<div class="match-row">
+        <div class="match-left">
+          <div class="match-time-col">${timeDisplay}${periodBadge}</div>
+          <div class="match-teams">
+            <div class="team">${homeCrest}${esc(m.homeTeam||'Home')}${showScore?`<span class="score-inline">${m.homeScore??0}</span>`:''}</div>
+            <div class="team">${awayCrest}${esc(m.awayTeam||'Away')}${showScore?`<span class="score-inline">${m.awayScore??0}</span>`:''}</div>
+          </div>
+        </div>
+        <div class="odds-grid">
+          <button class="odd ${hw?'':'unavail'} ${sel.t==='1'?'sel':''}" ${hw?`onclick="addBet('${matchKey}','1','${esc(m.homeTeam)} Win',${m.homeWinOdds},'${lq}','${tm}')"`:''}>${hw||'&mdash;'}</button>
+          <button class="odd ${dr?'':'unavail'} ${sel.t==='X'?'sel':''}" ${dr?`onclick="addBet('${matchKey}','X','Draw',${m.drawOdds},'${lq}','${tm}')"`:''}>${dr||'&mdash;'}</button>
+          <button class="odd ${aw?'':'unavail'} ${sel.t==='2'?'sel':''}" ${aw?`onclick="addBet('${matchKey}','2','${esc(m.awayTeam)} Win',${m.awayWinOdds},'${lq}','${tm}')"`:''}>${aw||'&mdash;'}</button>
+          <div class="goals-c"><div class="goals-v">${goals}</div></div>
+          <button class="odd ${ov?'':'unavail'} ${sel.t==='O'?'sel':''}" ${ov?`onclick="addBet('${matchKey}','O','Over ${goals}',${m.over25Odds},'${lq}','${tm}')"`:''}>${ov||'&mdash;'}</button>
+          <div class="more-btn" onclick="location.href='betting.html'">+</div>
+        </div>
+      </div>`;
+    });
+  }
+  container.innerHTML=html;
 }
+
+function renderLiveCards(matches){
+  const row=document.getElementById('live-cards-row');if(!matches||!matches.length){row.innerHTML='';return;}
+  row.innerHTML=matches.map(m=>{
+    const score=(m.homeScore!=null&&m.awayScore!=null)?`${m.homeScore}&ndash;${m.awayScore}`:'&ndash;';
+    const elapsed=m.elapsedMinutes?`${m.elapsedMinutes}'`:'&#11044;';
+    return`<div class="live-card" onclick="window.location='live-games.html'">
+      <div class="lc-top"><span class="lc-league">${esc(m.league||'')}</span><span class="live-badge"><span class="mi">circle</span> LIVE</span></div>
+      <div class="lc-teams">${esc(m.homeTeam||'')}<br>${esc(m.awayTeam||'')}</div>
+      <div class="lc-score">${score}</div>
+      <div class="lc-time"><span class="mi">schedule</span> ${elapsed} &middot; ${esc(m.matchPeriod||'Live')}</div>
+    </div>`;
+  }).join('');
+}
+
+function randOdd(seed,min,max){let h=0;for(let i=0;i<seed.length;i++){h=Math.imul(31,h)+seed.charCodeAt(i)|0;}return(min+(Math.abs(h)/2147483647)*(max-min)).toFixed(2);}
+function getOdds(m){const s=(m.homeTeam||'')+(m.awayTeam||'');return{hw:m.homeWinOdds>0?m.homeWinOdds.toFixed(2):randOdd(s+'h',1.4,4.5),dr:m.drawOdds>0?m.drawOdds.toFixed(2):randOdd(s+'d',2.8,3.8),aw:m.awayWinOdds>0?m.awayWinOdds.toFixed(2):randOdd(s+'a',1.6,5.5),ov:m.over25Odds>0?m.over25Odds.toFixed(2):randOdd(s+'o',1.6,2.4)};}
+
+function renderLiveSection(matches){
+  const container=document.getElementById('live-list'),badge=document.getElementById('live-count-badge');
+  if(!matches||!matches.length){badge.textContent='';container.innerHTML=`<div class="state-box dark-state"><span class="mi">cell_tower</span><p style="color:#555;">No live matches right now.</p></div>`;return;}
+  badge.textContent=`(${matches.length} live)`;
+  const grouped={};matches.forEach(m=>{const k=m.league||'Other';if(!grouped[k])grouped[k]=[];grouped[k].push(m);});
+  let html='';
+  for(const[league,ms]of Object.entries(grouped)){
+    html+=`<div class="live-league-bar"><span class="mi">sports_soccer</span><span class="ll-name">${esc(league)}</span></div>`;
+    ms.forEach(m=>{
+      const matchKey=m.externalFixtureId||(m.homeTeam+'_'+m.awayTeam),sel=slip[matchKey]||{};
+      const elapsed=m.elapsedMinutes?`${m.elapsedMinutes}'`:'&#11044;';
+      const o=getOdds(m),lq=esc(league),tm=`${esc(m.homeTeam)} v ${esc(m.awayTeam)}`;
+      const hLogo=m.homeLogo?`<img src="${esc(m.homeLogo)}" onerror="this.style.display='none'" alt="">`:''
+      const aLogo=m.awayLogo?`<img src="${esc(m.awayLogo)}" onerror="this.style.display='none'" alt="">`:''
+      html+=`<div class="live-match">
+        <div class="lm-top"><span class="lm-badge"><span class="mi">radio_button_checked</span>${elapsed}</span><span class="lm-period">${esc(m.matchPeriod||'Live')}</span></div>
+        <div class="lm-teams">
+          <div class="lm-names"><div class="lm-team">${hLogo}${esc(m.homeTeam||'Home')}</div><div class="lm-team">${aLogo}${esc(m.awayTeam||'Away')}</div></div>
+          <div class="lm-scorebox"><span class="lm-score">${m.homeScore??0}</span><span class="lm-sep">&mdash;</span><span class="lm-score">${m.awayScore??0}</span></div>
+        </div>
+        <div class="lm-odds">
+          <button class="lodd ${sel.t==='1'?'sel':''}" onclick="addBet('${matchKey}','1','${esc(m.homeTeam)} Win',${o.hw},'${lq}','${tm}')">${o.hw}</button>
+          <button class="lodd ${sel.t==='X'?'sel':''}" onclick="addBet('${matchKey}','X','Draw',${o.dr},'${lq}','${tm}')">${o.dr}</button>
+          <button class="lodd ${sel.t==='2'?'sel':''}" onclick="addBet('${matchKey}','2','${esc(m.awayTeam)} Win',${o.aw},'${lq}','${tm}')">${o.aw}</button>
+          <div class="lm-goals-v">2.5</div>
+          <button class="lodd ${sel.t==='O'?'sel':''}" onclick="addBet('${matchKey}','O','Over 2.5',${o.ov},'${lq}','${tm}')">${o.ov}</button>
+          <div class="lm-more" onclick="location.href='live-games.html'">+</div>
+        </div>
+      </div>`;
+    });
+  }
+  container.innerHTML=html;
+}
+
+function renderLiveMatches(matches){renderLiveCards(matches);renderLiveSection(matches);}
+async function loadAllData(){
+  document.getElementById('match-list').innerHTML=skeletonRows(4,false);
+  document.getElementById('live-list').innerHTML=skeletonRows(2,true);
+  document.getElementById('live-cards-row').innerHTML='';
+  const[today,live]=await Promise.all([fetchTodayGames(),fetchLiveGames()]);
+  renderTodayMatches(today);renderLiveMatches(live);renderBsMainArea();updateBadges();
+}
+
+function addBet(id,type,label,odd,league,teams){
+  if(!odd||odd<=0)return;
+  if(slip[id]&&slip[id].t===type){delete slip[id];}
+  else{slip[id]={id,t:type,label,odd:parseFloat(odd),league,teams};}
+  localStorage.setItem('ps_slip',JSON.stringify(slip));
+  renderBsMainArea();updateBadges();
+  if(window.innerWidth<=900){switchDrawerTab('slip');openDrawer();}
+  else{showToast('Added: '+label);}
+}
+function removeBet(id){delete slip[id];localStorage.setItem('ps_slip',JSON.stringify(slip));renderBsMainArea();updateBadges();}
+function goToBetting(){localStorage.setItem('ps_slip',JSON.stringify(slip));window.location.href='betting.html';}
+
+function renderBsMainArea(){
+  const area=document.getElementById('bs-main-area'),betArea=document.getElementById('bs-bet-area'),items=Object.values(slip);
+  if(!isLoggedIn()){
+    area.style.display='block';betArea.style.display='none';
+    area.innerHTML=`<div class="bs-locked"><span class="mi" style="font-size:40px;color:#ccc;display:block;margin-bottom:10px;">lock</span>
+      <div class="bs-lock-title">Sign in to Bet</div>
+      <p class="bs-lock-txt">Log in or create a free account to start placing bets.</p>
+      <div class="bs-lock-btns"><a href="login.html" class="bs-lock-login">Login</a><a href="register.html" class="bs-lock-reg">Register</a></div>
+    </div>
+    <div class="book-section"><div class="book-section-lbl"><span class="mi">confirmation_number</span> Booking Code</div>
+    <p class="book-section-hint">Enter a code to preview games. Login to place the bet.</p>
+    <input class="book-inp" id="book-inp" placeholder="e.g. ABC123" onkeydown="if(event.key==='Enter')loadBookingCode()">
+    <button class="book-load-btn" id="book-load-btn" onclick="loadBookingCode()"><span class="mi" style="font-size:16px;">download</span> Load Code</button>
+    <div id="book-result-area"></div></div>
+    <div class="winners"><div class="wf-title"><span class="mi">emoji_events</span> Recent Winners</div><div id="winners-list"></div></div>
+    <div class="mini-g"><div class="mg-title"><span class="mi">casino</span> Quick Games</div><div class="mg-grid">
+      <a class="mg-card" href="games.html"><span class="mi" style="color:#f5a623;">sports_esports</span><div class="mg-name">eFootball</div></a>
+      <a class="mg-card" href="games.html"><span class="mi" style="color:#e74c3c;">style</span><div class="mg-name">Red Black</div></a>
+      <a class="mg-card" href="games.html"><span class="mi" style="color:#3498db;">height</span><div class="mg-name">Hi-Lo</div></a>
+      <a class="mg-card" href="games.html"><span class="mi" style="color:#2ecc71;">casino</span><div class="mg-name">Dice Roll</div></a>
+    </div></div>`;
+    renderWinners();return;
+  }
+  if(!items.length){
+    area.style.display='block';betArea.style.display='none';
+    area.innerHTML=`<div class="bs-empty"><p class="bs-empty-txt">Click any odds to add selections.</p></div>
+    <div class="book-section"><div class="book-section-lbl"><span class="mi">confirmation_number</span> Booking Code</div>
+    <p class="book-section-hint">Enter a booking code to load a pre-built slip.</p>
+    <input class="book-inp" id="book-inp" placeholder="e.g. ABC123" onkeydown="if(event.key==='Enter')loadBookingCode()">
+    <button class="book-load-btn" id="book-load-btn" onclick="loadBookingCode()"><span class="mi" style="font-size:16px;">download</span> Load Code</button>
+    <div id="book-result-area"></div></div>
+    <div class="winners"><div class="wf-title"><span class="mi">emoji_events</span> Recent Winners</div><div id="winners-list"></div></div>`;
+    renderWinners();return;
+  }
+  area.style.display='none';betArea.style.display='block';
+  document.getElementById('bet-items').innerHTML=items.map(b=>`<div class="bet-item">
+    <button class="bet-rm" onclick="removeBet('${b.id||b.key}')"><span class="mi">close</span></button>
+    <div class="bet-league">${esc(b.league)}</div>
+    <div class="bet-match">${esc(b.teams)}</div>
+    <div class="bet-sel-row">
+      <div><div class="bet-sel">${esc(b.label)}</div><div class="bet-mkt">Full Time</div></div>
+      <div class="bet-odd">${parseFloat(b.odd).toFixed(2)}</div>
+    </div></div>`).join('');
+  calcPayout();
+}
+
+const winners=[{n:'Kwame A***',a:'GHS 11,928',t:'Sports Betting',c:'#e74c3c'},{n:'Ama B***',a:'GHS 5,000',t:'UCL Acca',c:'#3498db'},{n:'Kofi M***',a:'GHS 3,549',t:'Jackpot 12',c:'#2ecc71'},{n:'Abena S***',a:'GHS 11,100',t:'Sports Betting',c:'#9b59b6'}];
+function renderWinners(){const el=document.getElementById('winners-list');if(!el)return;el.innerHTML=winners.slice(0,4).map(w=>`<div class="winner-item"><div class="w-av" style="background:${w.c};"><span class="mi">person</span></div><div class="w-info"><div class="w-name">${w.n}</div><div class="w-type">${w.t}</div></div><div><div class="w-amt">${w.a}</div><div class="w-time">Just now</div></div></div>`).join('');}
+setInterval(()=>{const names=['Nana K***','Kwesi L***','Akua T***','Fiifi G***'],types=['Sports Betting','Jackpot 12','Hi-Lo','UCL Acca'],colors=['#e74c3c','#3498db','#2ecc71','#9b59b6','#e67e22'];winners.unshift({n:names[Math.floor(Math.random()*names.length)],a:'GHS '+(Math.random()*15000+200|0).toLocaleString(),t:types[Math.floor(Math.random()*types.length)],c:colors[Math.floor(Math.random()*colors.length)]});if(winners.length>20)winners.pop();renderWinners();},6000);
+
+function calcPayout(){const items=Object.values(slip),tot=items.reduce((a,b)=>a*b.odd,1),stake=parseFloat(document.getElementById('stake-inp').value)||0;document.getElementById('sel-count').textContent=items.length;document.getElementById('tot-odds').textContent=tot.toFixed(2);document.getElementById('pot-win').textContent='GHS '+(stake*tot-stake).toFixed(2);document.getElementById('tot-payout').textContent='GHS '+(stake*tot).toFixed(2);}
+function setStake(v){document.getElementById('stake-inp').value=v;calcPayout();}
+function updateBadges(){
+  const c=Object.keys(slip).length;
+  document.getElementById('bubble-count').textContent=c;
+  document.getElementById('mob-badge').textContent=c;
+  const sb=document.getElementById('drawer-slip-badge');if(sb){sb.textContent=c;sb.style.display=c>0?'inline-flex':'none';}
+  const bubble=document.getElementById('bet-bubble');
+  if(window.innerWidth<=900)bubble.style.display='flex';else bubble.style.display='none';
+}
+function showToast(msg){
+  let t=document.getElementById('ps-toast');
+  if(!t){t=document.createElement('div');t.id='ps-toast';t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a8a3c;color:#fff;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 4px 14px rgba(0,0,0,.2);white-space:nowrap;pointer-events:none;transition:opacity .3s;';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';clearTimeout(t._to);t._to=setTimeout(()=>{t.style.opacity='0';},2800);
+}
+setInterval(async()=>{const live=await fetchLiveGames();if(live!==null)renderLiveMatches(live);},30000);
+window.addEventListener('resize',updateBadges);
+applyAuthState();renderBsMainArea();updateBadges();loadAllData();
 </script>
 </body>
 </html>

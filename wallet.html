@@ -1,805 +1,895 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-<title>GStake — Wallet</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallet – GStake</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <style>
-:root {
-  --bg0: #07090F;
-  --bg1: #0C101A;
-  --bg2: #131825;
-  --bg3: #1B2235;
-  --accent: #F5A623;
-  --accentBg: rgba(245,166,35,0.12);
-  --accentBg2: rgba(245,166,35,0.2);
-  --green: #22C55E;
-  --greenBg: rgba(34,197,94,0.12);
-  --red: #EF4444;
-  --redBg: rgba(239,68,68,0.10);
-  --blue: #60A5FA;
-  --blueBg: rgba(96,165,250,0.10);
-  --t1: #EEF2FF;
-  --t2: #8892A8;
-  --t3: #4A5568;
-  --border: rgba(255,255,255,0.06);
-  --borderHov: rgba(255,255,255,0.12);
-  --borderAcc: rgba(245,166,35,0.4);
-  --borderGreen: rgba(34,197,94,0.3);
-  --borderRed: rgba(239,68,68,0.3);
-  --shadow: 0 12px 40px rgba(0,0,0,0.5);
-  --shadowSm: 0 6px 14px rgba(0,0,0,0.3);
-  --r: 12px;
-  --rLg: 16px;
-  --rXl: 24px;
-  --ff: 'DM Sans', sans-serif;
-  --ffC: 'Barlow Condensed', sans-serif;
-  --nav: 56px;
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#cc0000;--red2:#e60000;--green:#1a8a3c;--green2:#22a848;
+  --yellow:#f5c518;--dark:#111;--dark2:#1e1e1e;--dark3:#2a2a2a;
+  --text:#1a1a1a;--muted:#666;--muted2:#999;--gray:#f0f0f0;
+  --gray2:#e4e4e4;--gray3:#ccc;--white:#fff;--radius:6px;
 }
-[data-theme="light"] {
-  --bg0: #EEF1F8;
-  --bg1: #F7F9FF;
-  --bg2: #FFFFFF;
-  --bg3: #F0F3FA;
-  --accent: #C8820A;
-  --accentBg: rgba(200,130,10,0.10);
-  --accentBg2: rgba(200,130,10,0.18);
-  --green: #16A34A;
-  --greenBg: rgba(22,163,74,0.08);
-  --red: #DC2626;
-  --redBg: rgba(220,38,38,0.08);
-  --blue: #2563EB;
-  --blueBg: rgba(37,99,235,0.08);
-  --t1: #0F172A;
-  --t2: #475569;
-  --t3: #94A3B8;
-  --border: rgba(0,0,0,0.07);
-  --borderHov: rgba(0,0,0,0.12);
-  --borderAcc: rgba(200,130,10,0.5);
-  --shadow: 0 10px 30px rgba(0,0,0,0.1);
-  --shadowSm: 0 4px 12px rgba(0,0,0,0.08);
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{font-family:var(--ff);background:var(--bg0);color:var(--t1);min-height:100vh;overflow-x:hidden;line-height:1.45;transition:background 0.2s,color 0.2s;padding-bottom:env(safe-area-inset-bottom,0px);}
-body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(245,166,35,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,0.02) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
-.blob{position:fixed;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0;opacity:0.5;}
-.blob-1{width:280px;height:280px;top:-100px;left:-80px;background:rgba(245,166,35,0.08);}
-.blob-2{width:260px;height:260px;bottom:-60px;right:-70px;background:rgba(96,165,250,0.06);}
+html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--text);font-size:14px;overflow-x:hidden;}
+.mi{font-family:'Material Icons Round';font-size:20px;line-height:1;vertical-align:middle;display:inline-flex;align-items:center;}
 
-nav{
-  position:sticky;top:0;z-index:300;height:var(--nav);
-  background:rgba(7,9,15,0.92);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 14px;gap:10px;
-}
-[data-theme="light"] nav{background:rgba(247,249,255,0.94);}
+/* HEADER */
+.header{background:var(--red);position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.4);}
+.header-top{display:flex;align-items:center;gap:10px;padding:0 16px;height:56px;}
+.wordmark{display:inline-flex;align-items:center;text-decoration:none;flex-shrink:0;}
+.wm-box{background:var(--dark);border-radius:6px 0 0 6px;padding:5px 10px;}
+.wm-text{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:-0.5px;text-transform:uppercase;}
+.wm-p{color:#fff;}.wm-s{color:var(--yellow);}
+.wm-bar{width:4px;height:38px;background:var(--yellow);border-radius:0 3px 3px 0;}
+.header-nav{display:flex;gap:2px;flex:1;margin-left:10px;overflow-x:auto;scrollbar-width:none;}
+.header-nav::-webkit-scrollbar{display:none;}
+.hnav{padding:7px 11px;color:rgba(255,255,255,.82);font-size:12.5px;font-weight:600;cursor:pointer;border-radius:4px;white-space:nowrap;transition:background .15s;text-decoration:none;display:flex;align-items:center;gap:5px;}
+.hnav .mi{font-size:16px;}
+.hnav:hover,.hnav.active{background:rgba(0,0,0,.22);color:#fff;}
+.live-pill{background:var(--red2);color:#fff;font-size:9px;font-weight:800;padding:1px 6px;border-radius:10px;animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 
-.nav-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--accentBg2);border:1px solid var(--borderAcc);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;cursor:pointer;
-}
-.nav-avatar svg{width:18px;height:18px;color:var(--accent);}
+/* AUTH AREA */
+.auth{display:flex;gap:7px;flex-shrink:0;align-items:center;}
+.btn-login{background:transparent;border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:12px;font-weight:700;padding:6px 16px;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;text-decoration:none;white-space:nowrap;}
+.btn-reg{background:var(--yellow);border:none;color:#000;font-size:12px;font-weight:900;padding:6px 16px;border-radius:4px;cursor:pointer;font-family:'Barlow',sans-serif;text-decoration:none;white-space:nowrap;}
 
-.nav-spacer{flex:1;}
+/* USER AREA */
+.user-area{display:none;align-items:center;gap:8px;flex-shrink:0;}
+.user-area.visible{display:flex;}
+.auth.hidden{display:none;}
+.wallet-chip{display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.25);border-radius:20px;padding:5px 12px;cursor:pointer;text-decoration:none;transition:background .15s;}
+.wallet-chip:hover{background:rgba(0,0,0,.38);}
+.wallet-chip .mi{font-size:15px;color:var(--yellow);}
+.wallet-bal{font-size:12px;font-weight:700;color:#fff;}
+.user-avatar{width:34px;height:34px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:#000;cursor:pointer;border:2px solid rgba(255,255,255,.3);flex-shrink:0;position:relative;}
+.user-wrap{position:relative;}
+.user-dropdown{position:absolute;top:46px;right:0;background:var(--white);border-radius:6px;box-shadow:0 4px 20px rgba(0,0,0,.15);min-width:190px;z-index:300;display:none;overflow:hidden;}
+.user-dropdown.open{display:block;}
+.ud-header{padding:12px 14px;background:var(--dark2);border-bottom:1px solid #333;}
+.ud-name{font-size:13px;font-weight:700;color:#fff;}
+.ud-email{font-size:10px;color:#888;margin-top:1px;}
+.ud-item{display:flex;align-items:center;gap:8px;padding:11px 14px;font-size:12.5px;color:var(--text);text-decoration:none;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:background .1s;}
+.ud-item:hover{background:#f8f8f8;color:var(--red);}
+.ud-item .mi{font-size:16px;color:var(--green);}
+.ud-logout{color:var(--red)!important;}
+.ud-logout .mi{color:var(--red)!important;}
+.hamburger{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:4px;flex-shrink:0;}
 
-.nav-link{
-  display:flex;align-items:center;gap:6px;
-  background:transparent;border:1px solid var(--border);border-radius:10px;
-  padding:6px 12px;font-size:13px;font-weight:600;color:var(--t2);
-  cursor:pointer;transition:all 0.15s;text-decoration:none;white-space:nowrap;
-}
-.nav-link:hover{border-color:var(--borderHov);color:var(--t1);}
-.nav-link svg{width:15px;height:15px;}
+/* MOBILE MENU */
+.mob-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--dark2);z-index:190;border-bottom:2px solid #333;max-height:calc(100vh - 56px);overflow-y:auto;}
+.mob-menu.open{display:block;}
+.mob-menu-lbl{padding:8px 16px;font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.8px;}
+.mob-menu-item{padding:12px 16px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;text-decoration:none;border-bottom:1px solid #2a2a2a;cursor:pointer;}
+.mob-menu-item:hover,.mob-menu-item.active{background:#252525;color:#fff;}
+.mob-menu-item .mi{font-size:18px;color:var(--green);}
+.mob-menu-item.live-item .mi{color:var(--red2);}
+.mob-menu-divider{height:6px;background:#111;}
+.mob-auth-row{display:flex;gap:8px;padding:12px 16px;}
+.mob-auth-row a{flex:1;text-align:center;padding:10px;border-radius:4px;font-weight:700;font-size:13px;text-decoration:none;}
+.mob-auth-row .mob-login{border:1.5px solid #666;color:#ccc;}
+.mob-auth-row .mob-reg{background:var(--yellow);color:#000;}
+.mob-user-bar{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#1a1a1a;border-bottom:1px solid #2a2a2a;}
+.mob-av{width:38px;height:38px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;color:#000;flex-shrink:0;}
+.mob-user-info .mob-uname{font-size:13px;font-weight:700;color:#fff;}
+.mob-user-info .mob-ubal{font-size:11px;color:var(--green);font-weight:600;}
+.mob-logout-btn{margin-left:auto;background:rgba(204,0,0,.2);border:1px solid rgba(204,0,0,.4);color:var(--red2);border-radius:4px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
 
-.nav-balance{
-  display:flex;align-items:center;gap:6px;
-  background:var(--bg3);border:1px solid var(--borderAcc);border-radius:10px;
-  padding:6px 12px;font-size:13px;font-weight:700;color:var(--accent);
-  flex-shrink:0;white-space:nowrap;
-}
-.nav-balance svg{width:15px;height:15px;}
+/* PAGE LAYOUT */
+.page-wrap{max-width:900px;margin:0 auto;padding:20px 16px 80px;}
 
-.icon-btn{
-  background:transparent;border:1px solid var(--border);
-  width:38px;height:38px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:all 0.15s;flex-shrink:0;
-}
-.icon-btn:hover{border-color:var(--borderHov);background:var(--bg3);}
-.icon-btn svg{width:16px;height:16px;}
+/* AUTH GATE */
+.auth-gate{background:var(--white);border-radius:8px;border:1px solid var(--gray2);padding:48px 24px;text-align:center;margin-top:20px;}
+.auth-gate .mi{font-size:52px;color:var(--gray3);display:block;margin-bottom:14px;}
+.auth-gate h2{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px;}
+.auth-gate p{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.auth-gate-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.auth-gate-btns a{padding:11px 28px;border-radius:5px;font-size:13px;font-weight:700;text-decoration:none;}
+.ag-login{border:1.5px solid var(--gray3);color:var(--text);}
+.ag-reg{background:var(--green);color:#fff;}
 
-.page-wrap{position:relative;z-index:2;padding:16px 14px 40px;max-width:480px;margin:0 auto;}
-
-.balance-card{
-  background:linear-gradient(135deg,#1a1f2e 0%,#0f1420 100%);
-  border:1px solid var(--borderAcc);border-radius:var(--rXl);
-  padding:20px 18px 18px;position:relative;overflow:hidden;margin-bottom:16px;
-}
-.balance-lbl{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:5px;margin-bottom:4px;}
-.balance-lbl svg{width:13px;height:13px;}
-.balance-amount{font-family:var(--ffC);font-size:40px;font-weight:800;color:var(--accent);line-height:1;margin-bottom:16px;}
-.balance-currency{font-size:18px;margin-right:3px;opacity:0.8;}
-
-.bal-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid var(--border);padding-top:14px;}
-.bal-mini-item{text-align:center;}
-.bal-mini-lbl{font-size:9px;color:var(--t3);letter-spacing:0.6px;font-weight:600;text-transform:uppercase;margin-bottom:3px;}
-.bal-mini-val{font-family:var(--ffC);font-size:14px;font-weight:800;line-height:1;}
-
-.action-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-.action-btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:14px 12px;border-radius:var(--rLg);border:none;
-  cursor:pointer;transition:transform 0.15s;font-family:var(--ffC);
-  font-size:18px;font-weight:800;letter-spacing:0.5px;
-}
-.action-btn:active{transform:scale(0.97);}
-.action-btn svg{width:20px;height:20px;}
-.action-btn-deposit{background:var(--accent);color:#000;box-shadow:0 6px 14px rgba(245,166,35,0.3);}
-.action-btn-withdraw{background:var(--bg2);border:1px solid var(--border);color:var(--t1);}
-
-.panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rXl);overflow:hidden;margin-bottom:16px;}
-.panel-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);}
-.panel-title{font-family:var(--ffC);font-size:17px;font-weight:800;display:flex;align-items:center;gap:7px;}
-.panel-title svg{width:17px;height:17px;}
-.panel-body{padding:16px;}
-
-.tab-bar{display:flex;gap:4px;}
-.tab-btn{
-  padding:6px 12px;border:none;border-radius:30px;
-  background:transparent;color:var(--t2);
-  font-family:var(--ff);font-size:13px;font-weight:600;cursor:pointer;
-  transition:all 0.2s;display:flex;align-items:center;gap:5px;
-}
-.tab-btn.active{background:var(--bg3);color:var(--t1);}
-.tab-btn.active svg{color:var(--accent);}
-.tab-btn svg{width:13px;height:13px;}
-
-.form-label{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px;display:block;}
-.form-group{margin-bottom:16px;}
-
-.amount-input-wrap{position:relative;}
-.amount-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:var(--ffC);font-size:22px;font-weight:800;color:var(--t3);pointer-events:none;}
-.amount-input{
-  background:var(--bg3);border:1px solid var(--border);border-radius:14px;
-  padding:14px 14px 14px 50px;font-family:var(--ffC);font-size:24px;font-weight:800;
-  color:var(--t1);outline:none;width:100%;transition:all 0.2s;height:62px;
-}
-.amount-input:focus{border-color:var(--borderAcc);box-shadow:0 0 0 3px var(--accentBg);}
-
-.form-input{
-  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
-  padding:13px 14px 13px 40px;font-size:15px;font-weight:500;
-  color:var(--t1);width:100%;outline:none;transition:all 0.2s;
-  font-family:var(--ff);
-}
-.form-input:focus{border-color:var(--borderAcc);}
-.form-input-wrap{position:relative;}
-.input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--t3);pointer-events:none;}
-select.form-input{appearance:none;cursor:pointer;padding-right:36px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238892A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center;}
-
-.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-.preset{
-  padding:8px 16px;border:1px solid var(--border);border-radius:40px;
-  background:var(--bg3);font-family:var(--ffC);font-size:14px;font-weight:800;
-  color:var(--t2);cursor:pointer;transition:all 0.15s;flex:1 0 auto;text-align:center;
-}
-.preset:active{background:var(--accentBg);border-color:var(--borderAcc);color:var(--accent);}
-
-.summary-box{background:var(--bg0);border:1px solid var(--border);border-radius:14px;padding:14px;margin:14px 0 10px;}
-.summary-row{display:flex;justify-content:space-between;margin-bottom:8px;}
-.summary-row:last-child{margin-bottom:0;}
-.summary-lbl{font-size:13px;color:var(--t2);}
-.summary-val{font-weight:700;font-size:13px;}
-.summary-divider{height:1px;background:var(--border);margin:8px 0;}
-
-.fee-banner{display:flex;gap:10px;background:var(--accentBg);border:1px solid var(--borderAcc);border-radius:12px;padding:12px;margin:10px 0;}
-.fee-banner svg{flex-shrink:0;width:16px;height:16px;margin-top:1px;}
-.fee-banner p{font-size:12px;line-height:1.45;color:var(--t2);}
-
-.btn-submit{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;padding:14px;border:none;border-radius:60px;
-  background:var(--accent);color:#000;font-family:var(--ffC);
-  font-size:17px;font-weight:800;letter-spacing:0.8px;cursor:pointer;
-  transition:all 0.2s;margin-top:8px;
-}
-.btn-submit:active{transform:scale(0.97);}
-.btn-submit:disabled{opacity:0.5;transform:none;cursor:not-allowed;}
-.btn-submit svg{width:18px;height:18px;}
-
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-
-.tx-filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-.tx-filters::-webkit-scrollbar{display:none;}
-.filter-chip{padding:7px 16px;border-radius:40px;font-size:12px;font-weight:700;border:1px solid var(--border);background:var(--bg2);color:var(--t2);cursor:pointer;white-space:nowrap;transition:all 0.15s;}
-.filter-chip.active{background:var(--accentBg);border-color:var(--borderAcc);color:var(--accent);}
-
-.tx-list{display:flex;flex-direction:column;gap:2px;}
-.tx-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
-.tx-item:last-child{border-bottom:none;}
-.tx-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.tx-icon svg{width:18px;height:18px;}
-.tx-info{flex:1;min-width:0;}
-.tx-desc{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tx-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;}
-.tx-date{font-size:10px;color:var(--t3);}
-.tx-ref{font-family:monospace;font-size:9px;background:var(--bg3);padding:2px 5px;border-radius:20px;color:var(--t2);}
-.tx-status-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;}
-.tx-status-badge.success{background:var(--greenBg);color:var(--green);}
-.tx-status-badge.pending{background:var(--accentBg);color:var(--accent);}
-.tx-status-badge.failed{background:var(--redBg);color:var(--red);}
-.tx-amount{font-family:var(--ffC);font-size:16px;font-weight:800;text-align:right;flex-shrink:0;}
-.tx-amount.credit{color:var(--green);}
-.tx-amount.debit{color:var(--red);}
-
-/* Loading spinner */
-.spinner{width:18px;height:18px;border:2px solid rgba(0,0,0,0.3);border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;flex-shrink:0;}
-[data-theme="light"] .spinner{border:2px solid rgba(0,0,0,0.15);border-top-color:#000;}
+/* LOADING STATE */
+.wallet-loading-state{text-align:center;padding:48px 20px;}
+.wallet-loading-state .spinner-lg{display:inline-block;width:36px;height:36px;border:3px solid var(--gray2);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
+.wallet-loading-state p{font-size:13px;color:var(--muted);margin-top:12px;}
 
-/* Error state */
-.error-state{text-align:center;padding:28px 16px;color:var(--t3);}
-.error-state svg{width:32px;height:32px;margin:0 auto 8px;display:block;color:var(--red);}
-.error-state p{font-size:13px;margin-bottom:10px;}
-.retry-btn{padding:8px 16px;border:1px solid var(--borderAcc);border-radius:30px;background:var(--accentBg);color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;}
+/* BALANCE CARDS */
+.balance-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.bal-card{background:var(--white);border-radius:8px;border:1px solid var(--gray2);padding:18px 20px;position:relative;overflow:hidden;}
+.bal-card.main{background:var(--dark);border-color:transparent;}
+.bal-card-ico{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.bal-card-ico .mi{font-size:22px;}
+.bal-card-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.bal-card.main .bal-card-lbl{color:rgba(255,255,255,.5);}
+.bal-card-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--dark);}
+.bal-card.main .bal-card-val{color:var(--yellow);}
+.bal-card-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+.bal-card.main .bal-card-sub{color:rgba(255,255,255,.4);}
+.bal-bg{position:absolute;right:-10px;top:-10px;opacity:.06;}
+.bal-bg .mi{font-size:90px;color:var(--dark);}
+.bal-card.main .bal-bg .mi{color:#fff;}
 
-.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:28px;padding:24px 20px;max-width:92%;width:360px;text-align:center;animation:modalIn 0.3s cubic-bezier(0.2,0.9,0.4,1.1);}
-@keyframes modalIn{from{opacity:0;transform:scale(0.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.modal-icon{width:64px;height:64px;border-radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
-.modal-icon svg{width:30px;height:30px;}
-.modal-title{font-family:var(--ffC);font-size:24px;font-weight:800;margin-bottom:6px;}
-.modal-detail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
-.modal-detail-item{background:var(--bg3);border-radius:12px;padding:10px;}
-.modal-detail-lbl{font-size:11px;color:var(--t3);margin-bottom:4px;}
-.modal-detail-val{font-weight:700;font-size:13px;}
-.btn-modal-close{display:flex;align-items:center;justify-content:center;width:100%;padding:13px;border:none;border-radius:50px;background:var(--accent);color:#000;font-family:var(--ffC);font-size:16px;font-weight:800;cursor:pointer;margin-top:12px;}
+/* ACTION TABS */
+.wallet-tabs{display:flex;gap:8px;margin-bottom:20px;}
+.wtab{flex:1;padding:12px;text-align:center;background:var(--white);border:1.5px solid var(--gray2);border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.wtab .mi{font-size:18px;}
+.wtab:hover{border-color:var(--green);color:var(--green);}
+.wtab.active{background:var(--green);border-color:var(--green);color:#fff;}
 
-.toast-container{position:fixed;bottom:24px;left:0;right:0;display:flex;justify-content:center;z-index:999;pointer-events:none;}
-.toast{background:var(--bg2);border:1px solid var(--border);border-radius:60px;padding:10px 18px;font-weight:600;font-size:13px;display:flex;gap:8px;align-items:center;box-shadow:var(--shadow);pointer-events:auto;animation:toastPop 0.3s ease;}
-.toast svg{width:16px;height:16px;}
-.toast.success svg{color:var(--green);}
-.toast.error svg{color:var(--red);}
-@keyframes toastPop{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* PANELS */
+.panel{background:var(--white);border-radius:8px;border:1px solid var(--gray2);margin-bottom:20px;overflow:hidden;}
+.panel-head{padding:14px 18px;border-bottom:1px solid var(--gray2);display:flex;align-items:center;gap:8px;}
+.panel-head .mi{font-size:20px;color:var(--green);}
+.panel-head h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;}
+.panel-head .badge{background:#e8f5ec;color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:auto;}
 
-.skeleton{background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:12px;height:58px;margin-bottom:6px;}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* FORM FIELDS */
+.form-row{margin-bottom:16px;}
+.form-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.4px;}
+.form-inp{width:100%;border:1.5px solid var(--gray3);border-radius:5px;padding:10px 13px;font-size:14px;font-weight:600;outline:none;font-family:'Barlow',sans-serif;color:var(--dark);transition:border-color .15s;}
+.form-inp:focus{border-color:var(--green);}
+.form-inp.err-inp{border-color:var(--red);}
+.form-hint{font-size:11px;color:var(--muted);margin-top:4px;}
+.form-hint.err{color:var(--red);}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.amt-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.amt-chip{border:1.5px solid var(--gray3);border-radius:4px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;color:var(--dark);background:var(--white);transition:all .15s;}
+.amt-chip:hover{border-color:var(--green);color:var(--green);}
+.submit-btn{width:100%;padding:13px;background:var(--green);border:none;border-radius:5px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;transition:background .15s;}
+.submit-btn:hover:not(:disabled){background:var(--green2);}
+.submit-btn:disabled{background:#aaa;cursor:not-allowed;}
+.submit-btn.red-btn{background:var(--red);}
+.submit-btn.red-btn:hover:not(:disabled){background:var(--red2);}
 
-.accent{color:var(--accent);}
-.green{color:var(--green);}
-.red{color:var(--red);}
-.blue{color:var(--blue);}
+/* RULES BOX */
+.rules-box{background:#f8f8f8;border:1px solid var(--gray2);border-radius:5px;padding:12px 14px;margin-bottom:16px;}
+.rules-box h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.rules-box h4 .mi{font-size:14px;color:var(--yellow);}
+.rule-item{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.5;}
+.rule-item .mi{font-size:14px;color:var(--green);margin-top:1px;flex-shrink:0;}
 
-/* Redirect notice */
-.redirect-notice{
-  display:flex;gap:10px;background:var(--blueBg);border:1px solid rgba(96,165,250,0.3);
-  border-radius:12px;padding:12px;margin:10px 0;
+/* FEE SUMMARY */
+.fee-summary{background:var(--dark);border-radius:6px;padding:14px 16px;margin-top:14px;}
+.fs-row{display:flex;justify-content:space-between;font-size:12.5px;padding:5px 0;border-bottom:1px solid #2a2a2a;}
+.fs-row:last-child{border-bottom:none;}
+.fs-row .lbl{color:#888;}
+.fs-row .val{font-weight:700;color:#fff;}
+.fs-row.total .val{color:var(--yellow);font-size:15px;font-family:'Barlow Condensed',sans-serif;}
+
+/* PAYMENT METHOD CARDS */
+.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.method-card{border:2px solid var(--gray2);border-radius:6px;padding:12px;cursor:pointer;text-align:center;transition:all .15s;}
+.method-card:hover{border-color:var(--green);}
+.method-card.active{border-color:var(--green);background:#e8f5ec;}
+.method-name{font-size:11px;font-weight:700;margin-top:6px;color:var(--dark);}
+.method-logo{font-size:18px;font-weight:900;font-family:'Barlow Condensed',sans-serif;}
+
+/* PAYSTACK REDIRECT BANNER */
+.paystack-banner{background:#0a2e6e;border-radius:6px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;}
+.paystack-banner .mi{font-size:22px;color:#fff;flex-shrink:0;}
+.paystack-banner-txt{flex:1;}
+.paystack-banner-txt p{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px;}
+.paystack-banner-ttl{font-size:13px;font-weight:700;color:#fff;}
+
+/* TRANSACTIONS */
+.tx-filters{display:flex;gap:8px;padding:12px 18px;border-bottom:1px solid var(--gray2);overflow-x:auto;scrollbar-width:none;}
+.tx-filters::-webkit-scrollbar{display:none;}
+.tx-filter{border:1px solid var(--gray3);border-radius:4px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);background:var(--white);white-space:nowrap;transition:all .15s;}
+.tx-filter.active{background:var(--green);border-color:var(--green);color:#fff;}
+.tx-item{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid #f3f3f3;transition:background .1s;}
+.tx-item:hover{background:#fafafa;}
+.tx-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tx-icon .mi{font-size:20px;}
+.tx-icon.dep{background:#e8f5ec;color:var(--green);}
+.tx-icon.wdr{background:#fff0f0;color:var(--red);}
+.tx-icon.bet{background:#fff8e0;color:#d4a000;}
+.tx-icon.win{background:#e8f5ec;color:var(--green);}
+.tx-info{flex:1;min-width:0;}
+.tx-desc{font-size:13px;font-weight:600;color:var(--dark);}
+.tx-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tx-ref{background:var(--gray);padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600;color:var(--muted2);}
+.tx-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;}
+.tx-status.success{background:#e8f5ec;color:var(--green);}
+.tx-status.pending{background:#fff8e0;color:#d4a000;}
+.tx-status.failed{background:#fff0f0;color:var(--red);}
+.tx-amt{text-align:right;flex-shrink:0;}
+.tx-amt-val{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:900;}
+.tx-amt-val.plus{color:var(--green);}
+.tx-amt-val.minus{color:var(--red);}
+.tx-bal{font-size:10px;color:var(--muted);margin-top:2px;}
+.tx-empty{padding:40px 20px;text-align:center;}
+.tx-empty .mi{font-size:48px;color:var(--gray3);display:block;margin-bottom:10px;}
+.tx-empty p{font-size:13px;color:var(--muted);}
+
+/* BOTTOM MOB NAV */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--red);z-index:300;border-top:2px solid #a80000;}
+.mob-nav-inner{display:flex;}
+.mob-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;cursor:pointer;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;gap:2px;transition:color .15s;text-decoration:none;}
+.mob-item .mi{font-size:22px;}
+.mob-item.active,.mob-item:hover{color:#fff;}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;z-index:999;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;}
+.toast.show{opacity:1;}
+
+/* SPINNER */
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .header-nav,.auth,.user-area-desktop{display:none;}
+  .hamburger{display:flex;}
+  .mob-nav{display:block;}
+  .balance-row{grid-template-columns:1fr 1fr;}
+  .form-row-2{grid-template-columns:1fr;}
+  .page-wrap{padding:14px 10px 80px;}
 }
-.redirect-notice svg{flex-shrink:0;width:16px;height:16px;margin-top:1px;color:var(--blue);}
-.redirect-notice p{font-size:12px;line-height:1.45;color:var(--t2);}
+@media(max-width:600px){
+  .balance-row{grid-template-columns:1fr;}
+  .wallet-tabs{flex-direction:column;}
+  .method-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:480px){
+  .wm-text{font-size:18px;}
+}
 </style>
 </head>
 <body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
 
-<nav>
-  <div class="nav-avatar" title="My Account">
-    <svg data-lucide="user"></svg>
-  </div>
-  <div class="nav-spacer"></div>
-  <a href="/betting.html" class="nav-link">
-    <svg data-lucide="layout-grid"></svg>
-    <span>Bet</span>
-  </a>
-  <div class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
-    <svg data-lucide="moon" id="themeIco"></svg>
-  </div>
-  <div class="nav-balance" id="navBalance">
-    <svg data-lucide="wallet"></svg>
-    <span id="balanceDisplay">—</span>
-  </div>
-</nav>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <a href="index.html" class="wordmark">
+      <div class="wm-box"><span class="wm-text"><span class="wm-p">G</span><span class="wm-s">STAKE</span></span></div>
+      <div class="wm-bar"></div>
+    </a>
+    <nav class="header-nav">
+      <a class="hnav" href="index.html"><span class="mi">home</span> Home</a>
+      <a class="hnav" href="betting.html"><span class="mi">receipt_long</span> Bet Now</a>
+      <a class="hnav" href="live-games.html"><span class="mi">cell_tower</span> Live <span class="live-pill">LIVE</span></a>
+      <a class="hnav" href="games.html"><span class="mi">sports_esports</span> Games</a>
+      <a class="hnav active" href="wallet.html"><span class="mi">account_balance_wallet</span> Wallet</a>
+    </nav>
 
-<div class="page-wrap">
+    <!-- Guest -->
+    <div class="auth" id="guest-auth">
+      <a href="login.html" class="btn-login">Login</a>
+      <a href="register.html" class="btn-reg">Register</a>
+    </div>
 
-  <!-- HERO BALANCE CARD -->
-  <div class="balance-card">
-    <div class="balance-lbl"><svg data-lucide="wallet"></svg> Available Balance</div>
-    <div class="balance-amount"><span class="balance-currency" id="balanceCurrencySymbol">₵</span><span id="mainBalance">—</span></div>
-    <div class="bal-mini">
-      <div class="bal-mini-item"><div class="bal-mini-lbl">Deposited</div><div class="bal-mini-val green" id="bsDeposited">—</div></div>
-      <div class="bal-mini-item"><div class="bal-mini-lbl">Withdrawn</div><div class="bal-mini-val red" id="bsWithdrawn">—</div></div>
-      <div class="bal-mini-item"><div class="bal-mini-lbl">Wagered</div><div class="bal-mini-val accent" id="bsWagered">—</div></div>
-      <div class="bal-mini-item"><div class="bal-mini-lbl">Won</div><div class="bal-mini-val blue" id="bsWon">—</div></div>
+    <!-- Logged in -->
+    <div class="user-area" id="user-auth">
+      <a href="wallet.html" class="wallet-chip">
+        <span class="mi">account_balance_wallet</span>
+        <span class="wallet-bal" id="header-balance">—</span>
+      </a>
+      <div class="user-wrap">
+        <div class="user-avatar" id="user-avatar" onclick="toggleDropdown()">??</div>
+        <div class="user-dropdown" id="user-dropdown">
+          <div class="ud-header">
+            <div class="ud-name" id="dd-name">—</div>
+            <div class="ud-email" id="dd-email">—</div>
+          </div>
+          <a class="ud-item" href="wallet.html"><span class="mi">account_balance_wallet</span> My Wallet</a>
+          <a class="ud-item" href="betting.html"><span class="mi">receipt_long</span> My Bets</a>
+          <div class="ud-item ud-logout" onclick="logout()"><span class="mi">logout</span> Sign Out</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="hamburger" onclick="toggleMenu()"><span class="mi">menu</span></button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob-menu">
+  <div id="mob-guest-section">
+    <div class="mob-auth-row">
+      <a href="login.html" class="mob-login">Login</a>
+      <a href="register.html" class="mob-reg">Register</a>
+    </div>
+  </div>
+  <div id="mob-user-section" style="display:none;">
+    <div class="mob-user-bar">
+      <div class="mob-av" id="mob-av">??</div>
+      <div class="mob-user-info">
+        <div class="mob-uname" id="mob-uname">—</div>
+        <div class="mob-ubal" id="mob-ubal">—</div>
+      </div>
+      <button class="mob-logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="mob-menu-divider"></div>
+  <div class="mob-menu-lbl">Navigation</div>
+  <a class="mob-menu-item" href="index.html"><span class="mi">home</span> Home</a>
+  <a class="mob-menu-item" href="betting.html"><span class="mi">receipt_long</span> Bet Now</a>
+  <a class="mob-menu-item live-item" href="live-games.html"><span class="mi">cell_tower</span> Live Betting <span class="live-pill" style="margin-left:auto;">LIVE</span></a>
+  <a class="mob-menu-item" href="games.html"><span class="mi">sports_esports</span> Games</a>
+  <a class="mob-menu-item active" href="wallet.html"><span class="mi">account_balance_wallet</span> Wallet</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page-wrap" id="page-content" style="display:none;">
+
+  <!-- PAGE TITLE -->
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+    <span class="mi" style="font-size:28px;color:var(--green);">account_balance_wallet</span>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;">My Wallet</div>
+      <div style="font-size:12px;color:var(--muted);" id="wallet-country-label">Loading…</div>
+    </div>
+    <button onclick="refreshWallet()" style="margin-left:auto;background:none;border:1px solid var(--gray3);border-radius:4px;padding:7px 14px;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:5px;font-family:'Barlow',sans-serif;">
+      <span class="mi" style="font-size:16px;">refresh</span> Refresh
+    </button>
+  </div>
+
+  <!-- BALANCE CARDS -->
+  <div class="balance-row">
+    <div class="bal-card main">
+      <div class="bal-bg"><span class="mi">account_balance_wallet</span></div>
+      <div class="bal-card-ico" style="background:rgba(245,197,24,.15);"><span class="mi" style="color:var(--yellow);">account_balance_wallet</span></div>
+      <div class="bal-card-lbl">Available Balance</div>
+      <div class="bal-card-val" id="main-balance">—</div>
+      <div class="bal-card-sub" id="bal-can-withdraw">—</div>
+    </div>
+    <div class="bal-card">
+      <div class="bal-bg"><span class="mi">arrow_downward</span></div>
+      <div class="bal-card-ico" style="background:#e8f5ec;"><span class="mi" style="color:var(--green);">arrow_downward</span></div>
+      <div class="bal-card-lbl">Total Deposited</div>
+      <div class="bal-card-val" id="total-dep">—</div>
+      <div class="bal-card-sub">All time deposits</div>
+    </div>
+    <div class="bal-card">
+      <div class="bal-bg"><span class="mi">arrow_upward</span></div>
+      <div class="bal-card-ico" style="background:#fff0f0;"><span class="mi" style="color:var(--red);">arrow_upward</span></div>
+      <div class="bal-card-lbl">Total Withdrawn</div>
+      <div class="bal-card-val" id="total-wdr">—</div>
+      <div class="bal-card-sub">All time withdrawals</div>
     </div>
   </div>
 
-  <!-- QUICK ACTIONS -->
-  <div class="action-row">
-    <button class="action-btn action-btn-deposit" onclick="switchAction('deposit')">
-      <svg data-lucide="arrow-down-circle"></svg> Deposit
-    </button>
-    <button class="action-btn action-btn-withdraw" onclick="switchAction('withdraw')">
-      <svg data-lucide="arrow-up-circle"></svg> Withdraw
-    </button>
+  <!-- ACTION TABS -->
+  <div class="wallet-tabs">
+    <div class="wtab active" onclick="showTab('deposit')" id="tab-deposit"><span class="mi">arrow_downward</span> Deposit</div>
+    <div class="wtab" onclick="showTab('withdraw')" id="tab-withdraw"><span class="mi">arrow_upward</span> Withdraw</div>
+    <div class="wtab" onclick="showTab('history')" id="tab-history"><span class="mi">history</span> Transactions</div>
   </div>
 
-  <!-- DEPOSIT / WITHDRAW FORM -->
-  <div class="panel" id="actionPanel">
-    <div class="panel-head">
-      <div class="panel-title" id="actionTitle">
-        <svg data-lucide="arrow-down-circle"></svg> Deposit
+  <!-- DEPOSIT PANEL -->
+  <div id="panel-deposit">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="mi">arrow_downward</span>
+        <h3>Deposit Funds</h3>
+        <span class="badge" id="dep-min-badge">Min: —</span>
       </div>
-      <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchAction('deposit')" id="btnTabDeposit">
-          <svg data-lucide="arrow-down-circle"></svg> Deposit
-        </button>
-        <button class="tab-btn" onclick="switchAction('withdraw')" id="btnTabWithdraw">
-          <svg data-lucide="arrow-up-circle"></svg> Withdraw
+      <div class="panel-body">
+        <div class="rules-box">
+          <h4><span class="mi">info</span> Deposit Rules</h4>
+          <div class="rule-item"><span class="mi">check_circle</span> <span id="rule-min-dep">Minimum deposit: loading…</span></div>
+          <div class="rule-item"><span class="mi">check_circle</span> Funds credited after Paystack payment confirmation</div>
+          <div class="rule-item"><span class="mi">check_circle</span> Accepted: MTN MoMo, Vodafone Cash, AirtelTigo, Card</div>
+          <div class="rule-item"><span class="mi">check_circle</span> Secure payments powered by Paystack</div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Amount (<span class="currency-lbl">GHS</span>)</label>
+          <input class="form-inp" type="number" id="dep-amount" placeholder="Enter amount" min="1">
+          <div class="amt-row" id="dep-quick-amts"></div>
+          <div class="form-hint" id="dep-hint">Minimum: loading…</div>
+        </div>
+
+        <div class="paystack-banner">
+          <span class="mi">lock</span>
+          <div class="paystack-banner-txt">
+            <div class="paystack-banner-ttl">Secured by Paystack</div>
+            <p>You'll be redirected to complete payment. Return here after payment is confirmed.</p>
+          </div>
+        </div>
+
+        <button class="submit-btn" id="dep-btn" onclick="initiateDeposit()" style="margin-top:16px;">
+          <span class="mi">open_in_new</span> Proceed to Pay
         </button>
       </div>
     </div>
-    <div class="panel-body">
+  </div>
 
-      <!-- DEPOSIT FORM -->
-      <div id="depositForm">
-        <div class="form-group">
-          <div class="form-label">Amount</div>
-          <div class="amount-input-wrap">
-            <span class="amount-prefix">₵</span>
-            <input type="number" class="amount-input" id="depositAmount" value="50" min="10" step="1" oninput="updateDepositSummary()">
+  <!-- WITHDRAW PANEL -->
+  <div id="panel-withdraw" style="display:none;">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="mi" style="color:var(--red);">arrow_upward</span>
+        <h3>Withdraw Funds</h3>
+        <span class="badge" id="wdr-min-badge" style="background:#fff0f0;color:var(--red);">Min: —</span>
+      </div>
+      <div class="panel-body">
+        <div class="rules-box">
+          <h4><span class="mi">info</span> Withdrawal Rules</h4>
+          <div class="rule-item"><span class="mi">check_circle</span> <span id="rule-min-wdr">Minimum withdrawal: loading…</span></div>
+          <div class="rule-item"><span class="mi">check_circle</span> 2% processing fee applies</div>
+          <div class="rule-item"><span class="mi">schedule</span> Processing time: 1–24 hours via Paystack Transfer</div>
+          <div class="rule-item"><span class="mi">info</span> Your balance must exceed the minimum to withdraw</div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Amount (<span class="currency-lbl">GHS</span>)</label>
+          <input class="form-inp" type="number" id="wdr-amount" placeholder="Enter amount" oninput="updateWdrFee()">
+          <div class="form-hint" id="wdr-hint">—</div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-row" style="margin-bottom:0;">
+            <label class="form-label">Account Name</label>
+            <input class="form-inp" type="text" id="wdr-name" placeholder="Full name on account">
           </div>
-          <div class="presets" id="depositPresets">
-            <button class="preset" onclick="setDeposit(500)">500</button>
-            <button class="preset" onclick="setDeposit(1000)">1,000</button>
-            <button class="preset" onclick="setDeposit(2000)">2,000</button>
-            <button class="preset" onclick="setDeposit(5000)">5,000</button>
+          <div class="form-row" style="margin-bottom:0;">
+            <label class="form-label">Account / Phone Number</label>
+            <input class="form-inp" type="text" id="wdr-acct" placeholder="e.g. 0241234567">
           </div>
         </div>
-        <div class="redirect-notice">
-          <svg data-lucide="external-link"></svg>
-          <p>You'll be redirected to Paystack to complete your payment securely. Min GHS 10 · No fees · Instant credit.</p>
+
+        <div class="form-row" style="margin-top:16px;">
+          <label class="form-label">Bank / Mobile Network</label>
+          <select class="form-inp" id="wdr-bank">
+            <option value="">— Select bank or network —</option>
+            <option value="MTN">MTN MoMo</option>
+            <option value="VOD">Vodafone Cash</option>
+            <option value="ATL">AirtelTigo</option>
+            <option value="GCB">GCB Bank</option>
+            <option value="ABSA_GH">Absa Bank Ghana</option>
+            <option value="ECOBANK_GH">Ecobank Ghana</option>
+            <option value="MTN_NG">MTN Nigeria MoMo</option>
+            <option value="OPAY_NG">OPay</option>
+            <option value="PALMPAY_NG">PalmPay</option>
+            <option value="GTB_NG">GTBank</option>
+            <option value="ACCESS_NG">Access Bank</option>
+            <option value="ZENITH_NG">Zenith Bank</option>
+          </select>
         </div>
-        <div class="summary-box">
-          <div class="summary-row"><span class="summary-lbl">Amount</span><span class="summary-val" id="depSumAmount">GHS 50.00</span></div>
-          <div class="summary-row"><span class="summary-lbl">Fee</span><span class="summary-val" style="color:var(--green)">Free</span></div>
-          <div class="summary-divider"></div>
-          <div class="summary-row"><span class="summary-lbl">You'll receive</span><span class="summary-val accent" id="depSumReceive">GHS 50.00</span></div>
+
+        <div class="fee-summary" id="wdr-fee-summary" style="display:none;">
+          <div class="fs-row"><span class="lbl">Requested Amount</span><span class="val" id="fs-req">—</span></div>
+          <div class="fs-row"><span class="lbl">Processing Fee (2%)</span><span class="val" id="fs-fee" style="color:#ff7777;">—</span></div>
+          <div class="fs-row total"><span class="lbl" style="color:#888;">You Receive</span><span class="val" id="fs-recv">—</span></div>
         </div>
-        <button class="btn-submit" id="depositBtn" onclick="initiateDeposit()">
-          <svg data-lucide="credit-card"></svg><span id="depBtnTxt">Deposit Now</span>
+
+        <button class="submit-btn red-btn" id="wdr-btn" onclick="initiateWithdraw()" style="margin-top:14px;">
+          <span class="mi">send</span> Submit Withdrawal
         </button>
       </div>
-
-      <!-- WITHDRAW FORM -->
-      <div id="withdrawForm" style="display:none">
-        <div class="form-group">
-          <div class="form-label">Amount</div>
-          <div class="amount-input-wrap">
-            <span class="amount-prefix">₵</span>
-            <input type="number" class="amount-input" id="withdrawAmount" value="100" min="1" step="1" oninput="updateWithdrawSummary()">
-          </div>
-          <div class="presets" id="withdrawPresets">
-            <button class="preset" onclick="setWithdraw(200)">200</button>
-            <button class="preset" onclick="setWithdraw(500)">500</button>
-            <button class="preset" onclick="setWithdraw(1000)">1,000</button>
-            <button class="preset" onclick="setWithdraw(2000)">2,000</button>
-          </div>
-        </div>
-        <div class="two-col">
-          <div class="form-group">
-            <div class="form-label">Account Name</div>
-            <div class="form-input-wrap">
-              <svg class="input-icon" data-lucide="user"></svg>
-              <input type="text" class="form-input" id="wdAccountName" placeholder="John Doe">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="form-label">Account No.</div>
-            <div class="form-input-wrap">
-              <svg class="input-icon" data-lucide="hash"></svg>
-              <input type="text" class="form-input" id="wdAccountNumber" placeholder="0244000000">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-label">Provider</div>
-          <div class="form-input-wrap">
-            <svg class="input-icon" data-lucide="building-2"></svg>
-            <select class="form-input" id="wdBankCode">
-              <option value="MTN">MTN MoMo</option>
-              <option value="VOD">Vodafone Cash</option>
-              <option value="ATL">AirtelTigo</option>
-              <option value="GCB">GCB Bank</option>
-            </select>
-          </div>
-        </div>
-        <div class="fee-banner">
-          <svg data-lucide="alert-triangle" style="color:var(--accent)"></svg>
-          <p><strong>2% fee</strong> applies · Min GHS 50 balance must remain after withdrawal</p>
-        </div>
-        <div class="summary-box">
-          <div class="summary-row"><span class="summary-lbl">Requested</span><span class="summary-val" id="wdSumAmount">GHS 100.00</span></div>
-          <div class="summary-row"><span class="summary-lbl">Fee (2%)</span><span class="summary-val red" id="wdSumFee">− GHS 2.00</span></div>
-          <div class="summary-divider"></div>
-          <div class="summary-row"><span class="summary-lbl">You receive</span><span class="summary-val green" id="wdSumReceive">GHS 98.00</span></div>
-        </div>
-        <button class="btn-submit" id="withdrawBtn" onclick="initiateWithdraw()">
-          <svg data-lucide="send"></svg><span id="wdBtnTxt">Withdraw Funds</span>
-        </button>
-      </div>
-
     </div>
   </div>
 
   <!-- TRANSACTION HISTORY -->
-  <div class="panel">
-    <div class="panel-head">
-      <div class="panel-title"><svg data-lucide="clock"></svg> History</div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div id="txCount" style="font-size:12px;color:var(--t3)"></div>
-        <button class="icon-btn" onclick="loadTransactions()" title="Refresh" style="width:30px;height:30px;border-radius:8px;">
-          <svg data-lucide="refresh-cw" style="width:13px;height:13px;"></svg>
-        </button>
+  <div id="panel-history" style="display:none;">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="mi">history</span>
+        <h3>Transaction History</h3>
+        <span class="badge" id="tx-count-badge">0 records</span>
       </div>
-    </div>
-    <div class="panel-body">
-      <div class="tx-filters" id="filterContainer"></div>
-      <div class="tx-list" id="txList">
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
+      <div class="tx-filters">
+        <div class="tx-filter active" onclick="filterTx('all',this)">All</div>
+        <div class="tx-filter" onclick="filterTx('DEPOSIT',this)">Deposits</div>
+        <div class="tx-filter" onclick="filterTx('WITHDRAWAL',this)">Withdrawals</div>
+        <div class="tx-filter" onclick="filterTx('BET',this)">Bets</div>
+        <div class="tx-filter" onclick="filterTx('WIN',this)">Winnings</div>
       </div>
+      <div id="tx-list"></div>
     </div>
   </div>
 
-</div>
+</div><!-- /page-wrap -->
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-icon" id="modalIcon"><svg data-lucide="check-circle-2" id="modalIcoSvg"></svg></div>
-    <div class="modal-title" id="modalTitle"></div>
-    <div id="modalMsg" style="font-size:14px;color:var(--t2);margin-bottom:4px;"></div>
-    <div id="modalRef" style="display:none;font-family:monospace;font-size:11px;color:var(--t3);margin-top:4px;"></div>
-    <div id="modalDetail" style="display:none" class="modal-detail"></div>
-    <button class="btn-modal-close" onclick="closeModal()">Done</button>
+<!-- AUTH GATE (shown when logged out) -->
+<div class="page-wrap" id="auth-gate-wrap" style="display:none;">
+  <div class="auth-gate">
+    <span class="mi">lock</span>
+    <h2>Sign In to Access Your Wallet</h2>
+    <p>Log in or create a free account to deposit, withdraw, and view your transaction history.</p>
+    <div class="auth-gate-btns">
+      <a href="login.html" class="ag-login">Login</a>
+      <a href="register.html" class="ag-reg">Register Free</a>
+    </div>
   </div>
 </div>
 
-<div class="toast-container" id="toastContainer"></div>
+<!-- LOADING STATE -->
+<div class="page-wrap" id="loading-wrap">
+  <div class="wallet-loading-state">
+    <div class="spinner-lg"></div>
+    <p>Loading your wallet…</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- BOTTOM MOB NAV -->
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a class="mob-item" href="index.html"><span class="mi">home</span><span>Home</span></a>
+    <a class="mob-item" href="live-games.html"><span class="mi">cell_tower</span><span>Live</span></a>
+    <a class="mob-item" href="betting.html"><span class="mi">receipt_long</span><span>Bet Now</span></a>
+    <a class="mob-item" href="games.html"><span class="mi">sports_esports</span><span>Games</span></a>
+    <a class="mob-item active" href="wallet.html"><span class="mi">account_balance_wallet</span><span>Wallet</span></a>
+  </div>
+</nav>
 
 <script>
 // ─────────────────────────────────────────────
-// CONFIG
+// CONFIG — GStake API
 // ─────────────────────────────────────────────
 const API_BASE = 'https://kikiwebbackend.onrender.com/api/v1';
 
-// Minimum deposit per currency (matches your business rules)
-const MIN_DEPOSIT = {
-  GHS: 500,   // Ghanaians
-  NGN: 50000, // Nigerians
-  USD: 200,   // Europeans / USD
-  EUR: 200,
-  GBP: 200,
-};
-
-// Currency symbols
-const CURRENCY_SYMBOL = {
-  GHS: '₵', NGN: '₦', USD: '$', EUR: '€', GBP: '£'
-};
-
-// Retrieve JWT — login page stores as 'gstake_token'
+// ─────────────────────────────────────────────
+// TOKEN & USER RETRIEVAL — matches GStake wallet
+// ─────────────────────────────────────────────
 function getToken() {
   return localStorage.getItem('gstake_token') || sessionStorage.getItem('gstake_token') || '';
 }
 
-// Retrieve user object stored at login
 function getUser() {
   try {
     const raw = localStorage.getItem('gstake_user') || sessionStorage.getItem('gstake_user');
-    return raw ? JSON.parse(raw) : null;
-  } catch { return null; }
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function saveUser(u) {
+  // Persist back to whichever storage originally held the token
+  const store = localStorage.getItem('gstake_token') ? localStorage : sessionStorage;
+  store.setItem('gstake_user', JSON.stringify(u));
+}
+
+const isLoggedIn = () => !!getToken();
+
+function getInitials(u) {
+  const f = (u.firstName || '').charAt(0).toUpperCase();
+  const l = (u.lastName  || '').charAt(0).toUpperCase();
+  return f + l || '??';
 }
 
 function authHeaders() {
-  return {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${getToken()}`
-  };
+  return { 'Authorization': `Bearer ${getToken()}`, 'Content-Type': 'application/json' };
 }
 
 // ─────────────────────────────────────────────
-// CURRENCY / MIN-DEPOSIT RULES
-//   GHS (Ghana)   → min 500
-//   NGN (Nigeria) → min 50,000
-//   USD/EUR/other → min 200
+// CURRENCY CONFIG
 // ─────────────────────────────────────────────
-const MIN_DEPOSIT_MAP = { GHS: 500, NGN: 50000 };
-const MIN_DEPOSIT_DEFAULT = 200;
-
-function getMinDeposit(currency) {
-  return MIN_DEPOSIT_MAP[currency] ?? MIN_DEPOSIT_DEFAULT;
-}
-
-function getCurrencySymbol(currency) {
-  const symbols = { GHS: '₵', NGN: '₦', USD: '$', EUR: '€', GBP: '£' };
-  return symbols[currency] || (currency + ' ');
-}
+const CURRENCY_CONFIG = {
+  GHS: {
+    label:'Ghana · GHS', flag:'🇬🇭',
+    minDep: 300,
+    quickDep:[300, 500, 1000, 2000],
+    minWdr: 5000,
+    fmt: v => 'GHS ' + Number(v).toLocaleString('en-GH',{minimumFractionDigits:2,maximumFractionDigits:2})
+  },
+  NGN: {
+    label:'Nigeria · NGN', flag:'🇳🇬',
+    minDep: 30000,
+    quickDep:[30000, 50000, 100000, 200000],
+    minWdr: 500000,
+    fmt: v => 'NGN ' + Number(v).toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2})
+  },
+  USD: {
+    label:'USD', flag:'🌍',
+    minDep: 200,
+    quickDep:[200, 500, 1000, 2000],
+    minWdr: 500,
+    fmt: v => '$ ' + Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+  },
+  EUR: {
+    label:'EUR', flag:'🌍',
+    minDep: 200,
+    quickDep:[200, 500, 1000, 2000],
+    minWdr: 500,
+    fmt: v => '€ ' + Number(v).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})
+  },
+  GBP: {
+    label:'GBP', flag:'🌍',
+    minDep: 200,
+    quickDep:[200, 500, 1000, 2000],
+    minWdr: 500,
+    fmt: v => '£ ' + Number(v).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2})
+  }
+};
 
 // ─────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────
-let allTransactions = [];
-let txFilter = 'ALL';
-let currentBalance = null;
-let userCurrency = 'GHS'; // set from stored user profile on init
+let walletData   = null;
+let transactions = [];
+let txFilter     = 'all';
+let currency     = 'GHS'; // default until geo resolves
+
+// ─────────────────────────────────────────────
+// IP-BASED CURRENCY DETECTION
+// Uses ipapi.co (free, no key needed)
+// Maps country code → currency
+// ─────────────────────────────────────────────
+const COUNTRY_CURRENCY_MAP = {
+  GH: 'GHS',  // Ghana
+  NG: 'NGN',  // Nigeria
+  US: 'USD',
+  GB: 'GBP',
+  DE: 'EUR', FR: 'EUR', IT: 'EUR', ES: 'EUR',
+  NL: 'EUR', BE: 'EUR', AT: 'EUR', PT: 'EUR',
+};
+
+async function detectCurrencyFromIP() {
+  const cached = sessionStorage.getItem('gstake_detected_currency');
+  if (cached) return cached;
+  try {
+    const res = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(4000) });
+    if (!res.ok) return 'GHS';
+    const data = await res.json();
+    const detected = COUNTRY_CURRENCY_MAP[data.country_code] || 'GHS';
+    sessionStorage.setItem('gstake_detected_currency', detected);
+    return detected;
+  } catch {
+    return 'GHS';
+  }
+}
 
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
-window.addEventListener('load', async () => {
-  // Pull currency from stored user profile
-  const user = getUser();
-  if (user && user.currency) userCurrency = user.currency;
+async function init() {
+  if (!isLoggedIn()) {
+    show('auth-gate-wrap');
+    hide('loading-wrap');
+    hide('page-content');
+    applyGuestHeader();
+    return;
+  }
 
-  // Apply currency symbol to deposit prefix and update min input
-  const sym = getCurrencySymbol(userCurrency);
-  const minDep = getMinDeposit(userCurrency);
-  document.querySelectorAll('.amount-prefix').forEach(el => el.textContent = sym);
-  const heroSym = document.getElementById('balanceCurrencySymbol');
-  if (heroSym) heroSym.textContent = sym;
-  document.getElementById('depositAmount').min = minDep;
-  document.getElementById('depositAmount').value = minDep;
-  document.getElementById('withdrawAmount').min = 1;
+  // Detect currency from IP in parallel with wallet load
+  detectCurrencyFromIP().then(detected => {
+    currency = detected;
+    renderDepositForm();
+    renderWithdrawForm();
+    renderBalanceCards();
+  });
 
-  // Update the fee banner text with correct min
-  const feeBanner = document.querySelector('#depositForm .redirect-notice p');
-  if (feeBanner) feeBanner.innerHTML = `You'll be redirected to Paystack to complete your payment securely. Min ${userCurrency} ${minDep.toLocaleString()} · No fees · Instant credit.`;
+  applyUserHeader();
+  show('loading-wrap');
+  hide('page-content');
+  hide('auth-gate-wrap');
 
-  // Render currency-aware presets
-  const DEPOSIT_PRESETS = { GHS: [500, 1000, 2000, 5000], NGN: [50000, 100000, 200000, 500000], DEFAULT: [200, 500, 1000, 2000] };
-  const WD_PRESETS      = { GHS: [200, 500, 1000, 2000],  NGN: [20000, 50000, 100000, 200000],  DEFAULT: [100, 200, 500, 1000] };
-  const dPresets = DEPOSIT_PRESETS[userCurrency] || DEPOSIT_PRESETS.DEFAULT;
-  const wPresets = WD_PRESETS[userCurrency]      || WD_PRESETS.DEFAULT;
-  document.getElementById('depositPresets').innerHTML  = dPresets.map(v => `<button class="preset" onclick="setDeposit(${v})">${v.toLocaleString()}</button>`).join('');
-  document.getElementById('withdrawPresets').innerHTML = wPresets.map(v => `<button class="preset" onclick="setWithdraw(${v})">${v.toLocaleString()}</button>`).join('');
-
-  buildFilters();
-  updateDepositSummary();
-  updateWithdrawSummary();
-  await loadTransactions();
-  lucide.createIcons();
-});
+  await loadWalletData();
+}
 
 // ─────────────────────────────────────────────
-// LOAD TRANSACTIONS FROM API
+// LOAD WALLET DATA — uses /api/v1/users/me
 // ─────────────────────────────────────────────
-async function loadTransactions() {
-  document.getElementById('txList').innerHTML = `
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>`;
-
+async function loadWalletData() {
   try {
-    const res = await fetch(`${API_BASE}/wallet/transactions`, {
-      headers: authHeaders()
+    const res = await fetch(`${API_BASE}/users/me`, {
+      headers: authHeaders(),
+      signal: AbortSignal.timeout(15000)
     });
 
-    if (res.status === 401) {
-      showAuthError();
-      return;
-    }
+    if (res.status === 401) { logout(); return; }
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `Server error ${res.status}`);
-    }
+    const data = await res.json();
+    const payload = data.data || data;
 
-    const json = await res.json();
-    // ApiResponse<List<TransactionResponse>> shape: { data: [...], message: "..." }
-    allTransactions = json.data || json || [];
-    computeAndRenderStats();
+    walletData = payload;
+    currency   = payload.currency || currency;
+
+    // Update stored user object with fresh data
+    const u = getUser();
+    Object.assign(u, {
+      firstName: payload.firstName || u.firstName,
+      lastName:  payload.lastName  || u.lastName,
+      email:     payload.email     || u.email,
+      currency:  currency
+    });
+    saveUser(u);
+
+    applyUserHeader();
+    renderBalanceCards();
+    renderDepositForm();
+    renderWithdrawForm();
+
+    hide('loading-wrap');
+    show('page-content');
+
+    loadTransactions();
+
+  } catch (err) {
+    hide('loading-wrap');
+    show('page-content');
+    showToast('⚠️ Could not load wallet data — showing cached info', true);
+    renderBalanceCards();
+    renderDepositForm();
+    renderWithdrawForm();
+  }
+}
+
+// ─────────────────────────────────────────────
+// LOAD TRANSACTIONS — uses /api/v1/wallet/transactions
+// ─────────────────────────────────────────────
+async function loadTransactions() {
+  try {
+    const res = await fetch(`${API_BASE}/wallet/transactions`, {
+      headers: authHeaders(),
+      signal: AbortSignal.timeout(12000)
+    });
+    if (res.status === 401) { logout(); return; }
+    if (!res.ok) return;
+    const data = await res.json();
+    // ApiResponse shape: { data: [...] }
+    const list = data.data || data;
+    transactions = Array.isArray(list) ? list : [];
     renderTransactions();
-  } catch (e) {
-    document.getElementById('txList').innerHTML = `
-      <div class="error-state">
-        <svg data-lucide="wifi-off"></svg>
-        <p>${e.message || 'Failed to load transactions'}</p>
-        <button class="retry-btn" onclick="loadTransactions()">Try Again</button>
-      </div>`;
-    lucide.createIcons();
-    showToast(e.message || 'Failed to load transactions', 'error');
+  } catch {
+    // transactions stay empty, no crash
+  }
+}
+
+async function refreshWallet() {
+  show('loading-wrap');
+  hide('page-content');
+  await loadWalletData();
+}
+
+// ─────────────────────────────────────────────
+// RENDER BALANCE CARDS
+// ─────────────────────────────────────────────
+function renderBalanceCards() {
+  const cfg = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const d   = walletData;
+
+  document.getElementById('wallet-country-label').textContent = cfg.label;
+  document.querySelectorAll('.currency-lbl').forEach(el => el.textContent = currency);
+
+  if (d) {
+    document.getElementById('main-balance').textContent = cfg.fmt(d.walletBalance ?? 0);
+    document.getElementById('total-dep').textContent    = cfg.fmt(d.totalDeposited  ?? 0);
+    document.getElementById('total-wdr').textContent    = cfg.fmt(d.totalWithdrawn  ?? 0);
+    document.getElementById('bal-can-withdraw').textContent = d.canWithdraw ? 'Eligible to withdraw' : 'Keep betting to withdraw';
+    document.getElementById('header-balance').textContent   = cfg.fmt(d.walletBalance ?? 0);
+    document.getElementById('mob-ubal').textContent         = cfg.fmt(d.walletBalance ?? 0);
   }
 }
 
 // ─────────────────────────────────────────────
-// COMPUTE STATS FROM TRANSACTION HISTORY
+// RENDER DEPOSIT FORM
 // ─────────────────────────────────────────────
-function computeAndRenderStats() {
-  let dep = 0, wdr = 0, wager = 0, win = 0, latestBalance = null;
+function renderDepositForm() {
+  const cfg = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const minDep = cfg.minDep;
 
-  allTransactions.forEach(tx => {
-    const amt = parseFloat(tx.amount) || 0;
-    if (tx.type === 'DEPOSIT' && tx.status === 'SUCCESS') dep += amt;
-    if (tx.type === 'WITHDRAWAL' && tx.status === 'SUCCESS') wdr += amt;
-    if (tx.type === 'BET_STAKE' && tx.status === 'SUCCESS') wager += amt;
-    if (tx.type === 'BET_WINNINGS' && tx.status === 'SUCCESS') win += amt;
-  });
+  document.getElementById('dep-min-badge').textContent = `Min: ${currency} ${minDep.toLocaleString()}`;
+  document.getElementById('rule-min-dep').innerHTML    = `Minimum deposit: <strong>${currency} ${minDep.toLocaleString()}</strong>`;
+  document.getElementById('dep-hint').textContent      = `Minimum: ${currency} ${minDep.toLocaleString()}`;
+  document.getElementById('dep-amount').placeholder    = `Enter amount (min ${minDep.toLocaleString()})`;
+  document.getElementById('dep-amount').min            = minDep;
+  document.getElementById('dep-amount').value          = minDep;
 
-  // Use balanceAfter from the most recent transaction if available
-  if (allTransactions.length > 0 && allTransactions[0].balanceAfter != null) {
-    latestBalance = parseFloat(allTransactions[0].balanceAfter);
-  }
-
-  const sym = getCurrencySymbol(userCurrency);
-  const fmtShort = n => sym + Number(n || 0).toLocaleString();
-
-  document.getElementById('bsDeposited').innerText = fmtShort(dep);
-  document.getElementById('bsWithdrawn').innerText = fmtShort(wdr);
-  document.getElementById('bsWagered').innerText = fmtShort(wager);
-  document.getElementById('bsWon').innerText = fmtShort(win);
-
-  if (latestBalance !== null) {
-    currentBalance = latestBalance;
-    const formatted = latestBalance.toLocaleString('en-GH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    document.getElementById('mainBalance').innerText = formatted;
-    document.getElementById('balanceDisplay').innerText = sym + formatted;
-  }
+  document.getElementById('dep-quick-amts').innerHTML = cfg.quickDep.map(a =>
+    `<div class="amt-chip" onclick="document.getElementById('dep-amount').value=${a}">${currency} ${a.toLocaleString()}</div>`
+  ).join('');
 }
 
 // ─────────────────────────────────────────────
-// RENDER TRANSACTIONS
+// RENDER WITHDRAW FORM
 // ─────────────────────────────────────────────
-function renderTransactions() {
-  const listEl = document.getElementById('txList');
+function renderWithdrawForm() {
+  const cfg = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const minWdr = cfg.minWdr;
 
-  let filtered = allTransactions.filter(tx => {
-    if (txFilter === 'ALL') return true;
-    if (txFilter === 'DEPOSIT') return tx.type === 'DEPOSIT';
-    if (txFilter === 'WITHDRAWAL') return tx.type === 'WITHDRAWAL';
-    if (txFilter === 'BET') return tx.type === 'BET_STAKE';
-    if (txFilter === 'WINNINGS') return tx.type === 'BET_WINNINGS';
-    if (txFilter === 'REFUND') return tx.type === 'BET_REFUND';
-    return false;
-  });
-
-  const count = filtered.length;
-  document.getElementById('txCount').innerText = count + ' record' + (count !== 1 ? 's' : '');
-
-  if (!filtered.length) {
-    listEl.innerHTML = '<div style="padding:24px 0;text-align:center;color:var(--t3);font-size:14px;">No transactions</div>';
-    return;
-  }
-
-  const iconMap = {
-    DEPOSIT: 'arrow-down-circle',
-    WITHDRAWAL: 'arrow-up-circle',
-    BET_STAKE: 'zap',
-    BET_WINNINGS: 'trophy',
-    BET_REFUND: 'rotate-ccw'
-  };
-
-  const bgMap = {
-    DEPOSIT: 'var(--greenBg)',
-    WITHDRAWAL: 'var(--redBg)',
-    BET_STAKE: 'var(--accentBg)',
-    BET_WINNINGS: 'var(--blueBg)',
-    BET_REFUND: 'var(--accentBg)'
-  };
-
-  const creditTypes = new Set(['DEPOSIT', 'BET_WINNINGS', 'BET_REFUND']);
-
-  listEl.innerHTML = filtered.map(tx => {
-    const isCredit = creditTypes.has(tx.type);
-    const amt = parseFloat(tx.amount || 0).toFixed(2);
-    const statusClass = tx.status === 'SUCCESS' ? 'success' : tx.status === 'PENDING' ? 'pending' : 'failed';
-    const dateStr = tx.createdAt
-      ? new Date(tx.createdAt).toLocaleDateString('en-GH', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
-      : '—';
-
-    return `
-      <div class="tx-item">
-        <div class="tx-icon" style="background:${bgMap[tx.type] || 'var(--bg3)'};border:1px solid var(--border)">
-          <svg data-lucide="${iconMap[tx.type] || 'circle'}"></svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-desc">${tx.description || tx.type}</div>
-          <div class="tx-meta">
-            <span class="tx-date">${dateStr}</span>
-            ${tx.paymentReference ? `<span class="tx-ref">${tx.paymentReference}</span>` : ''}
-            <span class="tx-status-badge ${statusClass}">${tx.status}</span>
-          </div>
-        </div>
-        <div class="tx-amount ${isCredit ? 'credit' : 'debit'}">${isCredit ? '+' : '−'}GHS ${amt}</div>
-      </div>`;
-  }).join('');
-
-  lucide.createIcons();
+  document.getElementById('wdr-min-badge').textContent = `Min: ${currency} ${minWdr.toLocaleString()}`;
+  document.getElementById('rule-min-wdr').innerHTML    = `Minimum withdrawal: <strong>${currency} ${minWdr.toLocaleString()}</strong>`;
+  document.getElementById('wdr-hint').textContent      = `Min: ${currency} ${minWdr.toLocaleString()} · 2% fee applies`;
+  document.getElementById('wdr-amount').placeholder    = `Minimum ${minWdr.toLocaleString()}`;
 }
 
 // ─────────────────────────────────────────────
-// DEPOSIT — calls POST /api/v1/wallet/deposit
-// Returns paymentUrl from Paystack → redirect user
+// INITIATE DEPOSIT — POST /api/v1/wallet/deposit
 // ─────────────────────────────────────────────
 async function initiateDeposit() {
-  const amt = parseFloat(document.getElementById('depositAmount').value);
+  const cfg = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const amt = parseFloat(document.getElementById('dep-amount').value);
 
-  const minDep = getMinDeposit(userCurrency);
-  if (!amt || amt < minDep) {
-    const sym = getCurrencySymbol(userCurrency);
-    showToast(`Min deposit is ${userCurrency} ${minDep.toLocaleString()}`, 'error');
+  if (!amt || isNaN(amt) || amt < cfg.minDep) {
+    showToast(`❌ Minimum deposit is ${currency} ${cfg.minDep.toLocaleString()}`, true);
+    document.getElementById('dep-amount').classList.add('err-inp');
+    setTimeout(() => document.getElementById('dep-amount').classList.remove('err-inp'), 2000);
     return;
   }
 
-  setBtnLoading('depositBtn', 'depBtnTxt', true, 'Initiating…');
+  const btn = document.getElementById('dep-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Connecting to Paystack…';
 
   try {
     const res = await fetch(`${API_BASE}/wallet/deposit`, {
       method: 'POST',
       headers: authHeaders(),
-      body: JSON.stringify({ amount: amt })
+      body: JSON.stringify({ amount: amt }),
+      signal: AbortSignal.timeout(20000)
     });
 
-    if (res.status === 401) { showAuthError(); return; }
+    const data = await res.json();
 
-    const json = await res.json();
+    if (res.ok) {
+      const payload = data.data || data;
+      // GStake backend returns paymentUrl
+      const paymentUrl = payload.paymentUrl || payload.authorization_url;
 
-    if (!res.ok) {
-      throw new Error(json.message || `Error ${res.status}`);
+      if (paymentUrl) {
+        showToast('✅ Redirecting to Paystack…');
+        setTimeout(() => { window.location.href = paymentUrl; }, 800);
+      } else {
+        showToast('❌ No payment URL returned. Try again.', true);
+        resetDepBtn();
+      }
+    } else {
+      const msg = data.message || data.error || 'Deposit failed. Please try again.';
+      showToast('❌ ' + msg, true);
+      resetDepBtn();
     }
-
-    // json.data = DepositInitiateResponse { paymentUrl, reference, paystackReference, currency, amountToDeposit }
-    const data = json.data || json;
-
-    showModal('success',
-      'Redirecting to Payment',
-      `You'll be taken to Paystack to complete your ${data.amountToDeposit || fmt(amt)} deposit.`,
-      data.reference,
-      [
-        { lbl: 'Reference', val: data.reference || '—' },
-        { lbl: 'Amount', val: data.amountToDeposit || fmt(amt) }
-      ]
-    );
-
-    // Open Paystack payment URL
-    if (data.paymentUrl) {
-      setTimeout(() => {
-        window.location.href = data.paymentUrl;
-      }, 1500);
+  } catch (err) {
+    if (err.name === 'TimeoutError' || err.name === 'AbortError') {
+      showToast('❌ Request timed out — server may be waking up, try again', true);
+    } else {
+      showToast('❌ Network error — check your connection', true);
     }
+    resetDepBtn();
+  }
+}
 
-  } catch (e) {
-    showToast(e.message || 'Deposit failed', 'error');
-  } finally {
-    setBtnLoading('depositBtn', 'depBtnTxt', false, 'Deposit Now');
+function resetDepBtn() {
+  const btn = document.getElementById('dep-btn');
+  btn.disabled = false;
+  btn.innerHTML = '<span class="mi">open_in_new</span> Proceed to Pay';
+}
+
+// ─────────────────────────────────────────────
+// WITHDRAWAL FEE PREVIEW
+// ─────────────────────────────────────────────
+function updateWdrFee() {
+  const cfg = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const amt = parseFloat(document.getElementById('wdr-amount').value) || 0;
+  const summary = document.getElementById('wdr-fee-summary');
+  if (amt > 0) {
+    const fee  = +(amt * 0.02).toFixed(2);
+    const recv = +(amt - fee).toFixed(2);
+    document.getElementById('fs-req').textContent  = cfg.fmt(amt);
+    document.getElementById('fs-fee').textContent  = '- ' + cfg.fmt(fee);
+    document.getElementById('fs-recv').textContent = cfg.fmt(recv);
+    summary.style.display = 'block';
+  } else {
+    summary.style.display = 'none';
   }
 }
 
 // ─────────────────────────────────────────────
-// WITHDRAW — calls POST /api/v1/wallet/withdraw
+// INITIATE WITHDRAW — POST /api/v1/wallet/withdraw
 // ─────────────────────────────────────────────
 async function initiateWithdraw() {
-  const amt = parseFloat(document.getElementById('withdrawAmount').value);
-  const name = document.getElementById('wdAccountName').value.trim();
-  const acc = document.getElementById('wdAccountNumber').value.trim();
-  const bankCode = document.getElementById('wdBankCode').value;
+  const cfg  = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const amt  = parseFloat(document.getElementById('wdr-amount').value);
+  const name = document.getElementById('wdr-name').value.trim();
+  const acct = document.getElementById('wdr-acct').value.trim();
+  const bank = document.getElementById('wdr-bank').value;
 
-  if (!amt || amt <= 0) { showToast('Enter a valid amount', 'error'); return; }
-  if (!name) { showToast('Account name is required', 'error'); return; }
-  if (!acc) { showToast('Account number is required', 'error'); return; }
+  if (!amt || isNaN(amt) || amt <= 0) { showToast('❌ Enter a valid amount', true); return; }
+  if (!name) { showToast('❌ Enter your account name', true); return; }
+  if (!acct) { showToast('❌ Enter your account number', true); return; }
+  if (!bank) { showToast('❌ Select a bank or network', true); return; }
 
-  setBtnLoading('withdrawBtn', 'wdBtnTxt', true, 'Processing…');
+  const btn = document.getElementById('wdr-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Submitting…';
 
   try {
     const res = await fetch(`${API_BASE}/wallet/withdraw`, {
@@ -808,172 +898,217 @@ async function initiateWithdraw() {
       body: JSON.stringify({
         amount: amt,
         accountName: name,
-        accountNumber: acc,
-        bankCode: bankCode
-      })
+        accountNumber: acct,
+        bankCode: bank
+      }),
+      signal: AbortSignal.timeout(20000)
     });
 
-    if (res.status === 401) { showAuthError(); return; }
+    const data = await res.json();
 
-    const json = await res.json();
+    if (res.status === 401) { logout(); return; }
 
-    if (!res.ok) {
-      throw new Error(json.message || `Error ${res.status}`);
+    if (res.ok) {
+      const payload = data.data || data;
+      const msg = payload.message || `Withdrawal of ${cfg.fmt(amt)} submitted successfully!`;
+      showToast('✅ ' + msg);
+
+      document.getElementById('wdr-amount').value = '';
+      document.getElementById('wdr-name').value   = '';
+      document.getElementById('wdr-acct').value   = '';
+      document.getElementById('wdr-bank').value   = '';
+      document.getElementById('wdr-fee-summary').style.display = 'none';
+
+      setTimeout(() => refreshWallet(), 1500);
+    } else {
+      const msg = data.message || data.error || 'Withdrawal failed. Please try again.';
+      showToast('❌ ' + msg, true);
     }
-
-    // json.data = WithdrawResponse { reference, requestedAmount, feeDeducted, amountReceived, balanceAfter, currency, status, message }
-    const data = json.data || json;
-
-    // Refresh transaction list and update balance
-    await loadTransactions();
-
-    showModal('success',
-      'Withdrawal Sent',
-      data.message || `GHS ${parseFloat(data.amountReceived || 0).toFixed(2)} will be sent to ${name}.`,
-      data.reference,
-      [
-        { lbl: 'Requested', val: fmt(data.requestedAmount) },
-        { lbl: 'Fee', val: 'GHS ' + parseFloat(data.feeDeducted || 0).toFixed(2) },
-        { lbl: 'You receive', val: fmt(data.amountReceived), cls: 'green' },
-        { lbl: 'Balance After', val: fmt(data.balanceAfter) }
-      ]
-    );
-
-  } catch (e) {
-    showToast(e.message || 'Withdrawal failed', 'error');
+  } catch (err) {
+    if (err.name === 'TimeoutError' || err.name === 'AbortError') {
+      showToast('❌ Request timed out. Please try again.', true);
+    } else {
+      showToast('❌ Network error — check your connection', true);
+    }
   } finally {
-    setBtnLoading('withdrawBtn', 'wdBtnTxt', false, 'Withdraw Funds');
+    btn.disabled = false;
+    btn.innerHTML = '<span class="mi">send</span> Submit Withdrawal';
   }
 }
 
 // ─────────────────────────────────────────────
-// UI HELPERS
+// TRANSACTION RENDERING
 // ─────────────────────────────────────────────
-function fmt(n) {
-  const sym = getCurrencySymbol(userCurrency);
-  const locale = userCurrency === 'NGN' ? 'en-NG' : userCurrency === 'GHS' ? 'en-GH' : 'en-US';
-  return sym + Number(n || 0).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function filterTx(f, el) {
+  txFilter = f;
+  document.querySelectorAll('.tx-filter').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  renderTransactions();
 }
 
-function setBtnLoading(btnId, txtId, loading, label) {
-  const btn = document.getElementById(btnId);
-  const txt = document.getElementById(txtId);
-  if (!btn || !txt) return;
-  btn.disabled = loading;
-  if (loading) {
-    txt.innerHTML = `<span class="spinner"></span> ${label}`;
-  } else {
-    txt.textContent = label;
-  }
-}
+function renderTransactions() {
+  const cfg  = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
+  const list = document.getElementById('tx-list');
+  const badge = document.getElementById('tx-count-badge');
 
-function setDeposit(v) { document.getElementById('depositAmount').value = v; updateDepositSummary(); }
-function setWithdraw(v) { document.getElementById('withdrawAmount').value = v; updateWithdrawSummary(); }
-
-function updateDepositSummary() {
-  const amt = parseFloat(document.getElementById('depositAmount').value) || 0;
-  document.getElementById('depSumAmount').innerText = fmt(amt);
-  document.getElementById('depSumReceive').innerText = fmt(amt);
-}
-
-function updateWithdrawSummary() {
-  const amt = parseFloat(document.getElementById('withdrawAmount').value) || 0;
-  const fee = +(amt * 0.02).toFixed(2);
-  const rec = +(amt - fee).toFixed(2);
-  document.getElementById('wdSumAmount').innerText = fmt(amt);
-  document.getElementById('wdSumFee').innerText = '− ' + getCurrencySymbol(userCurrency) + fee.toFixed(2);
-  document.getElementById('wdSumReceive').innerText = fmt(rec);
-}
-
-function switchAction(type) {
-  const isD = type === 'deposit';
-  document.getElementById('depositForm').style.display = isD ? 'block' : 'none';
-  document.getElementById('withdrawForm').style.display = isD ? 'none' : 'block';
-  document.getElementById('btnTabDeposit').classList.toggle('active', isD);
-  document.getElementById('btnTabWithdraw').classList.toggle('active', !isD);
-  const titleEl = document.getElementById('actionTitle');
-  titleEl.innerHTML = `<svg data-lucide="${isD ? 'arrow-down-circle' : 'arrow-up-circle'}"></svg> ${isD ? 'Deposit' : 'Withdraw'}`;
-  lucide.createIcons();
-}
-
-function buildFilters() {
-  const filters = ['ALL', 'DEPOSIT', 'WITHDRAWAL', 'BET', 'WINNINGS', 'REFUND'];
-  const labels = { ALL: 'All', DEPOSIT: 'Deposits', WITHDRAWAL: 'Withdrawals', BET: 'Bets', WINNINGS: 'Winnings', REFUND: 'Refunds' };
-  document.getElementById('filterContainer').innerHTML = filters.map(f =>
-    `<button class="filter-chip ${f === 'ALL' ? 'active' : ''}" data-filter="${f}">${labels[f]}</button>`
-  ).join('');
-
-  document.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      txFilter = btn.getAttribute('data-filter');
-      renderTransactions();
+  let filtered = [...transactions];
+  if (txFilter !== 'all') {
+    filtered = filtered.filter(t => {
+      const type = (t.type || '').toUpperCase();
+      if (txFilter === 'WIN') return type === 'BET_WINNINGS';
+      if (txFilter === 'BET') return type === 'BET_STAKE';
+      return type === txFilter;
     });
-  });
-}
+  }
 
-function showAuthError() {
-  showToast('Session expired — please log in again', 'error');
-  document.getElementById('txList').innerHTML = `
-    <div class="error-state">
-      <svg data-lucide="lock"></svg>
-      <p>You need to be logged in to view your wallet.</p>
+  badge.textContent = filtered.length + ' records';
+
+  if (!filtered.length) {
+    list.innerHTML = `<div class="tx-empty"><span class="mi">receipt_long</span><p>No transactions found</p></div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(tx => {
+    const type      = (tx.type   || '').toUpperCase();
+    const status    = (tx.status || '').toUpperCase();
+    const isCredit  = ['DEPOSIT', 'BET_WINNINGS', 'BET_REFUND'].includes(type);
+    const iconMap   = { DEPOSIT:'arrow_downward', WITHDRAWAL:'arrow_upward', BET_WINNINGS:'emoji_events', BET_STAKE:'receipt_long', BET_REFUND:'rotate_left' };
+    const classMap  = { DEPOSIT:'dep', WITHDRAWAL:'wdr', BET_WINNINGS:'win', BET_STAKE:'bet', BET_REFUND:'dep' };
+    const icon      = iconMap[type] || 'swap_horiz';
+    const iconClass = classMap[type] || 'dep';
+    const statusCls = status === 'SUCCESS' ? 'success' : status === 'PENDING' ? 'pending' : 'failed';
+    const amt       = parseFloat(tx.amount || 0);
+    const balAfter  = tx.balanceAfter != null ? parseFloat(tx.balanceAfter) : null;
+    const desc      = tx.description || type;
+    const ref       = tx.paymentReference || tx.ref || '—';
+    const date      = tx.createdAt ? new Date(tx.createdAt).toLocaleString('en-GB', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '—';
+
+    return `<div class="tx-item">
+      <div class="tx-icon ${iconClass}"><span class="mi">${icon}</span></div>
+      <div class="tx-info">
+        <div class="tx-desc">${desc}</div>
+        <div class="tx-meta">
+          <span class="tx-ref">${ref}</span>
+          <span class="tx-status ${statusCls}">${status}</span>
+          <span>${date}</span>
+        </div>
+      </div>
+      <div class="tx-amt">
+        <div class="tx-amt-val ${isCredit?'plus':'minus'}">${isCredit?'+':'-'}${cfg.fmt(amt)}</div>
+        ${balAfter != null ? `<div class="tx-bal">Bal: ${cfg.fmt(balAfter)}</div>` : ''}
+      </div>
     </div>`;
-  lucide.createIcons();
+  }).join('');
 }
 
-function showToast(msg, type = 'info') {
-  const c = document.getElementById('toastContainer');
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  t.innerHTML = `<svg data-lucide="${type === 'success' ? 'check-circle-2' : 'alert-circle'}"></svg><span>${msg}</span>`;
-  c.appendChild(t);
-  lucide.createIcons();
-  setTimeout(() => t.remove(), 4000);
+// ─────────────────────────────────────────────
+// TAB SWITCHING
+// ─────────────────────────────────────────────
+function showTab(tab) {
+  ['deposit','withdraw','history'].forEach(t => {
+    document.getElementById('panel-'+t).style.display  = t === tab ? 'block' : 'none';
+    document.getElementById('tab-'+t).classList.toggle('active', t === tab);
+  });
+  if (tab === 'history') {
+    if (!transactions.length) loadTransactions();
+    else renderTransactions();
+  }
 }
 
-function showModal(type, title, msg, ref, details) {
-  document.getElementById('modalTitle').innerText = title;
-  document.getElementById('modalMsg').innerText = msg;
-  const iconDiv = document.getElementById('modalIcon');
-  iconDiv.style.background = type === 'success' ? 'var(--greenBg)' : 'var(--redBg)';
-  iconDiv.style.border = `1px solid ${type === 'success' ? 'var(--borderGreen)' : 'var(--borderRed)'}`;
-  document.getElementById('modalIcoSvg').setAttribute('data-lucide', type === 'success' ? 'check-circle-2' : 'alert-circle');
-  document.getElementById('modalIcoSvg').style.color = type === 'success' ? 'var(--green)' : 'var(--red)';
-  const refDiv = document.getElementById('modalRef');
-  if (ref) { refDiv.innerText = ref; refDiv.style.display = 'block'; } else refDiv.style.display = 'none';
-  const detailDiv = document.getElementById('modalDetail');
-  if (details && details.length) {
-    detailDiv.style.display = 'grid';
-    detailDiv.innerHTML = details.map(d =>
-      `<div class="modal-detail-item"><div class="modal-detail-lbl">${d.lbl}</div><div class="modal-detail-val ${d.cls || ''}">${d.val}</div></div>`
-    ).join('');
-  } else detailDiv.style.display = 'none';
-  document.getElementById('modalOverlay').classList.add('open');
-  lucide.createIcons();
+// ─────────────────────────────────────────────
+// HEADER STATE
+// ─────────────────────────────────────────────
+function applyUserHeader() {
+  const u = getUser();
+  const initials = getInitials(u);
+  const fullName = [u.firstName, u.lastName].filter(Boolean).join(' ') || 'My Account';
+  const email    = u.email || '';
+  const cfg      = CURRENCY_CONFIG[u.currency || 'GHS'] || CURRENCY_CONFIG.GHS;
+
+  document.getElementById('guest-auth').classList.add('hidden');
+  document.getElementById('user-auth').classList.add('visible');
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('dd-name').textContent     = fullName;
+  document.getElementById('dd-email').textContent    = email;
+
+  document.getElementById('mob-guest-section').style.display = 'none';
+  document.getElementById('mob-user-section').style.display  = 'block';
+  document.getElementById('mob-av').textContent    = initials;
+  document.getElementById('mob-uname').textContent = fullName;
+
+  if (walletData) {
+    const bal = cfg.fmt(walletData.walletBalance ?? 0);
+    document.getElementById('header-balance').textContent = bal;
+    document.getElementById('mob-ubal').textContent       = bal;
+  }
 }
 
-function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
-
-function toggleTheme() {
-  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
-  document.getElementById('themeIco').setAttribute('data-lucide', dark ? 'sun' : 'moon');
-  lucide.createIcons();
+function applyGuestHeader() {
+  document.getElementById('guest-auth').classList.remove('hidden');
+  document.getElementById('user-auth').classList.remove('visible');
+  document.getElementById('mob-guest-section').style.display = 'block';
+  document.getElementById('mob-user-section').style.display  = 'none';
 }
 
-// Expose globals
-window.switchAction = switchAction;
-window.setDeposit = setDeposit;
-window.setWithdraw = setWithdraw;
-window.updateDepositSummary = updateDepositSummary;
-window.updateWithdrawSummary = updateWithdrawSummary;
-window.initiateDeposit = initiateDeposit;
-window.initiateWithdraw = initiateWithdraw;
-window.closeModal = closeModal;
-window.toggleTheme = toggleTheme;
-window.loadTransactions = loadTransactions;
+// ─────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────
+function logout() {
+  localStorage.removeItem('gstake_token');
+  localStorage.removeItem('gstake_user');
+  sessionStorage.removeItem('gstake_token');
+  sessionStorage.removeItem('gstake_user');
+  window.location.href = 'login.html';
+}
+
+function toggleDropdown() {
+  document.getElementById('user-dropdown').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('user-auth');
+  if (wrap && !wrap.contains(e.target)) {
+    const dd = document.getElementById('user-dropdown');
+    if (dd) dd.classList.remove('open');
+  }
+  const menu = document.getElementById('mob-menu');
+  const ham  = document.querySelector('.hamburger');
+  if (menu && menu.classList.contains('open') && !menu.contains(e.target) && ham && !ham.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+function toggleMenu() { document.getElementById('mob-menu').classList.toggle('open'); }
+
+// ─────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? 'var(--red)' : 'var(--green)';
+  t.classList.add('show');
+  clearTimeout(t._to);
+  t._to = setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+function show(id) { document.getElementById(id).style.display = 'block'; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+// ─────────────────────────────────────────────
+// PAYSTACK CALLBACK HANDLER
+// ─────────────────────────────────────────────
+function checkPaystackCallback() {
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('trxref') || params.get('reference');
+  if (ref) {
+    showToast('✅ Payment received! Your balance will update shortly.');
+    window.history.replaceState({}, '', 'wallet.html');
+  }
+}
+
+checkPaystackCallback();
+showTab('deposit');
+init();
 </script>
 </body>
 </html>
