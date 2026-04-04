@@ -180,9 +180,11 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .pw .val{font-weight:700;}
 .pw.tot{border-bottom:none;}
 .pw.tot .val{color:var(--green);font-size:15px;}
-.place-btn{margin:6px 12px 10px;width:calc(100% - 24px);padding:12px;background:var(--green);border:none;border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+/* ✅ FIX 1: place-btn disabled state to prevent double-click */
+.place-btn{margin:6px 12px 10px;width:calc(100% - 24px);padding:12px;background:var(--green);border:none;border-radius:4px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s,opacity .2s;}
 .place-btn .mi{font-size:20px;}
-.place-btn:hover{background:var(--green2);}
+.place-btn:hover:not(:disabled){background:var(--green2);}
+.place-btn:disabled{opacity:0.55;cursor:not-allowed;background:var(--green);}
 .clear-btn{display:block;text-align:center;color:var(--muted);font-size:11px;cursor:pointer;padding:4px 12px 10px;background:none;border:none;width:100%;font-family:'Barlow',sans-serif;}
 .clear-btn:hover{color:var(--red);}
 .winners{border-top:1px solid var(--gray2);padding:10px 12px;}
@@ -553,7 +555,8 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
       <div class="pw"><span class="lbl">Potential win</span><span class="val" id="pot-win">GHS 0.00</span></div>
       <div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" id="tot-payout">GHS 10.00</span></div>
     </div>
-    <button class="place-btn" onclick="placeBet()"><span class="mi">check_circle</span> Place Bet</button>
+    <!-- ✅ FIX 1: id added so placeBet() can disable it during submission -->
+    <button class="place-btn" id="place-btn-main" onclick="placeBet()"><span class="mi">check_circle</span> Place Bet</button>
     <button class="clear-btn" onclick="clearSlip()">Clear all selections</button>
   </div>
 </aside>
@@ -567,6 +570,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     <div class="hist-mob-head-title"><span class="mi">history</span> My Bet History</div>
     <button class="hist-mob-close" onclick="closeHistoryMobile()"><span class="mi">close</span></button>
   </div>
+  <!-- ✅ FIX 3: Mobile drawer body — stats + filters rendered BEFORE loadBetHistory() fires -->
   <div class="hist-mob-body">
     <div class="hist-stats" style="margin-bottom:12px;">
       <div class="hstat active"><div class="hstat-val" id="hstat-pending3">—</div><div class="hstat-lbl">Active</div></div>
@@ -717,12 +721,21 @@ function toggleInlineHistory(){
 }
 
 /* ── MOBILE HISTORY DRAWER ── */
+// ✅ FIX 3: Always reload on open so settled bets show up immediately.
+// Also resets the mobile filter to 'ALL' so the container is always populated.
 function openHistoryMobile(){
   document.getElementById('hist-mob-overlay').classList.add('open');
   document.getElementById('hist-mob-drawer').classList.add('open');
   document.querySelectorAll('.mchip').forEach(c=>c.classList.remove('active'));
   document.getElementById('mchip-history')?.classList.add('active');
-  loadBetHistory(false,true);
+  // Reset mobile filter buttons to ALL so stale filter doesn't hide results
+  ['ALL','PENDING','WON','LOST','CODE'].forEach(k=>{
+    const el=document.getElementById('mhf-'+k);
+    if(el)el.className='hf-btn'+(k==='ALL'?' active':'');
+  });
+  histFilter='ALL';
+  // Always fetch fresh data when drawer opens
+  loadBetHistory(false, true);
 }
 
 function closeHistoryMobile(){
@@ -734,7 +747,10 @@ function closeHistoryMobile(){
 
 /* ── BET HISTORY LOGIC ── */
 let allBets=[];
+// ✅ FIX 2: Separate filter state for each panel so mobile and desktop don't clash
 let histFilter='ALL';
+let inlineHistFilter='ALL';
+let mobHistFilter='ALL';
 
 async function apiFetch(url,opts={}){
   const headers={...authHeaders(),...(opts.headers||{})};
@@ -744,21 +760,19 @@ async function apiFetch(url,opts={}){
   return json.data!==undefined?json.data:json;
 }
 
-// ✅ FIX: Helper to safely map a selection object from the API response,
-// correctly reading homeScore and awayScore from the backend DTO fields.
+// ✅ FIX: mapSelection reads homeScore/awayScore safely from the API response.
+// The backend BetSlipResponse.SelectionDetail populates these for CORRECT_SCORE bets.
 function mapSelection(s){
   return {
     homeTeam: s.homeTeam || '?',
     awayTeam: s.awayTeam || '?',
     marketType: s.marketType || '',
-    // ✅ These come from BetSlipResponse.SelectionDetail which now has
-    // homeScore/awayScore populated via sel.getCorrectScoreOption()
     homeScore: s.homeScore != null ? s.homeScore : null,
     awayScore: s.awayScore != null ? s.awayScore : null
   };
 }
 
-async function loadBetHistory(inline=false,mobile=false){
+async function loadBetHistory(inline=false, mobile=false){
   historyLoaded=true;
   const containerId=inline?'inline-hist-container':mobile?'mob-hist-container':'hist-container';
   const container=document.getElementById(containerId);
@@ -789,7 +803,6 @@ async function loadBetHistory(inline=false,mobile=false){
         allBets.push({
           id:slip.id,betType:'SLIP',ref:slip.slipReference||slip.id,
           match:`${sels.length}-leg Accumulator`,
-          // ✅ Use mapSelection so homeScore/awayScore are always safely read
           selections:sels.map(mapSelection),
           pick:sels.map(s=>fmtMkt(s.marketType)).join(' · '),
           odds:slip.totalOdds,stake:slip.stake,
@@ -802,7 +815,6 @@ async function loadBetHistory(inline=false,mobile=false){
         allBets.push({
           id:slip.id,betType:'SLIP',ref:slip.slipReference||slip.id,
           match:`${sel.homeTeam||'?'} vs ${sel.awayTeam||'?'}`,
-          // ✅ Use mapSelection so homeScore/awayScore are always safely read
           selections:[mapSelection(sel)],
           pick:fmtMkt(sel.marketType),
           odds:slip.totalOdds,stake:slip.stake,
@@ -851,7 +863,6 @@ async function loadHistoryFallback(inline=false,mobile=false){
         allBets.push({
           id:slip.id,betType:'SLIP',ref:slip.slipReference||slip.id,
           match:sels.length>1?`${sels.length}-leg Accumulator`:sels[0]?`${sels[0].homeTeam||'?'} vs ${sels[0].awayTeam||'?'}`:'Bet Slip',
-          // ✅ Use mapSelection in fallback too
           selections:sels.map(mapSelection),
           pick:sels.length>1?sels.map(s=>fmtMkt(s.marketType)).join(' · '):fmtMkt(sels[0]?.marketType||''),
           odds:slip.totalOdds,stake:slip.stake,payout:slip.potentialPayout,actualPayout:slip.actualPayout,
@@ -876,51 +887,61 @@ async function loadHistoryFallback(inline=false,mobile=false){
     renderHistory(inline,mobile);
   }catch(err){
     const cid=inline?'inline-hist-container':mobile?'mob-hist-container':'hist-container';
-    document.getElementById(cid).innerHTML=`<div class="hist-empty"><span class="mi">error_outline</span><h3>Couldn't Load Bets</h3><p>${escH(err.message)}</p></div>`;
+    const el=document.getElementById(cid);
+    if(el)el.innerHTML=`<div class="hist-empty"><span class="mi">error_outline</span><h3>Couldn't Load Bets</h3><p>${escH(err.message)}</p></div>`;
   }
 }
 
 function setHistFilter(f,btn,inline=false,mobile=false){
-  histFilter=f;
+  // ✅ FIX 3: Each panel uses its own filter state — they don't overwrite each other
+  if(inline) inlineHistFilter=f;
+  else if(mobile) mobHistFilter=f;
+  else histFilter=f;
+
   const prefix=inline?'ihf-':mobile?'mhf-':'hf-';
   ['ALL','PENDING','WON','LOST','CODE'].forEach(k=>{
     const el=document.getElementById(prefix+k);
     if(el)el.className='hf-btn';
   });
   const cls=f==='WON'?'active-won':f==='LOST'?'active-lost':f==='PENDING'?'active-pending':f==='CODE'?'active-code':'active';
-  btn.classList.add(cls);
+  if(btn)btn.classList.add(cls);
   renderHistory(inline,mobile);
 }
 
 function renderHistory(inline=false,mobile=false){
   const containerId=inline?'inline-hist-container':mobile?'mob-hist-container':'hist-container';
+  const container=document.getElementById(containerId);
+  if(!container)return;
+
   const pending=allBets.filter(b=>b.status==='PENDING');
   const won=allBets.filter(b=>b.status==='WON');
   const lost=allBets.filter(b=>b.status==='LOST');
 
+  // Update stats for each panel independently
   if(!inline&&!mobile){
-    document.getElementById('hstat-pending').textContent=pending.length||'—';
-    document.getElementById('hstat-won').textContent=won.length||'—';
-    document.getElementById('hstat-lost').textContent=lost.length||'—';
+    const p=document.getElementById('hstat-pending');if(p)p.textContent=pending.length||'—';
+    const w=document.getElementById('hstat-won');if(w)w.textContent=won.length||'—';
+    const l=document.getElementById('hstat-lost');if(l)l.textContent=lost.length||'—';
   }else if(inline){
-    document.getElementById('hstat-pending2').textContent=pending.length||'—';
-    document.getElementById('hstat-won2').textContent=won.length||'—';
-    document.getElementById('hstat-lost2').textContent=lost.length||'—';
+    const p=document.getElementById('hstat-pending2');if(p)p.textContent=pending.length||'—';
+    const w=document.getElementById('hstat-won2');if(w)w.textContent=won.length||'—';
+    const l=document.getElementById('hstat-lost2');if(l)l.textContent=lost.length||'—';
   }else if(mobile){
-    document.getElementById('hstat-pending3').textContent=pending.length||'—';
-    document.getElementById('hstat-won3').textContent=won.length||'—';
-    document.getElementById('hstat-lost3').textContent=lost.length||'—';
+    // ✅ FIX 3: Guard — only update if element exists (drawer may still be animating)
+    const p=document.getElementById('hstat-pending3');if(p)p.textContent=pending.length||'—';
+    const w=document.getElementById('hstat-won3');if(w)w.textContent=won.length||'—';
+    const l=document.getElementById('hstat-lost3');if(l)l.textContent=lost.length||'—';
   }
 
+  // Use the right filter state for each panel
+  const activeFilter=inline?inlineHistFilter:mobile?mobHistFilter:histFilter;
   let filtered;
-  if(histFilter==='PENDING')filtered=pending;
-  else if(histFilter==='WON')filtered=won;
-  else if(histFilter==='LOST')filtered=lost;
-  else if(histFilter==='CODE')filtered=allBets.filter(b=>b.betType==='CODE');
+  if(activeFilter==='PENDING')filtered=pending;
+  else if(activeFilter==='WON')filtered=won;
+  else if(activeFilter==='LOST')filtered=lost;
+  else if(activeFilter==='CODE')filtered=allBets.filter(b=>b.betType==='CODE');
   else filtered=allBets;
 
-  const container=document.getElementById(containerId);
-  if(!container)return;
   if(!allBets.length){
     container.innerHTML=`<div class="hist-empty"><span class="mi">receipt_long</span><h3>No Bets Yet</h3><p>Place your first bet on the markets or with a booking code!</p></div>`;
     return;
@@ -983,13 +1004,10 @@ function buildHistCard(b,i){
   </div>`;
 }
 
-// ✅ FIX: buildPredPill now correctly reads homeScore/awayScore
-// which are guaranteed non-null (null-safe) via mapSelection().
-// No more "undefined-undefined" — shows real score or "?" fallback.
+// ✅ FIX: Reads homeScore/awayScore correctly from mapSelection output
 function buildPredPill(sel){
   const mt=(sel.marketType||'').toUpperCase();
   if(mt==='CORRECT_SCORE'){
-    // homeScore/awayScore are either a number or null from mapSelection
     const h=sel.homeScore!=null?sel.homeScore:'?';
     const a=sel.awayScore!=null?sel.awayScore:'?';
     return`<div class="hbet-pred-pill score">🎯 Score: ${h}-${a}</div>`;
@@ -1174,7 +1192,7 @@ function renderBsDrawer(items){
   const stake=parseFloat(document.getElementById('stake-inp')?.value)||10,tot=items.reduce((a,b)=>a*(+b.odd),1);
   let html='<div style="padding:8px 12px 0;">';
   html+=items.map(b=>`<div class="bet-item ${b.league==='Booking Code'?'from-code':''}"><button class="bet-rm" onclick="removeBet('${b.key}')"><span class="mi">close</span></button><div class="bet-league">${b.league||''}</div><div class="bet-match">${b.teams||''}</div><div class="bet-sel-row"><div><div class="bet-sel">${b.label||''}</div><span class="bet-type-badge">${b.isScore?'Correct Score':'Full Time'}</span></div><div class="bet-odd-val">${parseFloat(b.odd).toFixed(2)}</div></div></div>`).join('');
-  html+=`</div><div class="stake-sec"><div class="stake-lbl">Stake (GHS)</div><input class="stake-inp" type="number" id="drawer-stake-inp" value="${stake}" min="1" oninput="document.getElementById('stake-inp').value=this.value;calcPayout();"><div class="qs-row">${[5,10,20,50,100].map(v=>`<button class="qs" onclick="setStake(${v})">${v}</button>`).join('')}</div></div><div class="payout-sec"><div class="pw"><span class="lbl">Selections</span><span class="val">${items.length}</span></div><div class="pw"><span class="lbl">Total odds</span><span class="val">${tot.toFixed(2)}</span></div><div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" style="color:var(--green);">GHS ${(stake*tot).toFixed(2)}</span></div></div><button class="place-btn" onclick="placeBet()"><span class="mi">check_circle</span> Place Bet</button><button class="clear-btn" onclick="clearSlip()">Clear all</button>`;
+  html+=`</div><div class="stake-sec"><div class="stake-lbl">Stake (GHS)</div><input class="stake-inp" type="number" id="drawer-stake-inp" value="${stake}" min="1" oninput="document.getElementById('stake-inp').value=this.value;calcPayout();"><div class="qs-row">${[5,10,20,50,100].map(v=>`<button class="qs" onclick="setStake(${v})">${v}</button>`).join('')}</div></div><div class="payout-sec"><div class="pw"><span class="lbl">Selections</span><span class="val">${items.length}</span></div><div class="pw"><span class="lbl">Total odds</span><span class="val">${tot.toFixed(2)}</span></div><div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" style="color:var(--green);">GHS ${(stake*tot).toFixed(2)}</span></div></div><button class="place-btn" id="place-btn-drawer" onclick="placeBet()"><span class="mi">check_circle</span> Place Bet</button><button class="clear-btn" onclick="clearSlip()">Clear all</button>`;
   body.innerHTML=html;
 }
 
@@ -1183,18 +1201,28 @@ function clearSlip(){const ids=[...new Set(Object.values(slip).map(s=>s.gameId))
 function calcPayout(){const items=Object.values(slip),tot=items.reduce((a,b)=>a*(+b.odd),1),stake=parseFloat(document.getElementById('stake-inp').value)||0;document.getElementById('sel-count').textContent=items.length;document.getElementById('tot-odds').textContent=tot.toFixed(2);document.getElementById('pot-win').textContent='GHS '+(stake*tot-stake).toFixed(2);document.getElementById('tot-payout').textContent='GHS '+(stake*tot).toFixed(2);const ds=document.getElementById('drawer-stake-inp');if(ds)ds.value=stake;}
 function setStake(v){document.getElementById('stake-inp').value=v;const ds=document.getElementById('drawer-stake-inp');if(ds)ds.value=v;calcPayout();}
 
+// ✅ FIX 1: placeBet with double-submit guard using a flag + button disable
+let _isBetting=false;
 async function placeBet(){
+  if(_isBetting)return; // Guard: block if already in flight
   if(!isLoggedIn()){openLoginModal();return;}
   const items=Object.values(slip);if(!items.length)return;
   const stake=parseFloat(document.getElementById('stake-inp').value)||0;
   if(stake<=0){showToast('Enter a valid stake',true);return;}
 
-  const token=getToken();
+  // Disable all Place Bet buttons immediately
+  _isBetting=true;
+  ['place-btn-main','place-btn-drawer'].forEach(id=>{
+    const btn=document.getElementById(id);
+    if(btn){btn.disabled=true;btn.innerHTML='<span class="mi" style="animation:spin 1s linear infinite">refresh</span> Placing...';}
+  });
+
   const regularPicks=items.filter(i=>!i.isScore);
   const scorePicks=items.filter(i=>i.isScore);
 
   if(regularPicks.length>0&&scorePicks.length>0){
-    showToast('❌ Cannot mix regular and correct score bets.',true);return;
+    showToast('❌ Cannot mix regular and correct score bets.',true);
+    resetPlaceBtnState();return;
   }
 
   const tot=items.reduce((a,b)=>a*(+b.odd),1);
@@ -1204,16 +1232,16 @@ async function placeBet(){
     const payload={stake,selections:regularPicks.map(b=>({gameId:b.gameId,marketType:b.subType==='1'?'HOME_WIN':b.subType==='2'?'AWAY_WIN':'DRAW'}))};
     try{
       const res=await fetch(`${API_BASE}/api/v1/bets`,{method:'POST',headers:authHeaders(),body:JSON.stringify(payload),signal:AbortSignal.timeout(12000)});
-      if(res.ok){placed=true;}else{const e=await res.json().catch(()=>({}));showToast('\u274C '+(e.message||e.error||'Failed to place bet'),true);return;}
-    }catch(err){showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);return;}
+      if(res.ok){placed=true;}else{const e=await res.json().catch(()=>({}));showToast('\u274C '+(e.message||e.error||'Failed to place bet'),true);resetPlaceBtnState();return;}
+    }catch(err){showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);resetPlaceBtnState();return;}
   }
 
   for(const b of scorePicks){
     const payload={gameId:b.gameId,correctScoreOptionId:b.optId,stake};
     try{
       const res=await fetch(`${API_BASE}/api/correct-score/bet`,{method:'POST',headers:authHeaders(),body:JSON.stringify(payload),signal:AbortSignal.timeout(12000)});
-      if(res.ok){placed=true;}else{const e=await res.json().catch(()=>({}));showToast('\u274C '+(e.message||e.error||'Score bet failed'),true);return;}
-    }catch(err){showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);return;}
+      if(res.ok){placed=true;}else{const e=await res.json().catch(()=>({}));showToast('\u274C '+(e.message||e.error||'Score bet failed'),true);resetPlaceBtnState();return;}
+    }catch(err){showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);resetPlaceBtnState();return;}
   }
 
   if(placed){
@@ -1222,8 +1250,18 @@ async function placeBet(){
     document.getElementById('booking-banner').classList.remove('show');
     showToast(`\u2705 Bet placed! Potential: GHS ${(stake*tot).toFixed(2)}`);
     initAuth();
-    if(currentMainTab==='history'){historyLoaded=false;loadBetHistory();}
+    historyLoaded=false;
+    if(currentMainTab==='history')loadBetHistory();
   }
+  resetPlaceBtnState();
+}
+
+function resetPlaceBtnState(){
+  _isBetting=false;
+  ['place-btn-main','place-btn-drawer'].forEach(id=>{
+    const btn=document.getElementById(id);
+    if(btn){btn.disabled=false;btn.innerHTML='<span class="mi">check_circle</span> Place Bet';}
+  });
 }
 
 async function loadBookingCode(){
