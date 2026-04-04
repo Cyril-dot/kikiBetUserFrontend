@@ -17,7 +17,6 @@
 html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--text);font-size:14px;overflow-x:hidden;min-height:100vh;}
 .mi{font-family:'Material Icons Round';font-size:20px;line-height:1;vertical-align:middle;display:inline-flex;align-items:center;}
 
-/* HEADER */
 .header{background:var(--red);position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.4);}
 .header-top{display:flex;align-items:center;gap:10px;padding:0 16px;height:56px;}
 .wordmark{display:inline-flex;align-items:center;text-decoration:none;flex-shrink:0;}
@@ -35,7 +34,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .btn-logout-head .mi{font-size:15px;}
 .hamburger{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:4px;flex-shrink:0;}
 
-/* MOBILE MENU */
 .mob-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--dark2);z-index:190;border-bottom:2px solid #333;max-height:calc(100vh - 56px);overflow-y:auto;}
 .mob-menu.open{display:block;}
 .mob-menu-lbl{padding:8px 16px;font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.8px;}
@@ -44,17 +42,14 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .mob-menu-item .mi{font-size:18px;color:var(--green);}
 .mob-menu-divider{height:6px;background:#111;}
 
-/* PAGE */
 .page-wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px;}
 
-/* GLOBAL ALERTS */
 .g-alert{display:none;border-radius:6px;padding:12px 16px;margin-bottom:18px;font-size:13px;font-weight:600;align-items:center;gap:9px;}
 .g-alert.show{display:flex;}
 .g-alert .mi{font-size:18px;flex-shrink:0;}
 .g-alert.err{background:#fff0f0;border:1px solid rgba(204,0,0,.25);color:var(--red);}
 .g-alert.ok{background:#e8f5ec;border:1px solid rgba(26,138,60,.25);color:var(--green);}
 
-/* PROFILE HERO */
 .profile-hero{background:var(--dark);border-radius:8px;padding:28px 24px;margin-bottom:18px;display:flex;align-items:center;gap:20px;position:relative;overflow:hidden;}
 .profile-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(245,197,24,.08) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
 .avatar{width:72px;height:72px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:#000;flex-shrink:0;border:3px solid rgba(245,197,24,.3);}
@@ -74,7 +69,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .btn-signout-hero .mi{font-size:15px;}
 @media(max-width:600px){.profile-hero{flex-direction:column;align-items:flex-start;}.profile-actions{flex-direction:row;width:100%;}}
 
-/* WALLET CARDS */
 .wallet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;}
 .wcard{background:var(--white);border-radius:8px;border:1px solid var(--gray2);padding:18px 16px;position:relative;overflow:hidden;transition:border-color .15s;}
 .wcard:hover{border-color:var(--gray3);}
@@ -90,23 +84,19 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .wcard-val{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;color:var(--dark);}
 .wcard-sub{font-size:11px;color:var(--muted2);margin-top:4px;}
 
-/* SKELETON */
 .skeleton{background:linear-gradient(90deg,var(--gray2) 25%,var(--gray) 50%,var(--gray2) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:4px;height:28px;width:120px;display:inline-block;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* PANEL */
 .panel{background:var(--white);border-radius:8px;border:1px solid var(--gray2);margin-bottom:16px;overflow:hidden;}
 .panel-head{padding:14px 18px;border-bottom:1px solid var(--gray2);display:flex;align-items:center;gap:8px;}
 .panel-head .mi{font-size:20px;color:var(--green);}
 .panel-head h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;flex:1;}
 .panel-body{padding:18px;}
 
-/* EDIT BTN */
 .btn-edit{background:none;border:1px solid var(--gray3);border-radius:4px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:'Barlow',sans-serif;display:flex;align-items:center;gap:4px;transition:all .15s;}
 .btn-edit:hover{border-color:var(--green);color:var(--green);}
 .btn-edit .mi{font-size:15px;}
 
-/* INFO ROWS */
 .info-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f3f3f3;}
 .info-row:last-child{border-bottom:none;padding-bottom:0;}
 .info-row:first-child{padding-top:0;}
@@ -114,7 +104,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .info-key .mi{font-size:16px;color:var(--muted2);}
 .info-val{font-size:13px;font-weight:700;color:var(--dark);}
 
-/* FORM */
 .edit-form{display:none;}
 .edit-form.show{display:block;}
 .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -134,12 +123,10 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .cancel-btn{padding:10px 18px;background:none;border:1.5px solid var(--gray3);border-radius:5px;color:var(--muted);font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
 .cancel-btn:hover{border-color:var(--gray3);color:var(--dark);}
 
-/* FORM ALERT */
 .form-alert{display:none;background:#fff0f0;border:1px solid rgba(204,0,0,.25);color:var(--red);border-radius:5px;padding:10px 13px;font-size:12px;font-weight:600;align-items:center;gap:7px;margin-bottom:14px;}
 .form-alert.show{display:flex;}
 .form-alert .mi{font-size:16px;flex-shrink:0;}
 
-/* QUICK ACTIONS */
 .qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
 .qa-card{background:var(--white);border:1px solid var(--gray2);border-radius:8px;padding:16px;cursor:pointer;text-decoration:none;transition:border-color .15s;display:block;}
 .qa-card:hover{border-color:var(--green);}
@@ -147,24 +134,20 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .qa-label .mi{font-size:16px;color:var(--green);}
 .qa-desc{font-size:12px;color:var(--muted2);}
 
-/* LOGOUT ROW */
 .logout-row{text-align:center;margin-top:8px;}
 .btn-logout-full{background:#fff0f0;border:1px solid rgba(204,0,0,.3);color:var(--red);font-size:14px;font-weight:800;padding:11px 28px;border-radius:5px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:background .15s;}
 .btn-logout-full:hover{background:#ffe0e0;}
 .btn-logout-full .mi{font-size:18px;}
 
-/* BOTTOM MOB NAV */
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--red);z-index:300;border-top:2px solid #a80000;}
 .mob-nav-inner{display:flex;}
 .mob-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;cursor:pointer;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;gap:2px;transition:color .15s;text-decoration:none;}
 .mob-item .mi{font-size:22px;}
 .mob-item.active,.mob-item:hover{color:#fff;}
 
-/* TOAST */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;z-index:999;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;}
 .toast.show{opacity:1;}
 
-/* SPINNER */
 .spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -182,7 +165,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-top">
     <a href="index.html" class="wordmark">
@@ -204,7 +186,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
   </div>
 </header>
 
-<!-- MOBILE MENU -->
 <div class="mob-menu" id="mob-menu">
   <div class="mob-menu-divider"></div>
   <div class="mob-menu-lbl">Navigation</div>
@@ -218,14 +199,10 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
   </div>
 </div>
 
-<!-- PAGE -->
 <div class="page-wrap">
-
-  <!-- GLOBAL ALERTS -->
   <div class="g-alert err" id="globalAlert"><span class="mi">error</span><span id="globalAlertMsg"></span></div>
   <div class="g-alert ok"  id="globalSuccess"><span class="mi">check_circle</span><span id="globalSuccessMsg"></span></div>
 
-  <!-- PROFILE HERO -->
   <div class="profile-hero">
     <div class="avatar" id="avatarEl">?</div>
     <div class="profile-info">
@@ -233,7 +210,8 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
       <div class="profile-email"><span class="mi">mail</span><span id="heroEmail">—</span></div>
       <div class="profile-badges">
         <span class="pbadge role"><span class="mi">shield</span><span id="heroRole">USER</span></span>
-        <span class="pbadge currency"><span class="mi">payments</span><span id="heroCurrency">GHS</span></span>
+        <!-- Currency badge driven by IP detection -->
+        <span class="pbadge currency"><span class="mi">payments</span><span id="heroCurrency">—</span></span>
       </div>
     </div>
     <div class="profile-actions">
@@ -242,13 +220,12 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     </div>
   </div>
 
-  <!-- WALLET CARDS -->
   <div class="wallet-grid">
     <div class="wcard balance">
       <div class="wcard-stripe"></div>
       <div class="wcard-label"><span class="mi">account_balance_wallet</span> Balance</div>
       <div class="wcard-val" id="walletBalance"><span class="skeleton"></span></div>
-      <div class="wcard-sub" id="walletCurrency">Loading…</div>
+      <div class="wcard-sub" id="walletCurrencyLabel">Loading…</div>
     </div>
     <div class="wcard deposited">
       <div class="wcard-stripe"></div>
@@ -264,7 +241,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     </div>
   </div>
 
-  <!-- ACCOUNT DETAILS -->
   <div class="panel">
     <div class="panel-head">
       <span class="mi">person</span>
@@ -272,8 +248,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
       <button class="btn-edit" onclick="toggleEdit()"><span class="mi">edit</span> Edit</button>
     </div>
     <div class="panel-body">
-
-      <!-- READ VIEW -->
       <div id="readView">
         <div class="info-row"><span class="info-key"><span class="mi">badge</span> First Name</span><span class="info-val" id="detailFirst">—</span></div>
         <div class="info-row"><span class="info-key"><span class="mi">badge</span> Last Name</span><span class="info-val" id="detailLast">—</span></div>
@@ -283,7 +257,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
         <div class="info-row"><span class="info-key"><span class="mi">calendar_today</span> Member Since</span><span class="info-val" id="detailJoined">—</span></div>
       </div>
 
-      <!-- EDIT FORM -->
       <div class="edit-form" id="editForm">
         <div class="form-alert" id="editAlert"><span class="mi">error</span><span id="editAlertMsg"></span></div>
         <div class="form-row-2">
@@ -318,11 +291,9 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
           <button class="cancel-btn" onclick="toggleEdit()">Cancel</button>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- QUICK ACTIONS -->
   <div class="panel">
     <div class="panel-head">
       <span class="mi">bolt</span>
@@ -350,19 +321,15 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     </div>
   </div>
 
-  <!-- LOGOUT -->
   <div class="logout-row">
     <button class="btn-logout-full" onclick="logout()">
       <span class="mi">logout</span> Sign Out of GStake
     </button>
   </div>
+</div>
 
-</div><!-- /page-wrap -->
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- BOTTOM MOB NAV -->
 <nav class="mob-nav">
   <div class="mob-nav-inner">
     <a class="mob-item" href="index.html"><span class="mi">home</span><span>Home</span></a>
@@ -374,7 +341,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 
 <script>
 // ─────────────────────────────────────────────
-// CONFIG — matches wallet.html exactly
+// CONFIG
 // ─────────────────────────────────────────────
 const API_BASE = 'https://kikiwebbackend.onrender.com/api/v1';
 
@@ -395,31 +362,74 @@ function authHeaders() {
   return { 'Authorization': `Bearer ${getToken()}`, 'Content-Type': 'application/json' };
 }
 
-// Redirect if not logged in
 if (!getToken()) window.location.href = 'login.html?returnUrl=profile.html';
 
+// ─────────────────────────────────────────────
+// CURRENCY CONFIG (same as wallet.html)
+// ─────────────────────────────────────────────
+const CURRENCY_CONFIG = {
+  GHS: {
+    label: 'Ghana · GHS', flag: '🇬🇭', code: 'GHS',
+    fmt: v => 'GHS ' + Number(v).toLocaleString('en-GH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  },
+  NGN: {
+    label: 'Nigeria · NGN', flag: '🇳🇬', code: 'NGN',
+    fmt: v => '₦' + Number(v).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  },
+  USD: {
+    label: 'USD', flag: '🌍', code: 'USD',
+    fmt: v => '$ ' + Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  },
+  GBP: {
+    label: 'GBP', flag: '🇬🇧', code: 'GBP',
+    fmt: v => '£' + Number(v).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  },
+  EUR: {
+    label: 'EUR', flag: '🇪🇺', code: 'EUR',
+    fmt: v => '€' + Number(v).toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  }
+};
+
+const COUNTRY_CURRENCY_MAP = {
+  GH: 'GHS', NG: 'NGN',
+  US: 'USD', GB: 'GBP',
+  DE: 'EUR', FR: 'EUR', IT: 'EUR', ES: 'EUR',
+  NL: 'EUR', BE: 'EUR', AT: 'EUR', PT: 'EUR',
+};
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let currency = 'GHS'; // overridden by IP below
 const cachedUser = getUser();
 
 // ─────────────────────────────────────────────
-// CURRENCY FORMATTER
+// IP CURRENCY DETECTION
+// Shared session cache with wallet.html so only
+// one fetch happens per session across both pages.
 // ─────────────────────────────────────────────
-const CURRENCY_FMT = {
-  GHS: v => 'GHS ' + Number(v).toLocaleString('en-GH', {minimumFractionDigits:2,maximumFractionDigits:2}),
-  NGN: v => 'NGN ' + Number(v).toLocaleString('en-NG', {minimumFractionDigits:2,maximumFractionDigits:2}),
-  USD: v => '$ '  + Number(v).toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}),
-  GBP: v => '£ '  + Number(v).toLocaleString('en-GB', {minimumFractionDigits:2,maximumFractionDigits:2}),
-  EUR: v => '€ '  + Number(v).toLocaleString('en',    {minimumFractionDigits:2,maximumFractionDigits:2}),
-};
-function fmt(n, currency) {
-  if (n == null) return '—';
-  const fn = CURRENCY_FMT[currency] || CURRENCY_FMT.GHS;
-  return fn(n);
+async function detectCurrencyFromIP() {
+  const cached = sessionStorage.getItem('gstake_ip_currency');
+  if (cached && CURRENCY_CONFIG[cached]) return cached;
+  try {
+    const res = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
+    if (!res.ok) return 'GHS';
+    const data = await res.json();
+    const detected = COUNTRY_CURRENCY_MAP[data.country_code] || 'GHS';
+    sessionStorage.setItem('gstake_ip_currency', detected);
+    return detected;
+  } catch {
+    return 'GHS';
+  }
 }
 
 // ─────────────────────────────────────────────
 // LOAD PROFILE
 // ─────────────────────────────────────────────
 async function loadProfile() {
+  // Detect currency from IP first
+  currency = await detectCurrencyFromIP();
+
   try {
     const res = await fetch(`${API_BASE}/users/me`, {
       headers: authHeaders(),
@@ -430,26 +440,24 @@ async function loadProfile() {
     if (!res.ok) throw new Error(data.message || 'Failed to load profile');
     const u = data.data;
 
-    // Save fresh user data
+    // Save user — do NOT overwrite currency with DB value
     saveUser({
       email:     u.email,
       firstName: u.firstName,
       lastName:  u.lastName,
-      role:      u.role     || 'USER',
-      currency:  u.currency || 'GHS',
+      role:      u.role || 'USER',
     });
 
     renderProfile(u);
   } catch (err) {
-    // Fallback to cached
+    // Fallback to cached user data
     if (cachedUser.firstName) {
       renderProfile({
-        firstName:     cachedUser.firstName,
-        lastName:      cachedUser.lastName,
-        email:         cachedUser.email,
-        role:          cachedUser.role     || 'USER',
-        currency:      cachedUser.currency || 'GHS',
-        walletBalance: null,
+        firstName:      cachedUser.firstName,
+        lastName:       cachedUser.lastName,
+        email:          cachedUser.email,
+        role:           cachedUser.role || 'USER',
+        walletBalance:  null,
         totalDeposited: null,
         totalWithdrawn: null,
       });
@@ -459,30 +467,35 @@ async function loadProfile() {
 }
 
 function renderProfile(u) {
-  const cur = u.currency || 'GHS';
+  const cfg = CURRENCY_CONFIG[currency] || CURRENCY_CONFIG.GHS;
 
   // Hero
-  const initials = ((u.firstName || '?')[0] + (u.lastName || '?')[0]).toUpperCase();
+  const first = u.firstName || '?';
+  const last  = u.lastName  || '?';
+  const initials = (first[0] + last[0]).toUpperCase();
   document.getElementById('avatarEl').textContent    = initials;
-  document.getElementById('heroName').textContent    = `${u.firstName} ${u.lastName}`;
-  document.getElementById('heroEmail').textContent   = u.email;
-  document.getElementById('heroRole').textContent    = u.role     || 'USER';
-  document.getElementById('heroCurrency').textContent= cur;
+  document.getElementById('heroName').textContent    = `${first} ${last}`;
+  document.getElementById('heroEmail').textContent   = u.email || '—';
+  document.getElementById('heroRole').textContent    = u.role || 'USER';
 
-  // Wallet cards
-  document.getElementById('walletBalance').textContent   = fmt(u.walletBalance,   cur);
-  document.getElementById('totalDeposited').textContent  = fmt(u.totalDeposited,  cur);
-  document.getElementById('totalWithdrawn').textContent  = fmt(u.totalWithdrawn,  cur);
-  document.getElementById('walletCurrency').textContent  = cur;
+  // Currency badge — IP-driven, not from DB
+  document.getElementById('heroCurrency').textContent = `${cfg.flag} ${cfg.code}`;
+
+  // Wallet cards — formatted with IP-detected currency
+  document.getElementById('walletBalance').textContent    = u.walletBalance  != null ? cfg.fmt(u.walletBalance)  : '—';
+  document.getElementById('totalDeposited').textContent   = u.totalDeposited != null ? cfg.fmt(u.totalDeposited) : '—';
+  document.getElementById('totalWithdrawn').textContent   = u.totalWithdrawn != null ? cfg.fmt(u.totalWithdrawn) : '—';
+  document.getElementById('walletCurrencyLabel').textContent = cfg.label;
 
   // Details
   document.getElementById('detailFirst').textContent    = u.firstName   || '—';
   document.getElementById('detailLast').textContent     = u.lastName    || '—';
   document.getElementById('detailEmail').textContent    = u.email       || '—';
   document.getElementById('detailPhone').textContent    = u.phoneNumber || 'Not set';
-  document.getElementById('detailCurrency').textContent = cur;
+  // Show IP-detected currency, not DB value
+  document.getElementById('detailCurrency').textContent = `${cfg.flag} ${cfg.label}`;
   document.getElementById('detailJoined').textContent   = u.createdAt
-    ? new Date(u.createdAt).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'})
+    ? new Date(u.createdAt).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })
     : '—';
 
   // Pre-fill edit form
@@ -503,11 +516,11 @@ function toggleEdit() {
 }
 
 // ─────────────────────────────────────────────
-// SAVE PROFILE — PATCH /api/v1/users/me
+// SAVE PROFILE
 // ─────────────────────────────────────────────
 async function saveProfile() {
-  const btn       = document.getElementById('saveBtn');
-  const alertEl   = document.getElementById('editAlert');
+  const btn     = document.getElementById('saveBtn');
+  const alertEl = document.getElementById('editAlert');
   alertEl.classList.remove('show');
 
   const firstName       = document.getElementById('editFirst').value.trim();
@@ -531,8 +544,8 @@ async function saveProfile() {
   btn.innerHTML = '<span class="spinner"></span> Saving…';
 
   const body = { firstName, lastName };
-  if (phoneNumber)     body.phoneNumber     = phoneNumber;
-  if (newPassword)     { body.currentPassword = currentPassword; body.newPassword = newPassword; }
+  if (phoneNumber) body.phoneNumber = phoneNumber;
+  if (newPassword) { body.currentPassword = currentPassword; body.newPassword = newPassword; }
 
   try {
     const res  = await fetch(`${API_BASE}/users/me`, {
