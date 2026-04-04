@@ -54,8 +54,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .mob-wallet-link .mi{font-size:18px;}
 .mob-logout-row{padding:12px 16px;}
 .mob-logout-btn{width:100%;background:rgba(204,0,0,.15);border:1px solid rgba(204,0,0,.3);color:var(--red2);border-radius:4px;padding:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
-
-/* BOOKING BANNER */
 .booking-banner{background:linear-gradient(135deg,#0d5c2a 0%,#1a8a3c 100%);border-bottom:3px solid var(--yellow);padding:14px 20px;display:none;align-items:center;gap:14px;position:relative;}
 .booking-banner.show{display:flex;}
 .bb-icon{width:42px;height:42px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -66,8 +64,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .bb-close{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;display:flex;align-items:center;flex-shrink:0;}
 .bb-close:hover{color:#fff;}
 .bb-close .mi{font-size:20px;}
-
-/* PAGE TABS */
 .page-tabs{background:var(--white);border-bottom:2px solid var(--gray2);display:flex;overflow-x:auto;scrollbar-width:none;padding:0 16px;}
 .page-tabs::-webkit-scrollbar{display:none;}
 .ptab{padding:11px 16px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .15s;}
@@ -75,7 +71,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .ptab:hover{color:var(--red);}
 .ptab.active{color:var(--red);border-bottom-color:var(--red);}
 .ptab.history-tab.active{color:var(--green);border-bottom-color:var(--green);}
-
 .layout{display:flex;max-width:1280px;margin:0 auto;min-height:calc(100vh - 56px);}
 .sidebar{width:196px;flex-shrink:0;background:var(--white);border-right:1px solid var(--gray2);max-height:calc(100vh - 56px);position:sticky;top:56px;overflow-y:auto;}
 .sb-head{background:var(--dark2);color:#fff;padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:6px;}
@@ -87,7 +82,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .sb-left .mi{font-size:14px;color:var(--green);flex-shrink:0;}
 .sb-item.active .sb-left .mi{color:var(--red);}
 .sb-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;}
-
 .center{flex:1;padding:10px;min-width:0;overflow:hidden;}
 .mobile-chips{display:none;overflow-x:auto;scrollbar-width:none;padding:8px 10px;gap:6px;background:var(--white);border-bottom:1px solid var(--gray2);}
 .mobile-chips::-webkit-scrollbar{display:none;}
@@ -143,8 +137,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .score-opt.sel .score-val{color:#000;}
 .score-val{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:var(--dark);display:block;}
 .score-odds{font-size:10px;color:var(--muted);font-weight:600;display:block;margin-top:1px;}
-
-/* BETSLIP */
 .betslip{width:258px;flex-shrink:0;background:var(--white);border-left:1px solid var(--gray2);display:flex;flex-direction:column;max-height:calc(100vh - 56px);position:sticky;top:56px;overflow-y:auto;}
 .bs-tabs{display:flex;border-bottom:2px solid var(--gray2);}
 .bs-tab{flex:1;padding:12px;text-align:center;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;justify-content:center;gap:5px;}
@@ -245,22 +237,14 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .ft-legal{font-size:11px;color:#555;line-height:1.55;}
 .badge-18{width:30px;height:30px;border-radius:50%;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#555;}
 .ft-copy{padding:10px 24px;border-top:1px solid #1a1a1a;text-align:center;font-size:11px;color:#444;}
-
-/* ═══════════════════════════════════════
-   BET HISTORY SECTION (integrated)
-═══════════════════════════════════════ */
 #history-panel{display:none;}
 #games-panel{display:block;}
-
-/* History top bar */
 .hist-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px;flex-wrap:wrap;}
 .hist-topbar-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;}
 .hist-topbar-title .mi{font-size:22px;color:var(--green);}
 .hist-refresh-btn{display:flex;align-items:center;gap:5px;background:none;border:1.5px solid var(--gray3);border-radius:4px;padding:6px 12px;font-size:12px;font-weight:700;color:var(--green);cursor:pointer;font-family:'Barlow',sans-serif;transition:all .15s;}
 .hist-refresh-btn:hover{background:#e8f5ec;border-color:var(--green);}
 .hist-refresh-btn .mi{font-size:15px;}
-
-/* Stats row */
 .hist-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
 .hstat{background:var(--white);border:1px solid var(--gray2);border-radius:8px;padding:12px 10px;text-align:center;}
 .hstat-val{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;line-height:1;margin-bottom:3px;}
@@ -268,8 +252,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hstat.active .hstat-val{color:var(--purple);}
 .hstat.won .hstat-val{color:var(--green);}
 .hstat.lost .hstat-val{color:var(--red);}
-
-/* Filter tabs */
 .hist-filters{display:flex;gap:5px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;}
 .hist-filters::-webkit-scrollbar{display:none;}
 .hf-btn{border:1.5px solid var(--gray3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;background:#fff;color:var(--muted);font-family:'Barlow',sans-serif;transition:all .15s;}
@@ -279,14 +261,11 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hf-btn.active-lost{background:var(--red);border-color:var(--red);color:#fff;}
 .hf-btn.active-pending{background:var(--purple);border-color:var(--purple);color:#fff;}
 .hf-btn.active-code{background:var(--dark2);border-color:var(--dark2);color:#fff;}
-
-/* Bet history cards */
 .hbet-card{background:var(--white);border:1px solid var(--gray2);border-radius:8px;overflow:hidden;margin-bottom:8px;transition:border-color .15s,box-shadow .15s;}
 .hbet-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.08);}
 .hbet-card.won{border-left:3px solid var(--green);}
 .hbet-card.lost{border-left:3px solid var(--red);}
 .hbet-card.pending{border-left:3px solid var(--purple);}
-
 .hbet-top{padding:8px 12px;background:#fafafa;border-bottom:1px solid var(--gray2);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
 .hbet-ref{font-size:11px;font-weight:700;color:var(--muted2);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .hbet-type-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;}
@@ -296,7 +275,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-status.won{background:var(--greenBg);color:var(--green);border:1px solid rgba(26,138,60,.25);}
 .hbet-status.lost{background:var(--redBg);color:var(--red);border:1px solid rgba(204,0,0,.25);}
 .hbet-status.pending{background:var(--purpleBg);color:var(--purple);border:1px solid rgba(124,58,237,.25);}
-
 .hbet-body{padding:10px 12px;display:flex;align-items:center;gap:10px;}
 .hbet-info{flex:1;min-width:0;}
 .hbet-match{font-size:13px;font-weight:700;color:var(--dark);line-height:1.35;margin-bottom:3px;}
@@ -312,20 +290,15 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-payout.won{color:var(--green);}
 .hbet-payout.lost{color:var(--red);opacity:.75;}
 .hbet-payout.pending{color:var(--dark);}
-
 .hbet-foot{padding:5px 12px;border-top:1px solid var(--gray2);display:flex;justify-content:space-between;align-items:center;}
 .hbet-date{font-size:10px;color:var(--muted2);}
 .hbet-sels{font-size:10px;color:var(--muted2);}
-
-/* History empty / loading */
 .hist-empty{background:var(--white);border-radius:8px;border:1px dashed var(--gray2);padding:40px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
 .hist-empty .mi{font-size:40px;color:var(--gray3);}
 .hist-empty h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--text);}
 .hist-empty p{font-size:12px;color:var(--muted);max-width:200px;line-height:1.6;}
-
 .hist-loading{background:var(--white);border-radius:8px;border:1px solid var(--gray2);padding:30px;text-align:center;color:var(--muted);font-size:13px;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .hist-loading .mi{font-size:28px;color:var(--gray3);animation:spin 1s linear infinite;}
-
 .hist-not-loggedin{background:var(--white);border-radius:8px;border:1px solid var(--gray2);padding:36px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;}
 .hist-not-loggedin .mi{font-size:40px;color:var(--gray3);}
 .hist-not-loggedin h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;}
@@ -334,11 +307,8 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hist-login-btns a{padding:9px 20px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;}
 .hist-login-login{border:1.5px solid var(--gray3);color:var(--text);}
 .hist-login-reg{background:var(--green);color:#fff;}
-
-/* skeleton */
 .hbet-skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e4e4e4 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:88px;margin-bottom:8px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
 @media(max-width:1100px){.sidebar{display:none;}.mobile-chips{display:flex;}}
 @media(max-width:900px){.betslip{display:none;}.bet-bubble{display:flex;}}
 @media(max-width:800px){
@@ -410,7 +380,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
   <a class="mob-menu-item" href="profile.html"><span class="mi">person</span> Profile</a>
 </div>
 
-<!-- BOOKING CODE BANNER -->
 <div class="booking-banner" id="booking-banner">
   <div class="bb-icon"><span class="mi">confirmation_number</span></div>
   <div class="bb-text">
@@ -422,7 +391,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
   </button>
 </div>
 
-<!-- PAGE TABS — now includes My Bets -->
 <div class="page-tabs">
   <div class="ptab active" id="ptab-games" onclick="switchMainTab('games',this)"><span class="mi">sports_soccer</span> All Games</div>
   <div class="ptab" id="ptab-africa" onclick="filterLeague('Ghana Premier League',this);switchMainTab('games',document.getElementById('ptab-games'))"><span class="mi">public</span> Africa</div>
@@ -459,8 +427,6 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 </aside>
 
 <main class="center" id="main-center">
-
-  <!-- ── GAMES PANEL ── -->
   <div id="games-panel">
     <div class="sec-head">
       <div class="sec-dot"></div>
@@ -471,21 +437,16 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     <div id="games-container"><div class="loading-state"><span class="mi">refresh</span> Loading games&hellip;</div></div>
   </div>
 
-  <!-- ── BET HISTORY PANEL ── -->
   <div id="history-panel">
     <div class="hist-topbar">
       <div class="hist-topbar-title"><span class="mi">history</span> My Bet History</div>
       <button class="hist-refresh-btn" onclick="loadBetHistory()"><span class="mi">refresh</span> Refresh</button>
     </div>
-
-    <!-- Stats -->
     <div class="hist-stats">
       <div class="hstat active"><div class="hstat-val" id="hstat-pending">—</div><div class="hstat-lbl">Active</div></div>
       <div class="hstat won"><div class="hstat-val" id="hstat-won">—</div><div class="hstat-lbl">Won</div></div>
       <div class="hstat lost"><div class="hstat-val" id="hstat-lost">—</div><div class="hstat-lbl">Lost</div></div>
     </div>
-
-    <!-- Filter buttons -->
     <div class="hist-filters">
       <button class="hf-btn active" id="hf-ALL" onclick="setHistFilter('ALL',this)">All</button>
       <button class="hf-btn" id="hf-PENDING" onclick="setHistFilter('PENDING',this)">Active</button>
@@ -493,15 +454,12 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
       <button class="hf-btn" id="hf-LOST" onclick="setHistFilter('LOST',this)">Lost</button>
       <button class="hf-btn" id="hf-CODE" onclick="setHistFilter('CODE',this)">📋 Code Bets</button>
     </div>
-
-    <!-- Bet cards -->
     <div id="hist-container">
       <div class="hbet-skeleton"></div>
       <div class="hbet-skeleton" style="height:76px"></div>
       <div class="hbet-skeleton" style="height:96px"></div>
     </div>
   </div>
-
 </main>
 
 <aside class="betslip" id="betslip-panel">
@@ -625,26 +583,21 @@ async function initAuth(){
 function logout(redirect=true){['gstake_token','gstake_user','ps_slip'].forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k);});if(redirect)window.location.href='login.html';}
 
 /* ══════════════════════════════════════
-   MAIN TAB SWITCHING (Games ↔ History)
+   MAIN TAB SWITCHING
 ══════════════════════════════════════ */
 let currentMainTab = 'games';
 let historyLoaded  = false;
 
 function switchMainTab(tab, tabEl) {
   currentMainTab = tab;
-  // update ptab active classes
   document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
   if (tabEl) tabEl.classList.add('active');
-  // panels
   document.getElementById('games-panel').style.display   = tab === 'games'   ? '' : 'none';
   document.getElementById('history-panel').style.display = tab === 'history' ? '' : 'none';
-  // mobile chips
   document.querySelectorAll('.mchip').forEach(c => c.classList.remove('active'));
   if (tab === 'history') document.getElementById('mchip-history')?.classList.add('active');
   else document.getElementById('mchip-games')?.classList.add('active');
-  // sidebar active
   document.querySelectorAll('.sb-item').forEach(s => s.classList.remove('active'));
-  // load history on first open
   if (tab === 'history' && !historyLoaded) loadBetHistory();
 }
 
@@ -800,7 +753,7 @@ function buildHistCard(b, i) {
   const payoutCls = b.status==='WON'?'won':b.status==='LOST'?'lost':'pending';
   const payoutLbl = b.status==='WON'?'Won':b.status==='LOST'?'Lost':'Potential';
 
-  return `<div class="hbet-card ${st}" style="animation:none">
+  return `<div class="hbet-card ${st}">
     <div class="hbet-top">
       <span class="hbet-ref">${escH(b.ref)}</span>
       <span class="hbet-type-tag ${isCode?'tag-code':'tag-slip'}">${isCode?'Code':'Slip'}</span>
@@ -826,7 +779,7 @@ function buildHistCard(b, i) {
 }
 
 /* ══════════════════════════════════════
-   GAMES / BETSLIP LOGIC (unchanged)
+   GAMES / BETSLIP LOGIC
 ══════════════════════════════════════ */
 let allGames=[],slip={},currentFilter='all',openScorePanels=new Set(),scoreOptionsCache={};
 
@@ -846,23 +799,46 @@ function checkBookingCodeArrival(){
   if(window.innerWidth<=900)setTimeout(()=>openBsDrawer(),400);
 }
 
-function generateScoreOptions(gameId){const rnd=base=>parseFloat((base*(0.85+Math.random()*0.3)).toFixed(2));const opts=[];for(let h=0;h<=4;h++)for(let a=0;a<=4;a++){const tot=h+a,base=tot===0?6:tot===1?4.5:tot===2?7:tot===3?12:25;opts.push({id:`${gameId}-${h}-${a}`,homeScore:h,awayScore:a,odds:rnd(base)});}return opts;}
-
 async function loadGames(){
   document.getElementById('games-container').innerHTML='<div class="loading-state"><span class="mi">refresh</span> Loading games&hellip;</div>';
   document.getElementById('game-count').textContent='Loading\u2026';
-  try{const res=await fetch(`${API_BASE}/api/v1/games/public`,{signal:AbortSignal.timeout(12000)});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json(),games=Array.isArray(data)?data:(data.data||[]);allGames=games.map(g=>({...g,league:g.league||guessLeague(g)}));}
-  catch(err){console.warn('API:',err.message);allGames=[];}
-  if(!allGames.length){document.getElementById('game-count').textContent='0 Games';document.getElementById('games-container').innerHTML=`<div class="empty-state"><span class="mi">sports_soccer</span><h3>No Games Available</h3><p>No games uploaded yet. Check back soon!</p><button class="retry-btn" onclick="loadGames()"><span class="mi">refresh</span> Try Again</button></div>`;return;}
-  document.getElementById('game-count').textContent=allGames.length+' Games';renderGames();
+  try{
+    const res=await fetch(`${API_BASE}/api/v1/games/public`,{signal:AbortSignal.timeout(12000)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json(),games=Array.isArray(data)?data:(data.data||[]);
+    allGames=games.map(g=>({...g,league:g.league||guessLeague(g)}));
+  }catch(err){console.warn('API:',err.message);allGames=[];}
+  if(!allGames.length){
+    document.getElementById('game-count').textContent='0 Games';
+    document.getElementById('games-container').innerHTML=`<div class="empty-state"><span class="mi">sports_soccer</span><h3>No Games Available</h3><p>No games uploaded yet. Check back soon!</p><button class="retry-btn" onclick="loadGames()"><span class="mi">refresh</span> Try Again</button></div>`;
+    return;
+  }
+  document.getElementById('game-count').textContent=allGames.length+' Games';
+  renderGames();
 }
 
 function guessLeague(g){const t=((g.homeTeam||'')+(g.awayTeam||'')).toLowerCase();if(t.includes('hearts')||t.includes('kotoko'))return'Ghana Premier League';if(t.includes('enyimba')||t.includes('kano'))return'Nigeria NPFL';return'Football';}
 
+// ─────────────────────────────────────────────────────────────────
+// FIX #2: Load score options from correct backend URL
+// GET /api/correct-score/{gameId}  (was: /api/v1/games/public/{gameId}/correct-score)
+// No fake fallback — return [] if market not available
+// ─────────────────────────────────────────────────────────────────
 async function loadScoreOptions(gameId){
   if(scoreOptionsCache[gameId])return scoreOptionsCache[gameId];
-  try{const res=await fetch(`${API_BASE}/api/v1/games/public/${gameId}/correct-score`,{signal:AbortSignal.timeout(8000)});if(!res.ok)throw 0;const data=await res.json(),opts=data.options||data.data||[];if(!opts.length)throw 0;scoreOptionsCache[gameId]=opts;return opts;}
-  catch{const opts=generateScoreOptions(gameId);scoreOptionsCache[gameId]=opts;return opts;}
+  try{
+    const res=await fetch(`${API_BASE}/api/correct-score/${gameId}`,{signal:AbortSignal.timeout(8000)});
+    if(!res.ok)throw new Error('Market not available');
+    const data=await res.json();
+    // Backend returns CorrectScoreMarketResponse with an `options` array
+    const opts=data.options||[];
+    if(!opts.length)throw new Error('No options');
+    scoreOptionsCache[gameId]=opts;
+    return opts;
+  }catch{
+    // Return empty — no fake/generated options (fake IDs break backend UUID validation)
+    return [];
+  }
 }
 
 function filterLeague(league,el){
@@ -910,29 +886,58 @@ async function toggleScorePanel(gameId,btn){
   const isOpen=panel.classList.contains('open');
   if(isOpen){panel.classList.remove('open');btn.classList.remove('active');openScorePanels.delete(String(gameId));return;}
   panel.classList.add('open');btn.classList.add('active');openScorePanels.add(String(gameId));
-  const opts=await loadScoreOptions(gameId);renderScorePanel(gameId,opts);
+  const opts=await loadScoreOptions(gameId);
+  renderScorePanel(gameId,opts);
 }
 
+// ─────────────────────────────────────────────────────────────────
+// FIX #3: renderScorePanel uses opt.id (real UUID from backend)
+// Shows "not available" message if opts is empty
+// ─────────────────────────────────────────────────────────────────
 function renderScorePanel(gameId,opts){
   const panel=document.getElementById(`score-panel-${gameId}`);if(!panel)return;
   const game=allGames.find(g=>String(g.id)===String(gameId));
+
+  if(!opts||!opts.length){
+    panel.innerHTML=`<div style="padding:14px;text-align:center;color:var(--muted);font-size:12px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <span class="mi" style="font-size:24px;color:var(--gray3);">scoreboard</span>
+      No correct score market available for this game yet.
+    </div>`;
+    return;
+  }
+
   let html=`<div class="score-panel-title"><span class="mi">scoreboard</span> Correct Score${game?' \u2014 '+game.homeTeam+' v '+game.awayTeam:''}</div><div class="score-grid">`;
-  opts.forEach(opt=>{const key=`${gameId}-CS-${opt.id}`,isSel=!!slip[key];html+=`<div class="score-opt ${isSel?'sel':''}" onclick="addBetScore('${gameId}','${opt.id}',${opt.homeScore},${opt.awayScore},${opt.odds},'${game?esc(game.homeTeam)+' v '+esc(game.awayTeam):''}','${game?esc(game.league||''):''}')"><span class="score-val">${opt.homeScore}-${opt.awayScore}</span><span class="score-odds">${(+opt.odds).toFixed(2)}</span></div>`;});
-  html+='</div>';panel.innerHTML=html;
+  opts.forEach(opt=>{
+    // opt.id is the real UUID from the backend (CorrectScoreOptionResponse)
+    const key=`${gameId}-CS-${opt.id}`;
+    const isSel=!!slip[key];
+    html+=`<div class="score-opt ${isSel?'sel':''}" onclick="addBetScore('${gameId}','${opt.id}',${opt.homeScore},${opt.awayScore},${opt.odds},'${game?esc(game.homeTeam)+' v '+esc(game.awayTeam):''}','${game?esc(game.league||''):''}')"><span class="score-val">${opt.homeScore}-${opt.awayScore}</span><span class="score-odds">${(+opt.odds).toFixed(2)}</span></div>`;
+  });
+  html+='</div>';
+  panel.innerHTML=html;
 }
 
 function addBet1X2(gameId,type,label,league,teams,odd){
   if(!isLoggedIn()){openLoginModal();return;}
   const key=`${gameId}-1X2-${type}`;
-  if(slip[key]){delete slip[key];}else{['1','X','2'].forEach(t=>delete slip[`${gameId}-1X2-${t}`]);slip[key]={key,gameId,type:'1X2',label,league,teams,odd:parseFloat(odd),isScore:false};}
+  if(slip[key]){delete slip[key];}else{['1','X','2'].forEach(t=>delete slip[`${gameId}-1X2-${t}`]);slip[key]={key,gameId,type:'1X2',subType:type,label,league,teams,odd:parseFloat(odd),isScore:false};}
   saveSlip();refreshGameCard(gameId);renderBS();updateBadges();
 }
 
+// ─────────────────────────────────────────────────────────────────
+// addBetScore stores opt.id which is a real UUID from backend
+// ─────────────────────────────────────────────────────────────────
 function addBetScore(gameId,optId,h,a,odd,teams,league){
   if(!isLoggedIn()){openLoginModal();return;}
   const key=`${gameId}-CS-${optId}`;
-  if(slip[key]){delete slip[key];}else{slip[key]={key,gameId,type:'CS',label:`Score ${h}-${a}`,league,teams,odd:parseFloat(odd),isScore:true,optId};}
-  saveSlip();if(scoreOptionsCache[gameId])renderScorePanel(gameId,scoreOptionsCache[gameId]);renderBS();updateBadges();
+  if(slip[key]){delete slip[key];}else{
+    // Only allow one score pick per game
+    Object.keys(slip).filter(k=>k.startsWith(`${gameId}-CS-`)).forEach(k=>delete slip[k]);
+    slip[key]={key,gameId,type:'CS',label:`Score ${h}-${a}`,league,teams,odd:parseFloat(odd),isScore:true,optId:String(optId)};
+  }
+  saveSlip();
+  if(scoreOptionsCache[gameId])renderScorePanel(gameId,scoreOptionsCache[gameId]);
+  renderBS();updateBadges();
 }
 
 function refreshGameCard(gameId){
@@ -975,30 +980,103 @@ function clearSlip(){const ids=[...new Set(Object.values(slip).map(s=>s.gameId))
 function calcPayout(){const items=Object.values(slip),tot=items.reduce((a,b)=>a*(+b.odd),1),stake=parseFloat(document.getElementById('stake-inp').value)||0;document.getElementById('sel-count').textContent=items.length;document.getElementById('tot-odds').textContent=tot.toFixed(2);document.getElementById('pot-win').textContent='GHS '+(stake*tot-stake).toFixed(2);document.getElementById('tot-payout').textContent='GHS '+(stake*tot).toFixed(2);const ds=document.getElementById('drawer-stake-inp');if(ds)ds.value=stake;}
 function setStake(v){document.getElementById('stake-inp').value=v;const ds=document.getElementById('drawer-stake-inp');if(ds)ds.value=v;calcPayout();}
 
+// ═══════════════════════════════════════════════════════════════════
+// PLACE BET — FIXED
+//
+// Regular bets  → POST /api/v1/bets
+//   payload: { stake, selections: [{ gameId, marketType }] }
+//   marketType mapped from subType: '1'→HOME_WIN, 'X'→DRAW, '2'→AWAY_WIN
+//
+// Correct score → POST /api/correct-score/bet   ← FIXED URL
+//   payload: { gameId, correctScoreOptionId (UUID), stake }
+//
+// Mixed slips are blocked — user must choose one type per slip.
+// ═══════════════════════════════════════════════════════════════════
 async function placeBet(){
   if(!isLoggedIn()){openLoginModal();return;}
   const items=Object.values(slip);if(!items.length)return;
   const stake=parseFloat(document.getElementById('stake-inp').value)||0;
   if(stake<=0){showToast('Enter a valid stake',true);return;}
-  const token=getToken(),tot=items.reduce((a,b)=>a*(+b.odd),1);
-  const regularPicks=items.filter(i=>!i.isScore),scorePicks=items.filter(i=>i.isScore);
+
+  const token=getToken();
+  const regularPicks=items.filter(i=>!i.isScore);
+  const scorePicks=items.filter(i=>i.isScore);
+
+  // Block mixed slips — backend handles each type separately with different endpoints
+  if(regularPicks.length>0 && scorePicks.length>0){
+    showToast('❌ Cannot mix regular and correct score bets. Please choose one type.',true);
+    return;
+  }
+
+  const tot=items.reduce((a,b)=>a*(+b.odd),1);
   let placed=false;
+
+  // ── Regular 1X2 accumulator ──────────────────────────────────────
   if(regularPicks.length){
-    const payload={stake,selections:regularPicks.map(b=>({gameId:b.gameId,marketType:b.type==='1'?'HOME_WIN':b.type==='2'?'AWAY_WIN':'DRAW'}))};
-    try{const res=await fetch(`${API_BASE}/api/v1/bets`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},body:JSON.stringify(payload),signal:AbortSignal.timeout(12000)});if(res.ok){placed=true;}else{const e=await res.json().catch(()=>({}));showToast('\u274C '+(e.message||'Failed to place bet'),true);return;}}
-    catch(err){showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);return;}
+    const payload={
+      stake,
+      selections:regularPicks.map(b=>({
+        gameId:b.gameId,
+        // FIX: map subType '1'/'X'/'2' to correct MarketType enum values
+        marketType:b.subType==='1'?'HOME_WIN':b.subType==='2'?'AWAY_WIN':'DRAW'
+      }))
+    };
+    try{
+      const res=await fetch(`${API_BASE}/api/v1/bets`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},
+        body:JSON.stringify(payload),
+        signal:AbortSignal.timeout(12000)
+      });
+      if(res.ok){
+        placed=true;
+      }else{
+        const e=await res.json().catch(()=>({}));
+        showToast('\u274C '+(e.message||e.error||'Failed to place bet'),true);
+        return;
+      }
+    }catch(err){
+      showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);
+      return;
+    }
   }
+
+  // ── Correct score bets ───────────────────────────────────────────
+  // FIX: correct URL is /api/correct-score/bet (not /api/v1/bets/correct-score)
+  // FIX: each correct score bet uses the full stake (not stake divided)
+  // FIX: correctScoreOptionId is the real UUID stored in b.optId
   for(const b of scorePicks){
-    try{const res=await fetch(`${API_BASE}/api/v1/bets/correct-score`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},body:JSON.stringify({gameId:b.gameId,correctScoreOptionId:b.optId,stake:stake/(scorePicks.length||1)}),signal:AbortSignal.timeout(12000)});if(res.ok)placed=true;else{const e=await res.json().catch(()=>({}));showToast('\u274C '+(e.message||'Score bet failed'),true);}}
-    catch{showToast('\u274C Network error on score bet',true);}
+    const payload={
+      gameId:b.gameId,
+      correctScoreOptionId:b.optId,  // real UUID from backend
+      stake:stake
+    };
+    try{
+      const res=await fetch(`${API_BASE}/api/correct-score/bet`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},
+        body:JSON.stringify(payload),
+        signal:AbortSignal.timeout(12000)
+      });
+      if(res.ok){
+        placed=true;
+      }else{
+        const e=await res.json().catch(()=>({}));
+        showToast('\u274C '+(e.message||e.error||'Score bet failed'),true);
+        return;
+      }
+    }catch(err){
+      showToast(err.name==='TimeoutError'?'\u274C Request timed out':'\u274C Network error',true);
+      return;
+    }
   }
+
   if(placed){
     const ids=[...new Set(items.map(s=>s.gameId))];
     slip={};saveSlip();ids.forEach(id=>refreshGameCard(id));renderBS();updateBadges();closeBsDrawer();
     document.getElementById('booking-banner').classList.remove('show');
     showToast(`\u2705 Bet placed! Potential: GHS ${(stake*tot).toFixed(2)}`);
     initAuth();
-    // refresh history if open
     if(currentMainTab==='history'){historyLoaded=false;loadBetHistory();}
   }
 }
@@ -1007,10 +1085,14 @@ async function loadBookingCode(){
   const inp=document.getElementById('book-code-inp');if(!inp)return;
   const code=inp.value.trim().toUpperCase();if(!code){showToast('Enter a booking code',true);return;}
   showToast('Loading\u2026');
-  try{const res=await fetch(`${API_BASE}/api/v1/games/public/booking/${code}`);if(!res.ok)throw 0;const data=await res.json(),games=data.games||[];if(!games.length)throw 0;
+  try{
+    const res=await fetch(`${API_BASE}/api/v1/games/public/booking/${code}`);
+    if(!res.ok)throw 0;
+    const data=await res.json(),games=data.games||[];
+    if(!games.length)throw 0;
     games.forEach(g=>{const key=`${g.gameId}-BC-${g.position}`;slip[key]={key,gameId:g.gameId,type:'BC',label:g.pickLabel||g.pick,league:'Booking Code',teams:`${g.homeTeam} v ${g.awayTeam}`,odd:+g.odds,isScore:false};});
-    saveSlip();renderBS();updateBadges();showToast(`\u2705 Loaded: ${games.length} selections`);}
-  catch{showToast('\u274C Code not found or expired',true);}
+    saveSlip();renderBS();updateBadges();showToast(`\u2705 Loaded: ${games.length} selections`);
+  }catch{showToast('\u274C Code not found or expired',true);}
 }
 
 const winnerPool=[{n:"Kwame A***",a:"GHS 11,928",t:"Sports Betting",c:"#e74c3c"},{n:"Ama B***",a:"GHS 5,000",t:"Correct Score",c:"#3498db"},{n:"Kofi M***",a:"GHS 3,549",t:"UCL Acca",c:"#2ecc71"},{n:"Abena S***",a:"GHS 11,100",t:"Sports Betting",c:"#9b59b6"}];
@@ -1037,7 +1119,6 @@ document.addEventListener('click',e=>{
 
 function showToast(msg,isError=false){const t=document.getElementById('ps-toast');t.textContent=msg;t.style.background=isError?'var(--red)':'var(--green)';t.style.opacity='1';clearTimeout(t._to);t._to=setTimeout(()=>{t.style.opacity='0';},3000);}
 
-/* ── Helper formatters ── */
 function normalise(s){if(!s)return'PENDING';const u=String(s).toUpperCase();if(u==='WON'||u==='WIN')return'WON';if(u==='LOST'||u==='LOSE'||u==='LOSS')return'LOST';return'PENDING';}
 function fmtMkt(m){return{HOME_WIN:'Home Win',DRAW:'Draw',AWAY_WIN:'Away Win',CORRECT_SCORE:'Correct Score'}[m]||m||'—';}
 function fmtDate(iso){if(!iso)return'—';try{const d=new Date(iso),now=new Date();const isToday=d.toDateString()===now.toDateString();const pre=isToday?'Today':d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});return pre+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});}catch{return iso;}}
