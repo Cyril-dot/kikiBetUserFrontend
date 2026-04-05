@@ -271,12 +271,24 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-card.won{border-left:3px solid var(--green);}
 .hbet-card.lost{border-left:3px solid var(--red);}
 .hbet-card.pending{border-left:3px solid var(--purple);}
-/* The clickable header row */
-.hbet-header{padding:10px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;transition:background .15s;-webkit-tap-highlight-color:rgba(0,0,0,0.05);}
+
+/* The clickable header row — improved for mobile tap reliability */
+.hbet-header{
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  user-select:none;
+  transition:background .15s;
+  /* Critical for iOS: prevent tap delay and ghost clicks */
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
 .hbet-header:hover{background:#fafafa;}
-.hbet-header:active{background:#f5f5f5;}
-.hbet-header-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
-.hbet-header-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.hbet-header:active{background:#f0f0f0;}
+.hbet-header-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;pointer-events:none;}
+.hbet-header-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;pointer-events:none;}
 .hbet-ref{font-size:10px;font-weight:700;color:var(--muted2);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px;}
 .hbet-type-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;}
 .tag-slip{background:#ede9fe;color:var(--purple);border:1px solid #c4b5fd;}
@@ -290,7 +302,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-status.pending{background:var(--purpleBg);color:var(--purple);border:1px solid rgba(124,58,237,.25);}
 .hbet-status.pending .hbet-status-dot{background:var(--purple);animation:pulse 1.4s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
-.hbet-summary-row{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.hbet-summary-row{display:flex;align-items:center;justify-content:space-between;gap:8px;pointer-events:none;}
 .hbet-match-name{font-size:13px;font-weight:700;color:var(--dark);line-height:1.3;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .hbet-quick-info{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .hbet-quick-odds{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;color:var(--dark);}
@@ -298,23 +310,26 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-quick-payout.won{color:var(--green);}
 .hbet-quick-payout.lost{color:var(--red);}
 .hbet-quick-payout.pending{color:var(--dark);}
-.hbet-chevron{color:var(--muted);transition:transform .25s cubic-bezier(.4,0,.2,1);flex-shrink:0;}
+.hbet-chevron{color:var(--muted);transition:transform .25s cubic-bezier(.4,0,.2,1);flex-shrink:0;pointer-events:none;}
 .hbet-chevron .mi{font-size:20px;}
 .hbet-chevron.open{transform:rotate(180deg);}
 
-/* 
-  KEY FIX: The expandable detail body.
-  On mobile inside a drawer, max-height animation gets clipped.
-  We use display:none / display:block toggled via JS instead,
-  with a smooth slide-down via a CSS animation trick.
+/*
+  FIX: Expandable detail — uses display none/block (NOT max-height)
+  so it works correctly inside overflow:hidden/auto scrolling containers on mobile.
+  The animation uses translateY + opacity, triggered by .open class.
 */
-.hbet-detail{display:none;}
-.hbet-detail.open{display:block;animation:slideDown 0.28s ease forwards;}
+.hbet-detail{display:none;overflow:hidden;}
+.hbet-detail.open{display:block;}
+.hbet-detail-inner{
+  border-top:1px solid var(--gray2);
+  background:#fafffe;
+  animation:slideDown 0.22s ease both;
+}
 @keyframes slideDown{
-  from{opacity:0;transform:translateY(-8px);}
+  from{opacity:0;transform:translateY(-6px);}
   to{opacity:1;transform:translateY(0);}
 }
-.hbet-detail-inner{border-top:1px solid var(--gray2);background:#fafffe;}
 
 /* Legs / selections inside expanded card */
 .hbet-legs{padding:10px 12px 6px;}
@@ -389,15 +404,49 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 /* Mobile history drawer */
 .hist-mob-drawer-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:470;}
 .hist-mob-drawer-overlay.open{display:block;}
-.hist-mob-drawer{position:fixed;bottom:0;left:0;right:0;z-index:490;background:var(--white);border-radius:18px 18px 0 0;max-height:88vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s ease;overflow:hidden;}
+.hist-mob-drawer{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:490;
+  background:var(--white);
+  border-radius:18px 18px 0 0;
+  max-height:88vh;
+  display:flex;
+  flex-direction:column;
+  transform:translateY(100%);
+  transition:transform .3s ease;
+  /* Do NOT set overflow:hidden here — it clips child scroll */
+}
 .hist-mob-drawer.open{transform:translateY(0);}
 .hist-mob-handle{width:36px;height:4px;background:var(--gray3);border-radius:2px;margin:12px auto 4px;flex-shrink:0;}
-.hist-mob-head{padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--gray2);flex-shrink:0;}
+.hist-mob-head{
+  padding:10px 16px 8px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--gray2);
+  flex-shrink:0;
+  background:var(--white);
+  /* Ensure header stays on top while body scrolls */
+  position:relative;z-index:1;
+}
 .hist-mob-head-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;}
 .hist-mob-head-title .mi{font-size:20px;color:var(--green);}
-.hist-mob-close{background:none;border:none;cursor:pointer;color:var(--muted);}
-/* CRITICAL FIX: The body must scroll, not clip. overflow-y:auto + flex:1 is correct */
-.hist-mob-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px 80px;}
+.hist-mob-close{background:none;border:none;cursor:pointer;color:var(--muted);-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+/*
+  CRITICAL FIX: The scrollable body.
+  - flex:1 + overflow-y:auto + min-height:0 is the correct CSS flex+scroll pattern.
+  - -webkit-overflow-scrolling:touch enables momentum scrolling on iOS.
+  - padding-bottom:env(safe-area-inset-bottom) handles iPhone notch/home bar.
+*/
+.hist-mob-body{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:12px 14px;
+  padding-bottom:calc(80px + env(safe-area-inset-bottom, 0px));
+}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1100px){.sidebar{display:none;}.mobile-chips{display:flex;}}
@@ -565,7 +614,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
   <div id="history-panel">
     <div class="hist-topbar">
       <div class="hist-topbar-title"><span class="mi">history</span> My Bet History</div>
-      <button class="hist-refresh-btn" onclick="loadBetHistory()"><span class="mi">refresh</span> Refresh</button>
+      <button class="hist-refresh-btn" onclick="forceReloadHistory()"><span class="mi">refresh</span> Refresh</button>
     </div>
     <div class="hist-stats">
       <div class="hstat active"><div class="hstat-val" id="hstat-pending">—</div><div class="hstat-lbl">Active</div></div>
@@ -626,7 +675,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
     <div class="hist-mob-head-title"><span class="mi">history</span> My Bet History</div>
     <button class="hist-mob-close" onclick="closeHistoryMobile()"><span class="mi">close</span></button>
   </div>
-  <div class="hist-mob-body">
+  <div class="hist-mob-body" id="hist-mob-body">
     <div class="hist-stats" style="margin-bottom:12px;">
       <div class="hstat active"><div class="hstat-val" id="hstat-pending3">—</div><div class="hstat-lbl">Active</div></div>
       <div class="hstat won"><div class="hstat-val" id="hstat-won3">—</div><div class="hstat-lbl">Won</div></div>
@@ -767,21 +816,34 @@ function toggleInlineHistory(){
 }
 
 /* ── MOBILE HISTORY DRAWER ── */
+let _mobHistInFlight=false;
+
 function openHistoryMobile(){
   document.getElementById('hist-mob-overlay').classList.add('open');
   const drawer=document.getElementById('hist-mob-drawer');
   drawer.classList.add('open');
-  const body=drawer.querySelector('.hist-mob-body');
+
+  // Scroll body back to top
+  const body=document.getElementById('hist-mob-body');
   if(body)body.scrollTop=0;
-  document.querySelectorAll('.mchip').forEach(c=>c.classList.remove('active'));
-  document.getElementById('mchip-history')?.classList.add('active');
+
+  // Reset filter buttons to ALL
   ['ALL','PENDING','WON','LOST','CODE'].forEach(k=>{
     const el=document.getElementById('mhf-'+k);
     if(el)el.className='hf-btn'+(k==='ALL'?' active':'');
   });
   mobHistFilter='ALL';
-  setTimeout(()=>loadBetHistory(false,true),320);
+
+  document.querySelectorAll('.mchip').forEach(c=>c.classList.remove('active'));
+  document.getElementById('mchip-history')?.classList.add('active');
+
+  // FIX: Load immediately — no setTimeout race condition.
+  // We use a guard flag to prevent duplicate in-flight requests.
+  if(!_mobHistInFlight){
+    loadBetHistory(false, true);
+  }
 }
+
 function closeHistoryMobile(){
   document.getElementById('hist-mob-overlay').classList.remove('open');
   document.getElementById('hist-mob-drawer').classList.remove('open');
@@ -794,6 +856,7 @@ let allBets=[];
 let histFilter='ALL';
 let inlineHistFilter='ALL';
 let mobHistFilter='ALL';
+let _histInFlight=false; // guard against concurrent fetches
 
 async function apiFetch(url,opts={}){
   const headers={...authHeaders(),...(opts.headers||{})};
@@ -813,16 +876,39 @@ function mapSelection(s){
   };
 }
 
+function forceReloadHistory(){
+  historyLoaded=false;
+  _histInFlight=false;
+  _mobHistInFlight=false;
+  allBets=[];
+  loadBetHistory();
+}
+
 async function loadBetHistory(inline=false,mobile=false){
+  // Prevent duplicate concurrent fetches for the same context
+  if(mobile){
+    if(_mobHistInFlight)return;
+    _mobHistInFlight=true;
+  }else{
+    if(_histInFlight)return;
+    _histInFlight=true;
+  }
+
   historyLoaded=true;
   const containerId=inline?'inline-hist-container':mobile?'mob-hist-container':'hist-container';
   const container=document.getElementById(containerId);
-  if(!container)return;
+
+  const done=()=>{
+    if(mobile)_mobHistInFlight=false;
+    else _histInFlight=false;
+  };
+
+  if(!container){done();return;}
   container.innerHTML=`<div class="hist-loading"><span class="mi">refresh</span> Loading your bets…</div>`;
 
   if(!isLoggedIn()){
     container.innerHTML=`<div class="hist-not-loggedin"><span class="mi">lock</span><h3>Not Logged In</h3><p>Sign in to see your full bet history and track your wins.</p><div class="hist-login-btns"><a href="login.html" class="hist-login-login">Login</a><a href="register.html" class="hist-login-reg">Register</a></div></div>`;
-    return;
+    done();return;
   }
 
   try{
@@ -851,6 +937,8 @@ async function loadBetHistory(inline=false,mobile=false){
     renderHistory(inline,mobile);
   }catch(err){
     await loadHistoryFallback(inline,mobile);
+  }finally{
+    done();
   }
 }
 
@@ -923,14 +1011,45 @@ function renderHistory(inline=false,mobile=false){
 
   if(!allBets.length){container.innerHTML=`<div class="hist-empty"><span class="mi">receipt_long</span><h3>No Bets Yet</h3><p>Place your first bet on the markets or with a booking code!</p></div>`;return;}
   if(!filtered.length){container.innerHTML=`<div class="hist-empty"><span class="mi">filter_alt</span><h3>Nothing Here</h3><p>No bets match this filter.</p></div>`;return;}
+
+  // Render cards
   container.innerHTML=filtered.map((b,i)=>buildHistCard(b,i)).join('');
+
+  // FIX: Attach event listeners via JS after render instead of relying on
+  // inline onclick attrs that can silently fail inside overflow-scroll containers
+  // on some mobile WebViews (especially iOS Safari / Android WebView).
+  attachHistCardListeners(container);
+}
+
+/*
+  FIX: Event delegation on the container — one listener, zero inline-onclick issues.
+  Catches taps even after innerHTML replacement.
+*/
+function attachHistCardListeners(container){
+  // Remove any existing listener to avoid duplicates
+  container.removeEventListener('click', _histCardClickHandler);
+  container.addEventListener('click', _histCardClickHandler);
+}
+
+function _histCardClickHandler(e){
+  // Walk up the tree to find the .hbet-header
+  let el=e.target;
+  let attempts=0;
+  while(el && attempts<8){
+    if(el.classList && el.classList.contains('hbet-header')){
+      // Find the card id from the parent .hbet-card
+      const card=el.closest('.hbet-card');
+      if(card) toggleBetCard(card.id);
+      return;
+    }
+    el=el.parentElement;
+    attempts++;
+  }
 }
 
 /*
   BUILD EXPANDABLE BET CARD
-  FIX: We no longer use max-height transition (breaks inside overflow:hidden drawers).
-  Instead we use display:none/block toggled in JS, with a CSS slideDown animation.
-  Also added touch-action and pointer events fixes for mobile tap reliability.
+  NOTE: onclick removed from .hbet-header — handled by event delegation above.
 */
 function buildHistCard(b,i){
   const st=b.status.toLowerCase();
@@ -1000,10 +1119,11 @@ function buildHistCard(b,i){
     ${b.selCount!==null?`<span class="hbet-detail-sels">${b.selCount} selection${b.selCount!==1?'s':''}</span>`:''}
   </div>`;
 
-  const uid=`bet-${b.id||i}`;
+  const uid=`bet-${String(b.id||i).replace(/[^a-zA-Z0-9_-]/g,'_')}`;
 
+  // No onclick on .hbet-header — handled by event delegation
   return`<div class="hbet-card ${st}" id="${uid}">
-    <div class="hbet-header" onclick="toggleBetCard('${uid}')" role="button" aria-expanded="false">
+    <div class="hbet-header" role="button" aria-expanded="false" tabindex="0">
       <div class="hbet-header-left">
         <div class="hbet-header-meta">
           <span class="hbet-ref">${escH(String(b.ref).slice(0,28))}</span>
@@ -1030,29 +1150,27 @@ function buildHistCard(b,i){
 }
 
 /*
-  FIXED toggleBetCard:
-  - Uses display:none / display:block instead of max-height (which fails in overflow:hidden containers)
-  - Works identically on desktop and mobile drawers
+  FIX: toggleBetCard — reliable open/close using direct getElementById.
+  No reliance on previousElementSibling (fragile, breaks after innerHTML swaps).
+  No max-height animation (breaks inside overflow:hidden containers on mobile).
 */
 function toggleBetCard(uid){
   const detail=document.getElementById(`${uid}-detail`);
   const chevron=document.getElementById(`${uid}-chevron`);
-  const header=detail?.previousElementSibling;
+  const card=document.getElementById(uid);
   if(!detail)return;
 
   const isOpen=detail.classList.contains('open');
 
   if(isOpen){
-    // Close
     detail.classList.remove('open');
-    detail.style.display='none';
-    chevron.classList.remove('open');
+    chevron && chevron.classList.remove('open');
+    const header=card && card.querySelector('.hbet-header');
     if(header)header.setAttribute('aria-expanded','false');
   }else{
-    // Open
     detail.classList.add('open');
-    detail.style.display='block';
-    chevron.classList.add('open');
+    chevron && chevron.classList.add('open');
+    const header=card && card.querySelector('.hbet-header');
     if(header)header.setAttribute('aria-expanded','true');
   }
 }
@@ -1211,7 +1329,13 @@ function refreshGameCard(gameId){
   const cardEl=document.getElementById(`game-${gameId}`);if(!cardEl)return;
   const game=allGames.find(g=>String(g.id)===String(gameId));if(!game)return;
   const tmp=document.createElement('div');tmp.innerHTML=buildGameCard(game);cardEl.replaceWith(tmp.firstElementChild);
-  if(openScorePanels.has(String(gameId))){const panel=document.getElementById(`score-panel-${gameId}`),btn=document.querySelector(`#game-${gameId} .score-toggle-btn`);if(panel)panel.classList.add('open');if(btn)btn.classList.add('active');if(scoreOptionsCache[gameId])renderScorePanel(gameId,scoreOptionsCache[gameId]);}
+  if(openScorePanels.has(String(gameId))){
+    const panel=document.getElementById(`score-panel-${gameId}`);
+    const btn=document.querySelector(`#game-${gameId} .score-toggle-btn`);
+    if(panel){panel.classList.add('open');panel.style.display='';}
+    if(btn)btn.classList.add('active');
+    if(scoreOptionsCache[gameId])renderScorePanel(gameId,scoreOptionsCache[gameId]);
+  }
 }
 
 function renderBS(){
@@ -1235,24 +1359,58 @@ function renderBsEmpty(){
 function renderBsDrawer(items){
   const body=document.getElementById('bs-drawer-body');if(!body)return;
   if(!items||!items.length){body.innerHTML='<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px;">No selections yet.</div>';return;}
-  const stake=parseFloat(document.getElementById('stake-inp')?.value)||10,tot=items.reduce((a,b)=>a*(+b.odd),1);
+  const stakeEl=document.getElementById('stake-inp');
+  const stake=parseFloat(stakeEl?.value)||10;
+  const tot=items.reduce((a,b)=>a*(+b.odd),1);
   let html='<div style="padding:8px 12px 0;">';
   html+=items.map(b=>`<div class="bet-item ${b.league==='Booking Code'?'from-code':''}"><button class="bet-rm" onclick="removeBet('${b.key}')"><span class="mi">close</span></button><div class="bet-league">${b.league||''}</div><div class="bet-match">${b.teams||''}</div><div class="bet-sel-row"><div><div class="bet-sel">${b.label||''}</div><span class="bet-type-badge">${b.isScore?'Correct Score':'Full Time'}</span></div><div class="bet-odd-val">${parseFloat(b.odd).toFixed(2)}</div></div></div>`).join('');
-  html+=`</div><div class="stake-sec"><div class="stake-lbl">Stake (GHS)</div><input class="stake-inp" type="number" id="drawer-stake-inp" value="${stake}" min="1" oninput="document.getElementById('stake-inp').value=this.value;calcPayout();"><div class="qs-row">${[5,10,20,50,100].map(v=>`<button class="qs" onclick="setStake(${v})">${v}</button>`).join('')}</div></div><div class="payout-sec"><div class="pw"><span class="lbl">Selections</span><span class="val">${items.length}</span></div><div class="pw"><span class="lbl">Total odds</span><span class="val">${tot.toFixed(2)}</span></div><div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" style="color:var(--green);">GHS ${(stake*tot).toFixed(2)}</span></div></div><button class="place-btn" id="place-btn-drawer" onclick="placeBet()"><span class="mi">check_circle</span> Place Bet</button><button class="clear-btn" onclick="clearSlip()">Clear all</button>`;
+  html+=`</div><div class="stake-sec"><div class="stake-lbl">Stake (GHS)</div><input class="stake-inp" type="number" id="drawer-stake-inp" value="${stake}" min="1" oninput="syncStake(this.value)"><div class="qs-row">${[5,10,20,50,100].map(v=>`<button class="qs" onclick="setStake(${v})">${v}</button>`).join('')}</div></div><div class="payout-sec"><div class="pw"><span class="lbl">Selections</span><span class="val">${items.length}</span></div><div class="pw"><span class="lbl">Total odds</span><span class="val">${tot.toFixed(2)}</span></div><div class="pw tot"><span class="lbl" style="font-weight:700;">Total payout</span><span class="val" style="color:var(--green);">GHS ${(stake*tot).toFixed(2)}</span></div></div><button class="place-btn" id="place-btn-drawer" onclick="placeBet()"><span class="mi">check_circle</span> Place Bet</button><button class="clear-btn" onclick="clearSlip()">Clear all</button>`;
   body.innerHTML=html;
+}
+
+// FIX: Syncs both stake inputs so they always stay in agreement
+function syncStake(val){
+  const main=document.getElementById('stake-inp');
+  if(main)main.value=val;
+  calcPayout();
 }
 
 function removeBet(key){const gameId=slip[key]?.gameId;delete slip[key];saveSlip();if(gameId)refreshGameCard(gameId);renderBS();updateBadges();if(!Object.keys(slip).length)document.getElementById('booking-banner').classList.remove('show');}
 function clearSlip(){const ids=[...new Set(Object.values(slip).map(s=>s.gameId))];slip={};saveSlip();ids.forEach(id=>refreshGameCard(id));renderBS();updateBadges();document.getElementById('booking-banner').classList.remove('show');}
-function calcPayout(){const items=Object.values(slip),tot=items.reduce((a,b)=>a*(+b.odd),1),stake=parseFloat(document.getElementById('stake-inp').value)||0;document.getElementById('sel-count').textContent=items.length;document.getElementById('tot-odds').textContent=tot.toFixed(2);document.getElementById('pot-win').textContent='GHS '+(stake*tot-stake).toFixed(2);document.getElementById('tot-payout').textContent='GHS '+(stake*tot).toFixed(2);const ds=document.getElementById('drawer-stake-inp');if(ds)ds.value=stake;}
-function setStake(v){document.getElementById('stake-inp').value=v;const ds=document.getElementById('drawer-stake-inp');if(ds)ds.value=v;calcPayout();}
+
+function calcPayout(){
+  const items=Object.values(slip);
+  const tot=items.reduce((a,b)=>a*(+b.odd),1);
+  const stakeEl=document.getElementById('stake-inp');
+  const stake=stakeEl?parseFloat(stakeEl.value)||0:0;
+  const selCount=document.getElementById('sel-count');
+  const totOdds=document.getElementById('tot-odds');
+  const potWin=document.getElementById('pot-win');
+  const totPayout=document.getElementById('tot-payout');
+  if(selCount)selCount.textContent=items.length;
+  if(totOdds)totOdds.textContent=tot.toFixed(2);
+  if(potWin)potWin.textContent='GHS '+(stake*tot-stake).toFixed(2);
+  if(totPayout)totPayout.textContent='GHS '+(stake*tot).toFixed(2);
+  // Also sync drawer if open
+  const ds=document.getElementById('drawer-stake-inp');
+  if(ds&&document.activeElement!==ds)ds.value=stake;
+}
+
+function setStake(v){
+  const main=document.getElementById('stake-inp');
+  if(main)main.value=v;
+  const ds=document.getElementById('drawer-stake-inp');
+  if(ds)ds.value=v;
+  calcPayout();
+}
 
 let _isBetting=false;
 async function placeBet(){
   if(_isBetting)return;
   if(!isLoggedIn()){openLoginModal();return;}
   const items=Object.values(slip);if(!items.length)return;
-  const stake=parseFloat(document.getElementById('stake-inp').value)||0;
+  const stakeEl=document.getElementById('stake-inp');
+  const stake=parseFloat(stakeEl?.value)||0;
   if(stake<=0){showToast('Enter a valid stake',true);return;}
   _isBetting=true;
   ['place-btn-main','place-btn-drawer'].forEach(id=>{const btn=document.getElementById(id);if(btn){btn.disabled=true;btn.innerHTML='<span class="mi" style="animation:spin 1s linear infinite">refresh</span> Placing...';}});
@@ -1272,7 +1430,10 @@ async function placeBet(){
     slip={};saveSlip();ids.forEach(id=>refreshGameCard(id));renderBS();updateBadges();closeBsDrawer();
     document.getElementById('booking-banner').classList.remove('show');
     showToast(`\u2705 Bet placed! Potential: GHS ${(stake*tot).toFixed(2)}`);
-    initAuth();historyLoaded=false;
+    initAuth();
+    historyLoaded=false;
+    _histInFlight=false;
+    _mobHistInFlight=false;
     if(currentMainTab==='history')loadBetHistory();
   }
   resetPlaceBtnState();
