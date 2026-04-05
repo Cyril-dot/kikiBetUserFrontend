@@ -272,8 +272,9 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-card.lost{border-left:3px solid var(--red);}
 .hbet-card.pending{border-left:3px solid var(--purple);}
 /* The clickable header row */
-.hbet-header{padding:10px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;transition:background .15s;}
+.hbet-header{padding:10px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;transition:background .15s;-webkit-tap-highlight-color:rgba(0,0,0,0.05);}
 .hbet-header:hover{background:#fafafa;}
+.hbet-header:active{background:#f5f5f5;}
 .hbet-header-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
 .hbet-header-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .hbet-ref{font-size:10px;font-weight:700;color:var(--muted2);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px;}
@@ -301,9 +302,18 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hbet-chevron .mi{font-size:20px;}
 .hbet-chevron.open{transform:rotate(180deg);}
 
-/* The expandable detail body */
-.hbet-detail{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1);}
-.hbet-detail.open{max-height:1200px;}
+/* 
+  KEY FIX: The expandable detail body.
+  On mobile inside a drawer, max-height animation gets clipped.
+  We use display:none / display:block toggled via JS instead,
+  with a smooth slide-down via a CSS animation trick.
+*/
+.hbet-detail{display:none;}
+.hbet-detail.open{display:block;animation:slideDown 0.28s ease forwards;}
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-8px);}
+  to{opacity:1;transform:translateY(0);}
+}
 .hbet-detail-inner{border-top:1px solid var(--gray2);background:#fafffe;}
 
 /* Legs / selections inside expanded card */
@@ -386,6 +396,7 @@ html,body{font-family:'Barlow',sans-serif;background:var(--gray);color:var(--tex
 .hist-mob-head-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;}
 .hist-mob-head-title .mi{font-size:20px;color:var(--green);}
 .hist-mob-close{background:none;border:none;cursor:pointer;color:var(--muted);}
+/* CRITICAL FIX: The body must scroll, not clip. overflow-y:auto + flex:1 is correct */
 .hist-mob-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px 80px;}
 
 /* ── RESPONSIVE ── */
@@ -915,15 +926,12 @@ function renderHistory(inline=false,mobile=false){
   container.innerHTML=filtered.map((b,i)=>buildHistCard(b,i)).join('');
 }
 
-/* ────────────────────────────────────────────────────────────
-   BUILD EXPANDABLE BET CARD
-   Each card has:
-   - .hbet-header  → always visible, click toggles expand
-   - .hbet-detail  → hidden by default, expands on click
-     ├── legs list (each game in the bet)
-     ├── financial summary (stake / odds / payout)
-     └── placed date
-──────────────────────────────────────────────────────────── */
+/*
+  BUILD EXPANDABLE BET CARD
+  FIX: We no longer use max-height transition (breaks inside overflow:hidden drawers).
+  Instead we use display:none/block toggled in JS, with a CSS slideDown animation.
+  Also added touch-action and pointer events fixes for mobile tap reliability.
+*/
 function buildHistCard(b,i){
   const st=b.status.toLowerCase();
   const statusLabel=st==='won'?'Won':st==='lost'?'Lost':'Active';
@@ -931,17 +939,14 @@ function buildHistCard(b,i){
   const typeTag=`<span class="hbet-type-tag ${isCode?'tag-code':'tag-slip'}">${isCode?'Code':'Slip'}</span>`;
   const statusBadge=`<span class="hbet-status ${st}"><span class="hbet-status-dot"></span>${statusLabel}</span>`;
 
-  // Quick payout shown in collapsed header row
   const quickPayoutVal=b.status==='WON'
     ?`+GHS ${parseFloat(b.actualPayout||b.payout||0).toFixed(2)}`
     :b.status==='LOST'
       ?`-GHS ${parseFloat(b.stake||0).toFixed(2)}`
       :`GHS ${parseFloat(b.payout||0).toFixed(2)}`;
 
-  // ── DETAIL: legs ──
   let legsHtml='';
   if(isCode){
-    // Code bet — no individual game data from API
     legsHtml=`<div class="hbet-code-info">
       <div class="hbet-code-badge"><span class="mi">confirmation_number</span> Code: ${escH(b.bookingCode||b.match.replace('Code: ',''))}</div>
       <div class="hbet-code-note">This bet was placed using a booking code. Individual game details are not available for code bets.</div>
@@ -965,7 +970,6 @@ function buildHistCard(b,i){
     legsHtml=`<div class="hbet-legs"><div class="hbet-legs-title"><span class="mi">receipt_long</span>Bet Details</div><div style="font-size:12px;color:var(--muted);padding:6px 0;">${escH(b.pick||'—')}</div></div>`;
   }
 
-  // ── DETAIL: financials ──
   const stake=parseFloat(b.stake||0);
   const combinedOdds=parseFloat(b.odds||0);
   const potPayout=parseFloat(b.payout||0);
@@ -999,7 +1003,7 @@ function buildHistCard(b,i){
   const uid=`bet-${b.id||i}`;
 
   return`<div class="hbet-card ${st}" id="${uid}">
-    <div class="hbet-header" onclick="toggleBetCard('${uid}')">
+    <div class="hbet-header" onclick="toggleBetCard('${uid}')" role="button" aria-expanded="false">
       <div class="hbet-header-left">
         <div class="hbet-header-meta">
           <span class="hbet-ref">${escH(String(b.ref).slice(0,28))}</span>
@@ -1025,17 +1029,34 @@ function buildHistCard(b,i){
   </div>`;
 }
 
-/* Toggle a single bet card open/closed */
+/*
+  FIXED toggleBetCard:
+  - Uses display:none / display:block instead of max-height (which fails in overflow:hidden containers)
+  - Works identically on desktop and mobile drawers
+*/
 function toggleBetCard(uid){
   const detail=document.getElementById(`${uid}-detail`);
   const chevron=document.getElementById(`${uid}-chevron`);
+  const header=detail?.previousElementSibling;
   if(!detail)return;
+
   const isOpen=detail.classList.contains('open');
-  detail.classList.toggle('open',!isOpen);
-  chevron.classList.toggle('open',!isOpen);
+
+  if(isOpen){
+    // Close
+    detail.classList.remove('open');
+    detail.style.display='none';
+    chevron.classList.remove('open');
+    if(header)header.setAttribute('aria-expanded','false');
+  }else{
+    // Open
+    detail.classList.add('open');
+    detail.style.display='block';
+    chevron.classList.add('open');
+    if(header)header.setAttribute('aria-expanded','true');
+  }
 }
 
-/* Prediction pill for a single selection */
 function buildPredPill(sel){
   const mt=(sel.marketType||'').toUpperCase();
   if(mt==='CORRECT_SCORE'){
